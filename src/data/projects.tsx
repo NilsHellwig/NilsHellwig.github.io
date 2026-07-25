@@ -449,6 +449,25 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    id: "bibtexy",
+    title: "BibTeXy",
+    subtitle: "Turn any webpage into a BibTeX entry.",
+    description:
+      "BibTeXy is a browser extension that reads the page you're currently on and asks a language model (a local Ollama model or OpenAI) to extract a citation for it, no copy-pasting metadata by hand or guessing field names. A BibTeX entry covering roughly 25 fields (title, author, editor, year, journal, DOI, ISBN, keywords, ...) is modeled once as a Zod schema and turned into a JSON Schema via z.toJSONSchema(), which is then handed to the provider as a hard output constraint (Ollama's format parameter or OpenAI's Structured Outputs in strict mode), so the model is grammar-constrained to emit only valid JSON matching that shape, instead of hoping it produces parseable output. The prompt additionally instructs the model to only fill in fields it's actually confident about and return null for the rest, avoiding hallucinated page numbers or invented DOIs. The response is parsed and re-validated against the same Zod schema on the client before being formatted into a BibTeX string, so a single typed schema drives extraction, provider constraints, and validation end to end. It remembers the configured Ollama URL, OpenAI key, and last-used model, and ships to Firefox, Chrome, and Edge from a single WXT-based codebase. Being local-first with Ollama, it has no backend of its own: page content is sent only to the LLM endpoint you configured.",
+    type: "Browser Extension",
+    category: "AI & NLP",
+    programmingLanguages: ["TypeScript"],
+    technologies: ["WXT", "React", "Zod", "Ollama", "OpenAI API", "Vite"],
+    iconPath: require("../img/icons/projects/bibtexy.png"),
+    galleryImages: ["bibtexy/bibtexy-1.png"],
+    links: [
+      {
+        name: "GitHub Repository: BibTeXy",
+        url: "https://github.com/NilsHellwig/bibtexy",
+      },
+    ],
+  },
+  {
     id: "portfolio",
     title: "portfolio",
     subtitle: "Nils' porfolio from June 2024",
