@@ -11,6 +11,15 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v3
 
+      - name: Build resume PDF
+        uses: xu-cheng/latex-action@v3
+        with:
+          root_file: resume.tex
+          working_directory: resume
+
+      - name: Copy resume into public folder
+        run: cp resume/resume.pdf public/resume.pdf
+
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:

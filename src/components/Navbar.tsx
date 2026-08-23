@@ -54,7 +54,7 @@ const socialLinks = [
   },
   {
     text: "LinkedIn",
-    url: "https://www.linkedin.com/in/nils-constantin-h-748711229/",
+    url: "https://www.linkedin.com/in/nils-ch/",
     icon: LinkedinLogo,
   },
   {

@@ -21,3 +21,11 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# LaTeX build artifacts
+resume/*.aux
+resume/*.log
+resume/*.out
+resume/*.pdf
+resume/*.png
+/public/resume.pdf

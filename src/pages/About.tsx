@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { GraduationCap, Code, MapPin, Calendar } from "phosphor-react";
+import { GraduationCap, Code, MapPin, Calendar, FileArrowDown } from "phosphor-react";
 import Footer from "../components/Footer";
 
 const About: React.FC = () => {
@@ -87,10 +87,25 @@ const About: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <h2 className="text-3xl font-bold dark:text-white mb-2">About Me</h2>
-        <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-          PhD Candidate, Software Engineer & NLP Researcher
-        </p>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div>
+            <h2 className="text-3xl font-bold dark:text-white mb-2">About Me</h2>
+            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
+              PhD Candidate, Software Engineer & NLP Researcher
+            </p>
+          </div>
+          <motion.a
+            href="/resume.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-bold bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 shadow-md hover:shadow-lg transition-all duration-150 flex-shrink-0"
+            whileHover={{ y: -2, scale: 1.02 }}
+            whileTap={{ scale: 0.97 }}
+          >
+            <FileArrowDown size={18} weight="bold" />
+            Download Résumé
+          </motion.a>
+        </div>
       </motion.div>
 
       {/* Quick Info Cards */}
@@ -186,9 +201,9 @@ const About: React.FC = () => {
                 <p>
                   I have deep expertise in improving{" "}
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">LLM efficiency</span>
-                  , implementing{" "}
+                  ,{" "}
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                    structured outputs
+                    structured learning
                   </span>
                   , and exploring{" "}
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">
@@ -198,8 +213,7 @@ const About: React.FC = () => {
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">
                     Full-Stack Engineer
                   </span>{" "}
-                  dedicated to building scalable, user-friendly solutions that bridge the gap
-                  between cutting-edge research and practical applications.
+                  dedicated to building scalable, user-friendly solutions.
                 </p>
               </div>
             </div>

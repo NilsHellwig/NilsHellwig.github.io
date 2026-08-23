@@ -12,14 +12,12 @@ import Skills from "./pages/Skills";
 // Components
 import NavBar from "./components/Navbar";
 import PageSelector from "./components/PageSelector";
-import CustomCursor from "./components/CustomCursor";
 
 const App: React.FC = () => {
   const [showOverlay, setShowOverlay] = useState(false);
 
   return (
     <div>
-      <CustomCursor />
       <Router>
         <Routes>
           <Route

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { DownloadSimple, FilePdf, Books, CaretUp, CaretDown } from "phosphor-react";
+import { DownloadSimple, FilePdf, Books, CaretUp, CaretDown, GithubLogo } from "phosphor-react";
 import { lectureFiles } from "../downloadable-files/lectures/lectureFiles";
 
 type LectureProps = {
@@ -8,10 +8,12 @@ type LectureProps = {
     title: string;
     lecturer: string;
     term: string;
-    iconPath: string;
+    iconPath?: string;
+    icon?: React.ComponentType<any>;
     description: string;
     competences: string[];
     materials: { name: string; description: string; documentPath: string }[];
+    githubUrl?: string;
   };
 };
 
@@ -44,11 +46,15 @@ const Lecture: React.FC<LectureProps> = ({ lecture }) => {
         {/* Header: icon + title + meta */}
         <div className="flex items-start gap-4 mb-4">
           <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-900 border-[0.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center flex-shrink-0 p-2">
-            <img
-              src={lecture.iconPath}
-              alt={lecture.title}
-              className="w-full h-full object-contain"
-            />
+            {lecture.icon ? (
+              <lecture.icon size={28} weight="duotone" className="text-zinc-700 dark:text-zinc-300" />
+            ) : (
+              <img
+                src={lecture.iconPath}
+                alt={lecture.title}
+                className="w-full h-full object-contain"
+              />
+            )}
           </div>
           <div className="flex-1 min-w-0">
             <h3 className="font-bold text-base text-zinc-900 dark:text-white leading-snug mb-2">
@@ -64,7 +70,7 @@ const Lecture: React.FC<LectureProps> = ({ lecture }) => {
         </div>
 
         {/* Description */}
-        <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-3 line-clamp-2">
+        <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-3">
           {lecture.description}
         </p>
 
@@ -82,18 +88,31 @@ const Lecture: React.FC<LectureProps> = ({ lecture }) => {
 
         {/* Footer button row */}
         <div className="flex items-center gap-2 pt-4 border-t border-zinc-100 dark:border-zinc-700">
-          <button
-            onClick={() => setShowMaterials(!showMaterials)}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-600 transition-all duration-150"
-          >
-            <Books size={12} weight="bold" />
-            Materials ({lecture.materials.length})
-            {showMaterials ? (
-              <CaretUp size={10} weight="bold" className="ml-0.5" />
-            ) : (
-              <CaretDown size={10} weight="bold" className="ml-0.5" />
-            )}
-          </button>
+          {lecture.materials.length > 0 && (
+            <button
+              onClick={() => setShowMaterials(!showMaterials)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-600 transition-all duration-150"
+            >
+              <Books size={12} weight="bold" />
+              Materials ({lecture.materials.length})
+              {showMaterials ? (
+                <CaretUp size={10} weight="bold" className="ml-0.5" />
+              ) : (
+                <CaretDown size={10} weight="bold" className="ml-0.5" />
+              )}
+            </button>
+          )}
+          {lecture.githubUrl && (
+            <a
+              href={lecture.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-700 dark:hover:bg-zinc-300 transition-all duration-150 shadow-sm"
+            >
+              <GithubLogo size={12} weight="fill" />
+              View on GitHub
+            </a>
+          )}
         </div>
       </div>
 

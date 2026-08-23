@@ -11,7 +11,6 @@ import {
   BookOpen,
   Briefcase,
   User,
-  Sparkle,
   Heart,
   Code,
 } from "@phosphor-icons/react";
@@ -26,7 +25,7 @@ const Footer: React.FC = () => {
     },
     {
       icon: LinkedinLogo,
-      url: "https://www.linkedin.com/in/nils-constantin-h-748711229/",
+      url: "https://www.linkedin.com/in/nils-ch/",
       label: "LinkedIn",
       color: "hover:text-blue-600 dark:hover:text-blue-400",
     },
@@ -69,10 +68,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           {/* About Section */}
           <div className="space-y-3">
-            <h3 className="font-bold text-zinc-900 dark:text-white flex items-center gap-2">
-              <Sparkle size={18} weight="fill" className="text-zinc-500 dark:text-zinc-400" />
-              Nils Hellwig
-            </h3>
+            <h3 className="font-bold text-zinc-900 dark:text-white">Nils Hellwig</h3>
             <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
               PhD Candidate in AI & NLP at University of Regensburg. Passionate about building
               innovative solutions at the intersection of research and software engineering.

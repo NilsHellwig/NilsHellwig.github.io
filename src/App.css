@@ -5,16 +5,6 @@
 @layer base {
   body {
     @apply bg-zinc-50 dark:bg-zinc-900 transition-colors;
-    cursor: none;
-  }
-
-  a,
-  button,
-  .cursor-pointer,
-  input[type="button"],
-  input[type="submit"],
-  [role="button"] {
-    cursor: none !important;
   }
 }
 

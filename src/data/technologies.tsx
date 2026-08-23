@@ -35,7 +35,11 @@ export const TECHNOLOGIES = [
   },
   {
     name: "CI/CD",
-    technologies: ["GitHub Actions", "GitLab CI/CD", "Docker", "nginx", "Vercel", "Netlify"],
+    technologies: ["GitHub Actions", "GitLab CI/CD", "Docker", "nginx", "Vercel"],
+  },
+  {
+    name: "Testing",
+    technologies: ["pytest", "Playwright"],
   },
   {
     name: "Versioning (git)",

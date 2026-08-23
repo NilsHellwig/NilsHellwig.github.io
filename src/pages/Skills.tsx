@@ -40,7 +40,7 @@ const AI_CATEGORIES: AICategory[] = [
     description: "",
     skills: [
       { name: "Prompting Techniques", note: "From basic formatting to advanced strategies" },
-      { name: "Structured Outputs", note: "XGrammar / Context-free grammars" },
+      { name: "Structured Outputs", note: "Pydantic, XGrammar / Context-free grammars" },
       { name: "Function Calling / Tool Use / MCP Server" },
     ],
   },
@@ -60,6 +60,7 @@ const AI_CATEGORIES: AICategory[] = [
         name: "Orchestration & Governance",
         note: "State Management, Human-in-the-Loop (HITL) Workflows, Tool Calling & Function Binding",
       },
+      { name: "Langfuse", note: "LLM observability & tracing" },
     ],
   },
   {

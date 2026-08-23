@@ -1,0 +1,212 @@
+%-------------------------
+% Resume in Latex
+% Author : Nils Hellwig
+% Based off of: https://github.com/sb2nov/resume
+% License : MIT
+%------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\input{glyphtounicode}
+
+
+%----------FONT OPTIONS----------
+% sans-serif
+% \usepackage[sfdefault]{FiraSans}
+% \usepackage[sfdefault]{roboto}
+% \usepackage[sfdefault]{noto-sans}
+% \usepackage[default]{sourcesanspro}
+
+% serif
+% \usepackage{CormorantGaramond}
+% \usepackage{charter}
+
+
+\pagestyle{fancy}
+\fancyhf{} % clear all header and footer fields
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Adjust margins
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.9in}
+\addtolength{\textheight}{1.7in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure that generate pdf is machine readable/ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-2pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubSubheading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \textit{\small#1} & \textit{\small #2} \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.97\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-7pt}
+}
+
+\newcommand{\resumeSubItem}[1]{\resumeItem{#1}\vspace{-4pt}}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.15in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+%%%%%%  RESUME STARTS HERE  %%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Nils Constantin Hellwig} \\ \vspace{2pt}
+    \small PhD Student NLP / Data Science \& Software Developer $\cdot$ Regensburg, Bavaria, Germany \\ \vspace{4pt}
+    \small
+    \faGlobe\ \href{https://nilshellwig.github.io}{\underline{nilshellwig.github.io}} $|$
+    \faEnvelope\ \href{mailto:nils.hellwig@ur.de}{\underline{nils.hellwig@ur.de}} $|$
+    \faLinkedin\ \href{https://www.linkedin.com/in/nils-ch/}{\underline{linkedin.com/in/nils-ch}} $|$
+    \faGithub\ \href{https://github.com/NilsHellwig}{\underline{github.com/NilsHellwig}} $|$
+    \faGraduationCap\ \href{https://scholar.google.com/citations?user=VzUTKcwAAAAJ&hl=de}{\underline{Google Scholar}}
+\end{center}
+
+
+%-----------SUMMARY-----------
+\section{Summary}
+\small{Doctoral researcher in NLP at the University of Regensburg, specializing in leveraging LLMs to extract opinions from customer reviews through Aspect-Based Sentiment Analysis (ABSA). Deep hands-on experience in ML and full-stack software engineering since 2019, spanning LLM fine-tuning and inference (vLLM, unsloth, Ollama), agentic systems (LangChain, LangGraph, Langfuse), and production web applications (React, Next.js, FastAPI, Node.js).}
+
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Doctoral Candidate}{Oct. 2024 -- Present}
+      {Chair of Media Informatics, Faculty of Informatics and Data Science (FIDS)}{Regensburg, Germany}
+      \resumeItemListStart
+        \resumeItem{Research LLM-based Aspect-Based Sentiment Analysis (ABSA) in low-resource scenarios, publishing 9+ peer-reviewed papers at LREC, KONVENS, SemEval and in Knowledge-Based Systems / Expert Systems with Applications}
+        \resumeItem{Built \textbf{AnnoABSA}, a web-based, RAG-assisted annotation tool for aspect-based sentiment analysis with retrieval-augmented suggestions, published at LREC 2026}
+        \resumeItem{Pursuing a Dr. rer. nat. (doctorate in the natural sciences) in Computer Science}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Software Developer}{May 2022 -- Present}
+      {Chair of Educational Data Science, University of Regensburg}{Regensburg, Germany}
+      \resumeItemListStart
+        \resumeItem{Collaborate in a Scrum team to develop full-stack web applications with \textbf{Next.js}, \textbf{TypeScript} and REST APIs, containerized with \textbf{Docker} (Python/Django on earlier projects until 2023), in cooperation with \textbf{XDEV Software GmbH} and \textbf{ITventive AG}}
+        \resumeItem{Co-developed a statewide language-assessment tool for preschoolers in Bavaria, served for 100k+ children and covered by \href{https://www.sueddeutsche.de/bayern/vorkurs-deutsch-sprachsstandserhebung-test-vorschulkind-bayern-grundschule-kindergarten-li.3461145}{\underline{S\"uddeutsche Zeitung}}}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Lecturer}{Jan. 2023 -- Sept. 2023}
+      {IT Department, University of Regensburg}{Regensburg, Germany}
+      \resumeItemListStart
+        \resumeItem{Designed and taught the course \emph{"Introduction to Modern (Full-Stack) Web Development with JavaScript, Node.js and React.js"} in the 2023 summer term}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Student Assistant -- System Administration \& Computer Vision}{Oct. 2021 -- Dec. 2021}
+      {Universit\"atsklinikum Regensburg}{Regensburg, Germany}
+      \resumeItemListStart
+        \resumeItem{Supported system administration tasks and contributed to a computer vision project}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {University of Regensburg}{Regensburg, Germany}
+      {M.Sc. Media Computer Science -- Grade: 1.0 (\emph{sehr gut})}{Apr. 2022 -- Apr. 2024}
+      \resumeItemListStart
+        \resumeItem{Thesis: \emph{"Data Augmentation with Large Language Models for Aspect-Based Sentiment Analysis in Low-Resource Scenarios"}}
+      \resumeItemListEnd
+    \resumeSubheading
+      {University of Regensburg}{Regensburg, Germany}
+      {B.A. Media Computer Science, Information Science -- Grade: 1.5 (\emph{sehr gut})}{Oct. 2018 -- Jan. 2022}
+  \resumeSubHeadingListEnd
+
+
+
+%-----------PROJECTS-----------
+\section{Selected Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\textbf{AnnoABSA} $|$ \emph{Python, FastAPI, RAG, ChromaDB, React}}{}
+          \resumeItemListStart
+            \resumeItem{AI-assisted annotation tool for Aspect-Based Sentiment Analysis, using retrieval-augmented suggestions to speed up manual annotation}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{BibTeXy} $|$ \emph{TypeScript, WXT, Zod, Ollama / OpenAI}}{}
+          \resumeItemListStart
+            \resumeItem{Browser extension that turns any webpage into a validated BibTeX entry via a locally- or cloud-hosted LLM, grammar-constrained with a single Zod/JSON schema}
+          \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+
+%-----------TECHNICAL SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.15in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Python, TypeScript, SQL, Java} \\
+     \textbf{AI / ML}{: PyTorch, TensorFlow, vLLM, unsloth, LangChain, LangGraph, LangSmith, Langfuse, Ollama, MCP, ChromaDB, RAG, Agents, N8N} \\
+     \textbf{Full Stack}{: React, Next.js, FastAPI, Node.js, REST APIs, Swagger} \\
+     \textbf{Cloud \& DevOps}{: Docker, Google Cloud Platform, Terraform} \\
+     \textbf{Testing}{: pytest, Playwright} \\
+     \textbf{Project Management}{: Scrum, Git, GitHub}
+    }}
+ \end{itemize}
+
+
+%-------------------------------------------
+\end{document}
