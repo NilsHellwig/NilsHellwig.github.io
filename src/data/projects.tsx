@@ -14,6 +14,59 @@ type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    id: "comark",
+    title: "CoMark",
+    subtitle: "Collaborative Markdown editing with live presence",
+    description:
+      "CoMark started in 2022 as a small React + FastAPI side project and was rebuilt in 2026 using agentic coding (Claude Code) on a modern stack. It is a collaborative Markdown editor built around a resizable split view — raw Markdown on one side, a live-rendered preview on the other — with remote collaborators' cursors visible directly in the text as they type. Documents can be shared via a link with or without requiring an account, making it easy to invite anyone into a session. Real-time synchronization is powered by a CRDT-based collaboration engine (pycrdt / Yjs) running inside the FastAPI backend itself, avoiding a separate realtime service, with Redis coordinating presence and PostgreSQL persisting documents. The Next.js/React frontend uses CodeMirror 6 for the editing surface and TanStack Query for data fetching, talking to the API through a TypeScript SDK generated directly from its OpenAPI schema so the client and server types never drift apart. Backend coverage comes from pytest, end-to-end coverage from Playwright, and the app is deployed to Google Cloud Run via GitHub Actions.",
+    type: "Web-App",
+    category: "Software Development",
+    programmingLanguages: ["TypeScript", "Python"],
+    technologies: [
+      "Next.js",
+      "React",
+      "Tailwind",
+      "Motion",
+      "CodeMirror",
+      "TanStack Query",
+      "FastAPI",
+      "SQLAlchemy",
+      "PostgreSQL",
+      "Redis",
+      "Yjs",
+      "pytest",
+      "Playwright",
+      "Docker",
+    ],
+    iconPath: require("../img/icons/projects/comark.svg").default,
+    galleryImages: ["comark/comark-1.png", "comark/comark-2.png", "comark/comark-3.png"],
+    links: [
+      {
+        name: "GitHub Repository: CoMark",
+        url: "https://github.com/NilsHellwig/CoMark",
+      },
+    ],
+  },
+  {
+    id: "bibtexy",
+    title: "BibTeXy",
+    subtitle: "Turn any webpage into a BibTeX entry.",
+    description:
+      "BibTeXy is a browser extension that reads the page you're currently on and asks a language model (a local Ollama model or OpenAI) to extract a citation for it, no copy-pasting metadata by hand or guessing field names. A BibTeX entry covering roughly 25 fields (title, author, editor, year, journal, DOI, ISBN, keywords, ...) is modeled once as a Zod schema and turned into a JSON Schema via z.toJSONSchema(), which is then handed to the provider as a hard output constraint (Ollama's format parameter or OpenAI's Structured Outputs in strict mode), so the model is grammar-constrained to emit only valid JSON matching that shape, instead of hoping it produces parseable output. The prompt additionally instructs the model to only fill in fields it's actually confident about and return null for the rest, avoiding hallucinated page numbers or invented DOIs. The response is parsed and re-validated against the same Zod schema on the client before being formatted into a BibTeX string, so a single typed schema drives extraction, provider constraints, and validation end to end. It remembers the configured Ollama URL, OpenAI key, and last-used model, and ships to Firefox, Chrome, and Edge from a single WXT-based codebase. Being local-first with Ollama, it has no backend of its own: page content is sent only to the LLM endpoint you configured.",
+    type: "Browser Extension",
+    category: "AI & NLP",
+    programmingLanguages: ["TypeScript"],
+    technologies: ["WXT", "React", "Zod", "Ollama", "OpenAI API", "Vite"],
+    iconPath: require("../img/icons/projects/bibtexy.png"),
+    galleryImages: ["bibtexy/bibtexy-1.png"],
+    links: [
+      {
+        name: "GitHub Repository: BibTeXy",
+        url: "https://github.com/NilsHellwig/bibtexy",
+      },
+    ],
+  },
+  {
     id: "annoabsa",
     title: "AnnoABSA",
     subtitle: "AI-assisted (RAG) annotation tool for Aspect-Based Sentiment Analysis",
@@ -445,25 +498,6 @@ export const PROJECTS: Project[] = [
       {
         name: "GitHub Repository: Flight Delay Prediction",
         url: "https://github.com/NilsHellwig/Abschlussprojekt-Web-Data-Science",
-      },
-    ],
-  },
-  {
-    id: "bibtexy",
-    title: "BibTeXy",
-    subtitle: "Turn any webpage into a BibTeX entry.",
-    description:
-      "BibTeXy is a browser extension that reads the page you're currently on and asks a language model (a local Ollama model or OpenAI) to extract a citation for it, no copy-pasting metadata by hand or guessing field names. A BibTeX entry covering roughly 25 fields (title, author, editor, year, journal, DOI, ISBN, keywords, ...) is modeled once as a Zod schema and turned into a JSON Schema via z.toJSONSchema(), which is then handed to the provider as a hard output constraint (Ollama's format parameter or OpenAI's Structured Outputs in strict mode), so the model is grammar-constrained to emit only valid JSON matching that shape, instead of hoping it produces parseable output. The prompt additionally instructs the model to only fill in fields it's actually confident about and return null for the rest, avoiding hallucinated page numbers or invented DOIs. The response is parsed and re-validated against the same Zod schema on the client before being formatted into a BibTeX string, so a single typed schema drives extraction, provider constraints, and validation end to end. It remembers the configured Ollama URL, OpenAI key, and last-used model, and ships to Firefox, Chrome, and Edge from a single WXT-based codebase. Being local-first with Ollama, it has no backend of its own: page content is sent only to the LLM endpoint you configured.",
-    type: "Browser Extension",
-    category: "AI & NLP",
-    programmingLanguages: ["TypeScript"],
-    technologies: ["WXT", "React", "Zod", "Ollama", "OpenAI API", "Vite"],
-    iconPath: require("../img/icons/projects/bibtexy.png"),
-    galleryImages: ["bibtexy/bibtexy-1.png"],
-    links: [
-      {
-        name: "GitHub Repository: BibTeXy",
-        url: "https://github.com/NilsHellwig/bibtexy",
       },
     ],
   },

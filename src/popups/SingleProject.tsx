@@ -41,9 +41,12 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
       />
 
       {/* Modal panel */}
-      <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center p-4"
+        onClick={showSingleProjectFct}
+      >
         <motion.div
-          className="bg-white dark:bg-zinc-900 rounded-2xl border-[0.5px] border-zinc-300 dark:border-zinc-700 shadow-2xl w-full max-w-[680px] max-h-[88vh] flex flex-col overflow-hidden"
+          className="bg-white dark:bg-zinc-900 rounded-2xl border-[0.5px] border-zinc-300 dark:border-zinc-700 shadow-2xl w-full max-w-[960px] max-h-[88vh] flex flex-col overflow-hidden"
           initial={{ opacity: 0, scale: 0.95, y: 16 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 16 }}
@@ -137,8 +140,8 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
                         <img
                           className={`rounded-lg border-[0.5px] border-zinc-200 dark:border-zinc-600 cursor-zoom-in ${
                             imageDimensions.width > imageDimensions.height
-                              ? "w-full max-h-72 object-contain"
-                              : "max-h-72 object-contain"
+                              ? "w-full max-h-[480px] object-contain"
+                              : "max-h-[480px] object-contain"
                           }`}
                           src={require(
                             `../img/screenshots-projects/${project.galleryImages[galleryIndex]}`,
