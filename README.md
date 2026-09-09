@@ -8,8 +8,6 @@
 - 🔬 PhD candidate working on **LLMs for Structured Learning**
 - 📄 Research focus: **Data Augmentation, Data Synthesis, Active Learning**
 
-> _"Do we still need human annotators for aspect-based sentiment analysis?"_ — that’s literally my thesis.
-
 ---
 
 ## 📫 Get in Touch
