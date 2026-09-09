@@ -99,6 +99,8 @@ const StandardUI: React.FC<{ children: ReactNode; transparentBackground: boolean
   children,
   transparentBackground,
 }) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
   return (
     <div
       className={`page-outer min-h-screen flex flex-col ${transparentBackground ? "gradient-bg" : "bg-zinc-50 dark:bg-zinc-900"}`}
@@ -108,9 +110,9 @@ const StandardUI: React.FC<{ children: ReactNode; transparentBackground: boolean
         <div
           className={`fixed w-screen ${!transparentBackground ? "bg-zinc-50 dark:bg-zinc-900" : ""} bg-opacity-90 backdrop-blur-sm pt-2 z-20`}
         >
-          <header className="max-w-[1100px] w-[100%] mx-auto px-4 mt-0">
-            <NavBar />
-            <PageSelector />
+          <header className="max-w-[1100px] w-[100%] mx-auto px-4 mt-0 relative">
+            <NavBar mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
+            <PageSelector mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />
           </header>
         </div>
         <div className="page-inner flex-1 max-w-[1100px] w-[100%] mx-auto p-4 py-40">

@@ -8,6 +8,7 @@ import {
   LinkedinLogo,
   GlobeHemisphereWest,
   DotsThree,
+  List,
   X,
 } from "phosphor-react";
 import { Link } from "react-router-dom";
@@ -69,7 +70,12 @@ const socialLinks = [
   },
 ];
 
-const NavBar: React.FC = () => {
+interface NavBarProps {
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: (open: boolean) => void;
+}
+
+const NavBar: React.FC<NavBarProps> = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   const hoverStyle =
@@ -156,6 +162,20 @@ const NavBar: React.FC = () => {
         </div>
 
         <ThemeToggle />
+
+        {/* Mobile page-navigation toggle */}
+        <motion.div
+          className={`md:hidden ${hoverStyle}`}
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          {mobileMenuOpen ? (
+            <X size={24} className="text-zinc-900 dark:text-zinc-100" weight="regular" />
+          ) : (
+            <List size={24} className="text-zinc-900 dark:text-zinc-100" weight="regular" />
+          )}
+        </motion.div>
       </div>
     </div>
   );

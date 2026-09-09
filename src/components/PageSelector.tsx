@@ -1,17 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import {
-  House,
-  User,
-  Code,
-  Briefcase,
-  BookOpen,
-  Chalkboard,
-  Article,
-  List,
-  X,
-} from "phosphor-react";
+import { House, User, Code, Briefcase, BookOpen, Chalkboard, Article } from "phosphor-react";
 
 const iconVariants = {
   hover: {
@@ -26,9 +16,13 @@ const iconVariants = {
   },
 };
 
-const PageSelector: React.FC = () => {
+interface PageSelectorProps {
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: (open: boolean) => void;
+}
+
+const PageSelector: React.FC<PageSelectorProps> = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   const location = useLocation();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const navigationItems = [
     { path: "/", label: "Home", icon: House },
@@ -87,31 +81,16 @@ const PageSelector: React.FC = () => {
         })}
       </motion.nav>
 
-      {/* Mobile Navigation */}
-      <div className="md:hidden mb-4">
-        <motion.button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="flex items-center gap-2 px-4 py-2 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-zinc-100 font-medium text-sm w-full justify-between"
-          whileTap={{ scale: 0.98 }}
-        >
-          <div className="flex items-center gap-2">
-            {navigationItems.find((item) => isActive(item.path))?.icon &&
-              React.createElement(navigationItems.find((item) => isActive(item.path))!.icon, {
-                size: 16,
-                weight: "fill",
-              })}
-            <span>{navigationItems.find((item) => isActive(item.path))?.label || "Menu"}</span>
-          </div>
-          {mobileMenuOpen ? <X size={16} weight="bold" /> : <List size={16} weight="bold" />}
-        </motion.button>
-
-        <AnimatePresence>
-          {mobileMenuOpen && (
+      {/* Mobile Navigation: dropdown panel, opened via the hamburger button in the top bar */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <>
+            <div className="fixed inset-0 z-10 md:hidden" onClick={() => setMobileMenuOpen(false)} />
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              className="mt-2 bg-white dark:bg-zinc-800 rounded-lg border border-zinc-200 dark:border-zinc-700 overflow-hidden shadow-lg"
+              initial={{ opacity: 0, scale: 0.97, y: -10 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.97, y: -10 }}
+              className="md:hidden absolute left-0 right-0 top-full mt-2 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-xl rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden shadow-2xl z-20"
             >
               {navigationItems.map((item) => {
                 const Icon = item.icon;
@@ -139,9 +118,9 @@ const PageSelector: React.FC = () => {
                 );
               })}
             </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+          </>
+        )}
+      </AnimatePresence>
     </>
   );
 };
