@@ -37,18 +37,6 @@ const About: React.FC = () => {
     { icon: MapPin, label: "Location", value: "Regensburg, Germany" },
   ];
 
-  const expertise = [
-    {
-      area: "Natural Language Processing",
-      topics: ["Aspect-Based Sentiment Analysis", "Structured Learning", "Agents"],
-    },
-    { area: "Software Engineering", topics: ["Full-Stack Development", "React & TypeScript"] },
-    {
-      area: "Research",
-      topics: ["Low-Resource NLP", "Synthetic Data Generation", "Structured Text Generation"],
-    },
-  ];
-
   const timeline = [
     {
       year: "2024 - now",
@@ -199,31 +187,36 @@ const About: React.FC = () => {
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">KONVENS</span>.
                 </p>
                 <p>
-                  I have deep expertise in improving{" "}
+                  I have expertise in {" "}
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">LLM efficiency</span>
                   ,{" "}
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">
                     structured learning
                   </span>
-                  , and exploring{" "}
+                  , and {" "}
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                    synthetic training data generation
+                    agentic systems
                   </span>
                   . Beyond my academic work, I'm a passionate{" "}
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                    Full-Stack Engineer
+                    Software Engineer
                   </span>{" "}
-                  dedicated to building scalable, user-friendly solutions.
+                  dedicated to building full-stack, user-friendly applications.
                 </p>
               </div>
             </div>
 
             <div className="w-64 md:w-72 flex-shrink-0 order-1 md:order-2">
-              <div className="relative group bg-white rounded-2xl shadow-sm">
+              <div className="relative group bg-white dark:bg-zinc-800 rounded-2xl shadow-sm">
                 <img
                   src="portrait.png"
                   alt="Nils Hellwig"
-                  className="rounded-xl object-cover w-full aspect-[4/5] transition-all duration-700 ease-in-out border border-zinc-200 dark:border-zinc-700"
+                  className="block dark:hidden rounded-xl object-cover w-full aspect-[4/5] transition-all duration-700 ease-in-out border border-zinc-200 dark:border-zinc-700"
+                />
+                <img
+                  src="portrait-dark.png"
+                  alt="Nils Hellwig"
+                  className="hidden dark:block rounded-xl object-cover w-full aspect-[4/5] transition-all duration-700 ease-in-out border border-zinc-200 dark:border-zinc-700"
                 />
               </div>
             </div>
@@ -231,34 +224,6 @@ const About: React.FC = () => {
         </motion.div>
       </motion.div>
 
-      {/* Expertise Areas */}
-      <motion.div className="mt-8" initial="hidden" animate="visible" variants={containerVariants}>
-        <motion.div variants={itemVariants}>
-          <h3 className="text-xl font-bold dark:text-white mb-4">Areas of Expertise</h3>
-        </motion.div>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {expertise.map((item, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="border-[0.5px] border-zinc-300 dark:border-zinc-700 rounded-xl p-5 bg-white dark:bg-zinc-800"
-            >
-              <h4 className="font-bold text-zinc-900 dark:text-white mb-3">{item.area}</h4>
-              <ul className="space-y-2">
-                {item.topics.map((topic, idx) => (
-                  <li
-                    key={idx}
-                    className="text-sm text-zinc-600 dark:text-zinc-400 flex items-center gap-2"
-                  >
-                    <span className="text-zinc-400 dark:text-zinc-600 flex-shrink-0">•</span>
-                    <span>{topic}</span>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
-      </motion.div>
 
       {/* Timeline */}
       <motion.div className="mt-8" initial="hidden" animate="visible" variants={containerVariants}>

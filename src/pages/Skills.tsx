@@ -60,7 +60,7 @@ const AI_CATEGORIES: AICategory[] = [
         name: "Orchestration & Governance",
         note: "State Management, Human-in-the-Loop (HITL) Workflows, Tool Calling & Function Binding",
       },
-      { name: "Langfuse", note: "LLM observability & tracing" },
+      { name: "Langfuse" },
     ],
   },
   {
@@ -88,10 +88,9 @@ const AI_CATEGORIES: AICategory[] = [
     icon: ShieldCheck,
     title: "Ethics & Safety",
     skills: [
+      { name: "Legal & Regulatory Compliance: EU AI Act, DSGVO" },
       { name: "Bias & Fairness" },
       { name: "Prompt Injection" },
-      { name: "Data Privacy" },
-      { name: "AI Safety" },
     ],
   },
 ];

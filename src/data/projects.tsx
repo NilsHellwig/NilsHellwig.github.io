@@ -18,7 +18,7 @@ export const PROJECTS: Project[] = [
     title: "CoMark",
     subtitle: "Collaborative Markdown editing with live presence",
     description:
-      "CoMark started in 2022 as a small React + FastAPI side project and was rebuilt in 2026 using agentic coding (Claude Code) on a modern stack. It is a collaborative Markdown editor built around a resizable split view — raw Markdown on one side, a live-rendered preview on the other — with remote collaborators' cursors visible directly in the text as they type. Documents can be shared via a link with or without requiring an account, making it easy to invite anyone into a session. Real-time synchronization is powered by a CRDT-based collaboration engine (pycrdt / Yjs) running inside the FastAPI backend itself, avoiding a separate realtime service, with Redis coordinating presence and PostgreSQL persisting documents. The Next.js/React frontend uses CodeMirror 6 for the editing surface and TanStack Query for data fetching, talking to the API through a TypeScript SDK generated directly from its OpenAPI schema so the client and server types never drift apart. Backend coverage comes from pytest, end-to-end coverage from Playwright, and the app is deployed to Google Cloud Run via GitHub Actions.",
+      "CoMark started in 2022 as a small React + FastAPI side project and was rebuilt in 2026 using agentic coding (Claude Code) on a modern stack. It is a collaborative Markdown editor built around a resizable split view (raw Markdown on one side, a live-rendered preview on the other), with remote collaborators' cursors visible directly in the text as they type. Documents can be shared via a link with or without requiring an account, making it easy to invite anyone into a session. Real-time synchronization is powered by a CRDT-based collaboration engine (pycrdt / Yjs) running inside the FastAPI backend itself, avoiding a separate realtime service, with Redis coordinating presence and PostgreSQL persisting documents. The Next.js/React frontend uses CodeMirror 6 for the editing surface and TanStack Query for data fetching, talking to the API through a TypeScript SDK generated directly from its OpenAPI schema so the client and server types never drift apart. Backend coverage comes from pytest, end-to-end coverage from Playwright, and the app is deployed to Google Cloud Run via GitHub Actions.",
     type: "Web-App",
     category: "Software Development",
     programmingLanguages: ["TypeScript", "Python"],
@@ -310,7 +310,7 @@ export const PROJECTS: Project[] = [
     title: "GameHub",
     subtitle: "A platform for reviewing games",
     description:
-      "GameHub represents a significant milestone as it marks the first single-page application I have ever developed. This platform empowers users to explore new games, share gaming experiences, and rate games and user reviews. The app features the ability to rate the reviews posted by other users and emphasizes the importance of organizing games into personalized \"catalogs\". These catalogs serve various purposes, such as curating collections of favorite games. Originally designed as a web application primarily for mobile devices, users can easily add the app to their home screens for a seamless full-screen experience. Looking ahead, there is potential for a transition into a native app format (apk/ipa), with Apache Cordova being a viable option. It's worth noting that while the application was developed using Cordova, the primary focus was on functionality rather than content creation—texts were generated using GPT-2, and images were sourced from Pexels/Pixabay. GameHub isn't available for public at the moment but the code is available on my GitHub account.",
+      "GameHub represents an important milestone as it marks the first single-page application I have ever developed. This platform empowers users to explore new games, share gaming experiences, and rate games and user reviews. The app features the ability to rate the reviews posted by other users and emphasizes the importance of organizing games into personalized \"catalogs\". These catalogs serve various purposes, such as curating collections of favorite games. Originally designed as a web application primarily for mobile devices, users can easily add the app to their home screens for a seamless full-screen experience. Looking ahead, there is potential for a transition into a native app format (apk/ipa), with Apache Cordova being a viable option. It's worth noting that while the application was developed using Cordova, the focus here was on functionality: texts were generated using GPT-2, and images were sourced from Pexels/Pixabay. GameHub isn't available for public at the moment but the code is available on my GitHub account.",
     type: "Web-App",
     category: "Web Development",
     programmingLanguages: ["JavaScript"],
@@ -402,7 +402,7 @@ export const PROJECTS: Project[] = [
     title: "TheImageFetcher",
     subtitle: "Image data extraction tool for Google images",
     description:
-      "TheImageFetcher is an efficient tool that enables users to swiftly extract a substantial number of images from Google Images. Depending on the internet connection, it can retrieve over 70 high-resolution images within seconds. The tool provides the option to save the URLs of these images in an external text file, and users can specify the destination path for saving the images associated with a particular search query",
+      "TheImageFetcher is an efficient tool that enables users to swiftly extract a large number of images from Google Images. Depending on the internet connection, it can retrieve over 70 high-resolution images within seconds. The tool provides the option to save the URLs of these images in an external text file, and users can specify the destination path for saving the images associated with a particular search query",
     type: "Python Utility",
     category: "AI & Data Collection",
     programmingLanguages: ["Python"],
@@ -421,7 +421,7 @@ export const PROJECTS: Project[] = [
     title: "ID3-Algorithm",
     subtitle: "A decision tree algorithm implemented in Java",
     description:
-      "D3 (Iterative Dichotomiser 3) is an algorithm developed by Ross Quinlan to construct decision trees from datasets. Serving as a precursor to the C4.5 algorithm, D3 finds extensive application in machine learning and natural language processing. The algorithm is showcased using the renowned Titanic dataset from Kaggle (https://www.kaggle.com/c/titanic). Leveraging demographic and background data, such as passenger class, it predicts whether a passenger survived or not. The model achieved an accuracy of 74.6% on the Kaggle test dataset. Furthermore, through 5-fold cross-validation, an accuracy of 78.3% was attained.",
+      "D3 (Iterative Dichotomiser 3) is an algorithm developed by Ross Quinlan to construct decision trees from datasets. Serving as a precursor to the C4.5 algorithm, D3 finds extensive application in machine learning and natural language processing. The algorithm is demonstrated using the renowned Titanic dataset from Kaggle (https://www.kaggle.com/c/titanic). Using demographic and background data, such as passenger class, it predicts whether a passenger survived or not. The model achieved an accuracy of 74.6% on the Kaggle test dataset. Furthermore, through 5-fold cross-validation, an accuracy of 78.3% was attained.",
     type: "Java Utility",
     category: "AI & Data Science",
     programmingLanguages: ["Java"],
@@ -437,7 +437,7 @@ export const PROJECTS: Project[] = [
     title: "Pedestrian RNN",
     subtitle: "Position prediction using a recurrent neural network",
     description:
-      "The prediction of pedestrians' walking paths plays a crucial role in the development of autonomous driving systems. This research focused on predicting 12 future positions of pedestrians based on 8 initial positions, with data gathered using a laser scanner as pedestrians moved through a street intersection. To address this regression problem, a Recurrent Neural Network (RNN) was employed, utilizing a many-to-one architecture. The implementation of this architecture was carried out using Tensorflow/Keras.",
+      "Predicting pedestrians' walking paths is important for the development of autonomous driving systems. This research focused on predicting 12 future positions of pedestrians based on 8 initial positions, with data gathered using a laser scanner as pedestrians moved through a street intersection. To address this regression problem, a Recurrent Neural Network (RNN) was employed, utilizing a many-to-one architecture. The implementation of this architecture was carried out using Tensorflow/Keras.",
     type: "Python Utility",
     category: "AI & Data Science",
     programmingLanguages: ["Python"],
@@ -506,7 +506,7 @@ export const PROJECTS: Project[] = [
     title: "portfolio",
     subtitle: "Nils' porfolio from June 2024",
     description:
-      "I aimed to create a unique portfolio to showcase my projects, skills, publications, and courses. The design was developed entirely from scratch, without using any pre-made templates.",
+      "I aimed to create a unique portfolio to present my projects, skills, publications, and courses. The design was developed entirely from scratch, without using any pre-made templates.",
     type: "Website",
     category: "Web Development",
     programmingLanguages: ["TypeScript"],

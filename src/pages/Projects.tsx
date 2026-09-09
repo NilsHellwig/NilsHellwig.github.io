@@ -80,7 +80,7 @@ const Projects: React.FC<ProjectsProps> = ({ showOverlay, setShowOverlay }) => {
           </h2>
         </div>
         <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1.5">
-          Selected software projects — web apps, AI tools, mobile apps, and research utilities
+          Selected software projects: web apps, AI tools, mobile apps, and research utilities
         </p>
       </motion.div>
 

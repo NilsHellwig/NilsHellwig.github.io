@@ -2,7 +2,7 @@
 
 Aspect-Based Sentiment Analysis (ABSA) has emerged as a subfield of sentiment analysis (SA), aiming to provide more nuanced and detailed insights into opinions expressed in textual data. Unlike traditional sentiment analysis, which classifies an entire document or sentence as positive, negative, or neutral, ABSA focuses on identifying sentiments associated with specific aspects or features of a product, service, or entity. This granular approach allows for a deeper understanding of people's opinions, enabling more precise insights.
 
-Similar to other areas of natural language processing research, the field of ABSA faces a lack of annotated corpora across various languages and domains for training machine learning models to recognize aspects and associated sentiment polarities in texts. The process of manually annotating corpora is very time-consuming, primarily due to the intricate task of identifying the phrases denoting aspects or expressing sentiment.
+Similar to other areas of natural language processing research, the field of ABSA faces a lack of annotated corpora across various languages and domains for training machine learning models to recognize aspects and associated sentiment polarities in texts. The process of manually annotating corpora is very time-consuming, primarily due to the detailed task of identifying the phrases denoting aspects or expressing sentiment.
 
 Large language models (LLMs) appear to be a promising approach in this context. LLMs are based on a transformer architecture and are characterized by their large size with billions of parameters. They have shown a comprehensive language understanding and the ability to produce text that is difficult for humans to distinguish from authentic human text in a wide range of language tasks. Across document-, sentence- and aspect-level, LLMs have demonstrated commendable zero-, one- and few-shot sentiment classification performance without the need for annotated datasets.
 
@@ -16,7 +16,7 @@ For a given set of training examples, models for the following ABSA tasks were t
 
 ## Results
 
-When considering a pool of 25 real examples for few-shot learning, the inclusion of synthetic training examples resulted in F1 scores of 81.33 and 71.71 for the Aspect Category Detection (ACD) and Aspect Category Sentiment Analysis (ACSA) tasks, respectively. In the case of a given pool of 500 real examples, data augmentation with synthetic examples didn't improve the performance, except for ACSA. For the ACSA task, the addition of examples generated with GPT-3.5-turbo significantly increased the F1 score from 84.54 to 86.70.
+When considering a pool of 25 real examples for few-shot learning, the inclusion of synthetic training examples resulted in F1 scores of 81.33 and 71.71 for the Aspect Category Detection (ACD) and Aspect Category Sentiment Analysis (ACSA) tasks, respectively. In the case of a given pool of 500 real examples, data augmentation with synthetic examples didn't improve the performance, except for ACSA. For the ACSA task, the addition of examples generated with GPT-3.5-turbo increased the F1 score from 84.54 to 86.70.
 \end{abstract}
 
 Supplementary materials, including code and model training results, are provided in the appendix of this work and are accessible on [GitHub](https://github.com/NilsHellwig/absa-llm-augmentation).

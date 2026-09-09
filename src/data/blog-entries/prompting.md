@@ -1,6 +1,6 @@
 ![Illustration](/blog-imgs/acl2025/prompting-1.png)
 
-Over the past three years, my research has also involved extensive exploration of the effective use of large language models (LLMs). We probably all heard of standard techniques like prompt design, hyperparameters, and model selection. However, there are many other techniques that, whether in academic studies or industrial applications, deliver significant performance/efficiency gains, yet have received far less attention than they deserve.
+Over the past three years, my research has also involved extensive exploration of the effective use of large language models (LLMs). We probably all heard of standard techniques like prompt design, hyperparameters, and model selection. However, there are many other techniques that, whether in academic studies or industrial applications, deliver large performance/efficiency gains, yet have received far less attention than they deserve.
 
 ## 1. Prefix Batching: "How can a multi-billion parameter Large Language Model generate thousands of outputs per second on a consumer GPU?"
 
@@ -10,7 +10,7 @@ Consider this simple example: We want to compare the performance of 5 different 
 
 Using commercial APIs? Prohibitively expensive. Even with open-source models running locally, sequentially processing thousands of requests quickly becomes impractical and painfully slow.
 
-But here’s the key observation: When you look closely at the prompts, probably, almost all of them share the exact same prefix, only the actual test examples (the suffixes) change.
+But here’s the observation: When you look closely at the prompts, probably, almost all of them share the exact same prefix, only the actual test examples (the suffixes) change.
 
 **The answer: Prefix Batching!**
 
@@ -21,7 +21,7 @@ Instead of processing each request from scratch, the system identifies the commo
 The result:
 
 - Massive reduction in redundant computations
-- Significantly higher throughput, often enabling thousands of outputs per second even on consumer-grade GPUs
+- Far higher throughput, often enabling thousands of outputs per second even on consumer-grade GPUs
 - Much lower memory usage and latency for large-scale evaluations
 - No quality loss compared to standard inference
 
@@ -39,7 +39,7 @@ We can define such rules using Pushdown Automata (PDA). At every token generatio
 
 For LLMs with a vocabulary of more than 128,000 tokens, however, the following applies: naively checking every possible token to see if it violates the rule at the current step creates heavy computational overhead. **xGrammar** solves this elegantly by transforming the complex problem of grammar-constrained decoding into a high-performance operations task.
 
-### How xGrammar employs two key techniques to achieve this:
+### How xGrammar achieves this:
 
 **Static Masking:** Most tokens are pre-classified as "always valid" or "always invalid" for specific states. E.g., imagine generating a JSON object. After generating the opening curly brace `{`, the next token must be a `"` to start a key. So all tokens except those starting with `"` can be statically masked out for that state. Of course, if the key must be a certain literal (e.g., `"name"`, `"age"`, etc.), xGrammar can further ensure correctness by only allowing tokens that match those since tokens like `"name` could potentially exist in the vocabulary (some LLM tokenizers have really weird vocabularies!). This reduces the "logic" of the grammar to a simple lookup table: "If I am in State A and see Token X, move to State B."
 
@@ -66,7 +66,7 @@ However, this approach works especially well for long outputs, as the fixed over
 
 ### TurboQuant (from Google Research)
 
-One of the biggest recent advances: **[TurboQuant](https://research.google/blog/turboquant-redefining-ai-efficiency-with-extreme-compression/)** compresses the Key-Value (KV) cache, the "memory" of the model that remembers previous tokens. So now, we not only compress the model weights (weight quantization), but also the KV cache, which is crucial for long-context inference! It works with **most modern LLMs**.
+One of the biggest recent advances: **[TurboQuant](https://research.google/blog/turboquant-redefining-ai-efficiency-with-extreme-compression/)** compresses the Key-Value (KV) cache, the "memory" of the model that remembers previous tokens. So now we compress both the model weights (weight quantization) and the KV cache, which is crucial for long-context inference! It works with **most modern LLMs**.
 
 TurboQuant quantizes the KV cache down to **2.5–4 bits per value** (compared to the usual 16-bit FP16/BF16). The sweet spot is **4-bit** (near-zero accuracy loss) or **3.5-bit** (still statistically indistinguishable from full precision in most long-context benchmarks I have seen).
 

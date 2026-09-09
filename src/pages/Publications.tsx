@@ -103,7 +103,7 @@ const Publications: React.FC = () => {
           </h2>
         </div>
         <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1.5">
-          Research in NLP, Computational Linguistics, and Sentiment Analysis — code and data for
+          Research in NLP, Computational Linguistics, and Sentiment Analysis. Code and data for
           each publication are publicly available on GitHub and referenced in the respective papers.
         </p>
       </motion.div>

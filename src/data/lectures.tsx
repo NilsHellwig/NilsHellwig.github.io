@@ -7,7 +7,7 @@ export const LECTURES = [
     term: "Winter Term 2025/2026",
     icon: Robot,
     description:
-      "A hands-on, notebook-driven course covering the full AI engineering stack — from Python and NLP fundamentals to building real, production-style LLM applications. Across 10 chapters, participants work through prompting strategies, structured outputs with Pydantic, function calling, agents and the Model Context Protocol (MCP), Retrieval-Augmented Generation (three architectures: two-step, agentic, and hybrid/corrective), interactive UIs with Gradio, and multi-agent orchestration with deepagents. The course closes with a chapter on testing and observability — pytest, LangSmith, and a self-hosted Langfuse stack. Every notebook runs against a local Ollama endpoint and ships with hands-on exercises and worked solutions.",
+      "A hands-on, notebook-driven course covering the full AI engineering stack, from Python and NLP fundamentals to building real, production-style LLM applications. Across 10 chapters, participants work through prompting strategies, structured outputs with Pydantic, function calling, agents and the Model Context Protocol (MCP), Retrieval-Augmented Generation (three architectures: two-step, agentic, and hybrid/corrective), interactive UIs with Gradio, and multi-agent orchestration with deepagents. The course closes with a chapter on testing and observability (pytest, LangSmith, and a self-hosted Langfuse stack). Every notebook runs against a local Ollama endpoint and ships with hands-on exercises and worked solutions.",
     competences: [
       "Python & NLP fundamentals",
       "Prompting & Chain of Thought",
@@ -96,7 +96,7 @@ export const LECTURES = [
     term: "Summer Term 2023",
     icon: Code,
     description:
-      "Participants will gain insight into contemporary practices of (Full-Stack) web development using the JavaScript programming language. JavaScript is now widely employed to address challenges on both the frontend and backend sides. A significant milestone in this regard was the development of Node.js, which serves as the foundation for the course. Building upon this, participants will familiarize themselves with typical JavaScript tools through a project accompanying the course—an authentication-enabled ToDo app. ",
+      "Participants will gain insight into contemporary practices of (Full-Stack) web development using the JavaScript programming language. JavaScript is now widely used to address challenges on both the frontend and backend sides. An important milestone in this regard was the development of Node.js, which serves as the foundation for the course. Building upon this, participants will familiarize themselves with typical JavaScript tools through a project accompanying the course: an authentication-enabled ToDo app. ",
     competences: [
       "Express.js as a Node framework for creating and managing the application on the server",
       "MongoDB as a database utilizing JSON for data storage",

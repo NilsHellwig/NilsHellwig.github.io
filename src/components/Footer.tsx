@@ -70,8 +70,7 @@ const Footer: React.FC = () => {
           <div className="space-y-3">
             <h3 className="font-bold text-zinc-900 dark:text-white">Nils Hellwig</h3>
             <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-              PhD Candidate in AI & NLP at University of Regensburg. Passionate about building
-              innovative solutions at the intersection of research and software engineering.
+              PhD Candidate in AI & NLP at University of Regensburg.
             </p>
           </div>
 
