@@ -35,12 +35,6 @@ const Home: React.FC = () => {
       animate="visible"
     >
       <div className="mt-10 flex flex-col items-center">
-        <motion.div
-          variants={itemVariants}
-          className="mb-6 flex items-center gap-2 bg-white/50 dark:bg-zinc-800/50 backdrop-blur-md px-4 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 text-sm font-medium text-zinc-600 dark:text-zinc-400"
-        >
-          <span>NLP Researcher & Developer</span>
-        </motion.div>
 
         <motion.h1
           variants={itemVariants}
