@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { GraduationCap, Code, MapPin, Calendar, FileArrowDown } from "phosphor-react";
+import { GraduationCap, Code, MapPin, FileArrowDown } from "phosphor-react";
 import Footer from "../components/Footer";
 
 const About: React.FC = () => {
@@ -96,60 +96,59 @@ const About: React.FC = () => {
         </div>
       </motion.div>
 
-      {/* Quick Info Cards */}
+      {/* Quick Info */}
       <motion.div
-        className="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-8"
+        className="flex flex-wrap items-center gap-x-8 gap-y-5 mt-10"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
       >
-        {highlights.map((item, index) => {
-          return (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="relative overflow-hidden border-[0.5px] border-zinc-300 dark:border-zinc-700 rounded-xl p-5 bg-white dark:bg-zinc-800"
-            >
-              <div className="relative flex items-center gap-3">
-                <motion.div
-                  className="flex items-center justify-center w-12 h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-[0.5px] border-zinc-300 dark:border-zinc-600 shadow-sm"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  <item.icon size={24} className="text-zinc-700 dark:text-zinc-300" weight="bold" />
-                </motion.div>
-                <div className="flex-1">
-                  <p className="text-xs text-zinc-600 dark:text-zinc-400 font-semibold uppercase tracking-wide">
-                    {item.label}
-                  </p>
-                  <p className="text-sm font-bold text-zinc-900 dark:text-white mt-0.5">
-                    {item.value}
-                  </p>
-                </div>
+        {highlights.map((item, index) => (
+          <React.Fragment key={index}>
+            <motion.div variants={itemVariants} className="flex items-center gap-3">
+              <motion.div
+                className="flex items-center justify-center w-10 h-10 rounded-full border border-zinc-200 dark:border-zinc-700 flex-shrink-0"
+                whileHover={{ rotate: 360 }}
+                transition={{ duration: 0.6 }}
+              >
+                <item.icon size={17} className="text-zinc-700 dark:text-zinc-300" weight="bold" />
+              </motion.div>
+              <div>
+                <p className="text-[11px] text-zinc-400 dark:text-zinc-500 font-semibold uppercase tracking-wider">
+                  {item.label}
+                </p>
+                <p className="text-sm font-bold text-zinc-900 dark:text-white">{item.value}</p>
               </div>
             </motion.div>
-          );
-        })}
+            {index < highlights.length - 1 && (
+              <span className="hidden sm:block w-px h-8 bg-zinc-200 dark:bg-zinc-700" />
+            )}
+          </React.Fragment>
+        ))}
       </motion.div>
 
       {/* Introduction */}
-      <motion.div className="mt-8" initial="hidden" animate="visible" variants={containerVariants}>
-        <motion.div
-          variants={itemVariants}
-          className="overflow-hidden border-[0.5px] border-zinc-200 dark:border-zinc-700 rounded-2xl bg-white dark:bg-zinc-800 shadow-sm relative"
+      <motion.div
+        className="mt-14 relative"
+        initial="hidden"
+        animate="visible"
+        variants={containerVariants}
+      >
+        {/* Oversized ghost quote mark, purely decorative */}
+        <span
+          aria-hidden
+          className="pointer-events-none select-none absolute -top-16 right-0 md:right-4 text-[10rem] md:text-[13rem] font-black leading-none text-zinc-900/[0.045] dark:text-white/[0.05]"
         >
-          {/* Suble decorative element */}
-          <div className="absolute top-0 left-0 w-1.5 h-full bg-zinc-900 dark:bg-zinc-100 hidden md:block" />
+          "
+        </span>
 
-          <div className="flex flex-col md:flex-row gap-10 items-center md:items-start p-8 md:p-10">
-            <div className="flex-1 order-2 md:order-1 space-y-6">
-              <div className="space-y-4">
-                <h3 className="text-3xl md:text-4xl font-black text-zinc-900 dark:text-white leading-tight">
-                  Introduction
-                </h3>
-              </div>
+        <div className="flex flex-col md:flex-row gap-10 md:gap-14 items-center md:items-start relative">
+          <motion.div variants={itemVariants} className="flex-1 order-2 md:order-1 space-y-6">
+            <h3 className="text-3xl md:text-4xl font-black text-zinc-900 dark:text-white leading-tight">
+              Introduction
+            </h3>
 
-              <div className="text-zinc-600 dark:text-zinc-300 flex flex-col gap-5 text-sm md:text-base leading-relaxed font-normal">
+            <div className="text-zinc-600 dark:text-zinc-300 flex flex-col gap-5 text-sm md:text-base leading-relaxed font-normal">
                 <p>
                   I'm a {currentAge}-year-old PhD candidate at the{" "}
                   <span className="font-bold text-zinc-900 dark:text-zinc-100">
@@ -204,55 +203,102 @@ const About: React.FC = () => {
                   dedicated to building full-stack, user-friendly applications.
                 </p>
               </div>
-            </div>
+            </motion.div>
 
             <div className="w-64 md:w-72 flex-shrink-0 order-1 md:order-2">
-              <div className="relative group bg-white dark:bg-zinc-800 rounded-2xl shadow-sm">
-                <img
-                  src="portrait.png"
-                  alt="Nils Hellwig"
-                  className="block dark:hidden rounded-xl object-cover w-full aspect-[4/5] transition-all duration-700 ease-in-out border border-zinc-200 dark:border-zinc-700"
-                />
-                <img
-                  src="portrait-dark.png"
-                  alt="Nils Hellwig"
-                  className="hidden dark:block rounded-xl object-cover w-full aspect-[4/5] transition-all duration-700 ease-in-out border border-zinc-200 dark:border-zinc-700"
-                />
+              <div className="relative">
+                {/* Soft grayscale glow behind the portrait */}
+                <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-zinc-300/40 via-zinc-200/20 to-transparent dark:from-zinc-100/10 dark:via-zinc-400/5 dark:to-transparent blur-2xl -z-10" />
+
+                <motion.div
+                  className="relative group bg-white dark:bg-zinc-800 rounded-2xl"
+                  whileHover={{ rotate: -1, scale: 1.02 }}
+                  transition={{ type: "spring", stiffness: 250, damping: 15 }}
+                >
+                  <img
+                    src="portrait.png"
+                    alt="Nils Hellwig"
+                    className="block dark:hidden rounded-xl object-cover w-full aspect-[4/5] transition-all duration-700 ease-in-out border border-zinc-200 dark:border-zinc-700"
+                  />
+                  <img
+                    src="portrait-dark.png"
+                    alt="Nils Hellwig"
+                    className="hidden dark:block rounded-xl object-cover w-full aspect-[4/5] transition-all duration-700 ease-in-out border border-zinc-200 dark:border-zinc-700"
+                  />
+                </motion.div>
               </div>
             </div>
           </div>
-        </motion.div>
       </motion.div>
-
 
       {/* Timeline */}
       <motion.div className="mt-8" initial="hidden" animate="visible" variants={containerVariants}>
         <motion.div variants={itemVariants}>
-          <h3 className="text-xl font-bold dark:text-white mb-4">Journey</h3>
+          <h3 className="text-xl font-bold dark:text-white mb-6">Journey</h3>
         </motion.div>
-        <div className="space-y-3">
-          {timeline.map((item, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="border-[0.5px] border-zinc-300 dark:border-zinc-700 rounded-xl p-5 bg-white dark:bg-zinc-800"
-            >
-              <div className="flex items-start gap-4">
-                <div className="flex items-center justify-center w-12 h-12 rounded-lg bg-zinc-100 dark:bg-zinc-900 border-[0.5px] border-zinc-300 dark:border-zinc-600 flex-shrink-0">
-                  <Calendar size={20} className="text-zinc-700 dark:text-zinc-300" weight="bold" />
+
+        <div>
+          {timeline.map((item, index) => {
+            const isLast = index === timeline.length - 1;
+            const isOngoing = item.year.toLowerCase().includes("now");
+
+            return (
+              <motion.div key={index} variants={itemVariants} className="flex gap-5">
+                {/* Rail: node + connecting line */}
+                <div className="flex flex-col items-center flex-shrink-0">
+                  <span
+                    className={`relative flex items-center justify-center w-4 h-4 rounded-full border-2 flex-shrink-0 ${
+                      isOngoing
+                        ? "border-zinc-900 dark:border-white bg-white dark:bg-zinc-900"
+                        : "border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800"
+                    }`}
+                  >
+                    <span
+                      className={`w-1.5 h-1.5 rounded-full ${
+                        isOngoing ? "bg-zinc-900 dark:bg-white" : "bg-zinc-300 dark:bg-zinc-600"
+                      }`}
+                    />
+                    {isOngoing && (
+                      <motion.span
+                        className="absolute inset-0 rounded-full bg-zinc-900/40 dark:bg-white/40"
+                        animate={{ scale: [1, 2.2], opacity: [0.5, 0] }}
+                        transition={{ duration: 1.8, repeat: Infinity, ease: "easeOut" }}
+                      />
+                    )}
+                  </span>
+                  {!isLast && (
+                    <motion.span
+                      className="w-px flex-1 bg-zinc-200 dark:bg-zinc-700 origin-top"
+                      initial={{ scaleY: 0 }}
+                      whileInView={{ scaleY: 1 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.6, delay: index * 0.08, ease: "easeInOut" }}
+                    />
+                  )}
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs font-bold text-zinc-500 dark:text-zinc-500 bg-zinc-100 dark:bg-zinc-900 px-2 py-0.5 rounded-full border-[0.5px] border-zinc-300 dark:border-zinc-600">
+
+                {/* Content */}
+                <div className={`min-w-0 flex-1 group ${isLast ? "pb-1" : "pb-8"}`}>
+                  <div className="flex items-center gap-2 mb-1 -mt-0.5">
+                    <span className="text-xs font-bold text-zinc-500 dark:text-zinc-400 tracking-wide tabular-nums">
                       {item.year}
                     </span>
+                    {isOngoing && (
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                        Ongoing
+                      </span>
+                    )}
                   </div>
-                  <h4 className="font-bold text-zinc-900 dark:text-white mb-1">{item.title}</h4>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-400">{item.description}</p>
+                  <h4 className="font-bold text-zinc-900 dark:text-white mb-1 transition-colors group-hover:text-zinc-600 dark:group-hover:text-zinc-300">
+                    {item.title}
+                  </h4>
+                  <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                    {item.description}
+                  </p>
                 </div>
-              </div>
-            </motion.div>
-          ))}
+              </motion.div>
+            );
+          })}
         </div>
       </motion.div>
       <Footer />
