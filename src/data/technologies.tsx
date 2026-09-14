@@ -31,7 +31,7 @@ export const TECHNOLOGIES = [
   },
   {
     name: "Databases",
-    technologies: ["Firebase", "mySQL", "MangoDB", "ElasticSearch", "Redis", "SQLite"],
+    technologies: ["Firebase", "mySQL", "MangoDB", "ElasticSearch", "Redis", "SQLite", "Kafka"],
   },
   {
     name: "CI/CD",

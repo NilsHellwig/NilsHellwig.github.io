@@ -171,6 +171,61 @@ const SectionDivider: React.FC<{ number: string; title: string; subtitle: string
   </div>
 );
 
+/* A small "tab title" for a sub-group within a section: icon + label,
+   understated, no box around it. */
+const GroupLabel: React.FC<{ icon: React.ComponentType<any>; title: string }> = ({
+  icon: Icon,
+  title,
+}) => (
+  <motion.div variants={itemVariants} className="flex items-center gap-2 mb-4 mt-10">
+    <Icon size={18} className="text-zinc-400 dark:text-zinc-500" weight="bold" />
+    <h3 className="font-semibold text-sm uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+      {title}
+    </h3>
+  </motion.div>
+);
+
+/* Pill with a small icon bubble, used for languages / editors / OS / tools. */
+const IconChip: React.FC<{
+  iconPath?: string;
+  icon?: React.ComponentType<any>;
+  name: string;
+  invert?: boolean;
+  favorite?: boolean;
+}> = ({ iconPath, icon: Icon, name, invert, favorite }) => (
+  <motion.div
+    variants={itemVariants}
+    whileHover={{ y: -2 }}
+    className="inline-flex items-center gap-2 pl-1.5 pr-3.5 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-500 transition-colors duration-150"
+  >
+    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-zinc-50 dark:bg-zinc-900 flex-shrink-0 overflow-hidden">
+      {iconPath && (
+        <img
+          src={iconPath}
+          alt=""
+          className={`w-3.5 h-3.5 object-contain ${invert ? "dark:invert" : ""}`}
+        />
+      )}
+      {Icon && <Icon size={13} weight="bold" className="text-zinc-700 dark:text-zinc-300" />}
+    </span>
+    <span className="text-xs font-medium text-zinc-700 dark:text-zinc-300 whitespace-nowrap">
+      {name}
+    </span>
+    {favorite && <Heart size={10} weight="fill" className="text-red-500 flex-shrink-0" />}
+  </motion.div>
+);
+
+/* Plain text pill, used for the longer technology lists. */
+const TextChip: React.FC<{ name: string }> = ({ name }) => (
+  <motion.span
+    variants={itemVariants}
+    whileHover={{ y: -2 }}
+    className="inline-flex items-center px-3 py-1.5 rounded-full border-[0.5px] border-zinc-200 dark:border-zinc-600 bg-zinc-100 dark:bg-zinc-700 text-xs font-medium text-zinc-600 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-500 transition-colors duration-150"
+  >
+    {name}
+  </motion.span>
+);
+
 const Skills: React.FC = () => {
   return (
     <div className="pb-8">
@@ -189,51 +244,54 @@ const Skills: React.FC = () => {
           />
         </motion.div>
 
-        {/* Category cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+        {/* Category rows */}
+        <div className="mt-2 divide-y divide-zinc-200 dark:divide-zinc-800">
           {AI_CATEGORIES.map((category, idx) => (
             <motion.div
               key={idx}
               variants={itemVariants}
-              className="border-[0.5px] border-zinc-300 dark:border-zinc-700 rounded-xl p-5 bg-white dark:bg-zinc-800 hover:shadow-md dark:hover:shadow-zinc-900/50 transition-all duration-150"
+              className="py-6 flex flex-col sm:flex-row gap-4 sm:gap-8"
             >
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-11 h-11 rounded-xl border-[0.5px] border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center flex-shrink-0">
+              <div className="flex items-start gap-3 sm:w-64 flex-shrink-0">
+                <div className="w-9 h-9 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center flex-shrink-0">
                   <category.icon
-                    size={20}
+                    size={17}
                     weight="bold"
                     className="text-zinc-700 dark:text-zinc-300"
                   />
                 </div>
-                <div className="flex-1 min-w-0">
-                  <h4 className="font-bold text-zinc-900 dark:text-white">{category.title}</h4>
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                    {category.description}
-                  </p>
+                <div className="min-w-0">
+                  <h4 className="font-bold text-zinc-900 dark:text-white text-sm">
+                    {category.title}
+                  </h4>
+                  {category.description && (
+                    <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                      {category.description}
+                    </p>
+                  )}
                 </div>
               </div>
 
-              <ul className="space-y-2">
+              <ul className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5">
                 {category.skills.map((skill, sIdx) => (
                   <li key={sIdx} className="flex items-start gap-2.5">
                     <span className="block w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600 mt-[7px] flex-shrink-0" />
-                    <span className="text-sm leading-relaxed">
-                      <span className="font-semibold text-zinc-800 dark:text-zinc-200">
+                    <div className="min-w-0">
+                      <span className="block text-sm font-semibold text-zinc-800 dark:text-zinc-200 leading-relaxed">
                         {skill.name}
                       </span>
                       {skill.note && (
-                        <span className="text-zinc-500 dark:text-zinc-400 font-normal">
-                          {" — "}
+                        <span className="block text-xs text-zinc-500 dark:text-zinc-400 leading-snug mt-0.5">
                           {skill.note}
                         </span>
                       )}
-                    </span>
+                    </div>
                   </li>
                 ))}
               </ul>
 
               {category.patterns && (
-                <div className="mt-4 pt-4 border-t border-dashed border-zinc-200 dark:border-zinc-700">
+                <div className="sm:w-56 flex-shrink-0">
                   <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-500 mb-1.5">
                     Agent Patterns
                   </p>
@@ -263,137 +321,58 @@ const Skills: React.FC = () => {
         </motion.div>
 
         {/* Programming languages */}
-        <motion.div variants={itemVariants} className="flex items-center gap-2 mb-4 mt-6">
-          <Code size={24} className="text-zinc-700 dark:text-zinc-300" weight="bold" />
-          <h3 className="font-bold text-xl dark:text-white">Programming Languages</h3>
-        </motion.div>
-        <div className="grid grid-cols-2 vsm:grid-cols-3 sm:grid-cols-4 gap-4">
+        <GroupLabel icon={Code} title="Programming Languages" />
+        <motion.div variants={containerVariants} className="flex flex-wrap gap-2">
           {PROGRAMMING_LANGUAGES.map((language, index) => (
-            <motion.div
+            <IconChip
               key={index}
-              className="relative border-[0.5px] border-zinc-300 dark:border-zinc-700 rounded-xl flex items-center justify-center p-4 flex-col gap-3 bg-white dark:bg-zinc-800 hover:shadow-md dark:hover:shadow-zinc-900/50 transition-all duration-150"
-              variants={itemVariants}
-              whileHover={{ y: -4 }}
-            >
-              {language.favorite && (
-                <div className="absolute top-2 right-2 flex items-center justify-center w-5 h-5 rounded-full bg-red-50 dark:bg-red-900/25">
-                  <Heart size={10} weight="fill" className="text-red-500" />
-                </div>
-              )}
-              <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-900 p-2.5 border-[0.5px] border-zinc-300 dark:border-zinc-700">
-                {language.iconPath && <img src={language.iconPath} alt={`${language.name} icon`} />}
-              </div>
-              <span className="font-medium text-xs text-zinc-700 dark:text-zinc-300 text-center">
-                {language.name}
-              </span>
-            </motion.div>
+              iconPath={language.iconPath}
+              name={language.name}
+              favorite={language.favorite}
+            />
           ))}
-        </div>
+        </motion.div>
 
         {/* Vibe coding */}
-        <motion.div variants={itemVariants} className="flex items-center gap-2 mb-3 mt-8">
-          <Sparkle size={24} className="text-zinc-700 dark:text-zinc-300" weight="bold" />
-          <h3 className="font-bold text-xl dark:text-white">Vibe Coding</h3>
-        </motion.div>
+        <GroupLabel icon={Sparkle} title="Vibe Coding" />
         <motion.p
           variants={itemVariants}
-          className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4"
+          className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4 max-w-2xl"
         >
           Especially Claude Code is a core part of my daily development workflow. Of course, I also
           use custom rules, skills, and hooks to establish consistent behavior across sessions
         </motion.p>
-        <motion.div variants={containerVariants} className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <motion.div variants={containerVariants} className="flex flex-wrap gap-2">
           {VIBE_CODING.map((tool, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="border-[0.5px] border-zinc-300 dark:border-zinc-700 rounded-xl p-5 bg-white dark:bg-zinc-800 hover:shadow-md dark:hover:shadow-zinc-900/50 transition-all duration-150"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-xl border-[0.5px] border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center flex-shrink-0">
-                  <tool.icon size={26} weight="bold" className="text-zinc-700 dark:text-zinc-300" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <span className="font-bold text-zinc-900 dark:text-white block">{tool.name}</span>
-                </div>
-              </div>
-            </motion.div>
+            <IconChip key={index} icon={tool.icon} name={tool.name} />
           ))}
         </motion.div>
 
         {/* Editors / IDEs */}
-        <motion.div variants={itemVariants} className="flex items-center gap-2 mb-4 mt-8">
-          <Desktop size={24} className="text-zinc-700 dark:text-zinc-300" weight="bold" />
-          <h3 className="font-bold text-xl dark:text-white">Editors / IDEs</h3>
-        </motion.div>
-        <div className="grid grid-cols-2 vsm:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
+        <GroupLabel icon={Desktop} title="Editors / IDEs" />
+        <motion.div variants={containerVariants} className="flex flex-wrap gap-2">
           {IDES.map((ide, index) => (
-            <motion.div
-              key={index}
-              className="border-[0.5px] border-zinc-300 dark:border-zinc-700 rounded-xl flex items-center justify-center p-4 flex-col gap-3 bg-white dark:bg-zinc-800 hover:shadow-md dark:hover:shadow-zinc-900/50 transition-all duration-150"
-              variants={itemVariants}
-              whileHover={{ y: -4 }}
-            >
-              <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-900 p-2.5 border-[0.5px] border-zinc-300 dark:border-zinc-700">
-                {ide.iconPath && (
-                  <img src={ide.iconPath} alt={`${ide.name} icon`} className="dark:invert" />
-                )}
-              </div>
-              <span className="font-medium text-xs text-zinc-700 dark:text-zinc-300 text-center">
-                {ide.name}
-              </span>
-            </motion.div>
+            <IconChip key={index} iconPath={ide.iconPath} name={ide.name} invert />
           ))}
-        </div>
+        </motion.div>
 
         {/* Operating systems */}
-        <motion.div variants={itemVariants} className="flex items-center gap-2 mb-4 mt-8">
-          <Laptop size={24} className="text-zinc-700 dark:text-zinc-300" weight="bold" />
-          <h3 className="font-bold text-xl dark:text-white">Operating Systems</h3>
-        </motion.div>
-        <div className="grid grid-cols-2 vsm:grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-4">
+        <GroupLabel icon={Laptop} title="Operating Systems" />
+        <motion.div variants={containerVariants} className="flex flex-wrap gap-2">
           {OPERATING_SYSTEMS.map((os, index) => (
-            <motion.div
-              key={index}
-              className="border-[0.5px] border-zinc-300 dark:border-zinc-700 rounded-xl flex items-center justify-center p-4 flex-col gap-3 bg-white dark:bg-zinc-800 hover:shadow-md dark:hover:shadow-zinc-900/50 transition-all duration-150"
-              variants={itemVariants}
-              whileHover={{ y: -4 }}
-            >
-              <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-900 p-2.5 border-[0.5px] border-zinc-300 dark:border-zinc-700">
-                {os.iconPath && (
-                  <img src={os.iconPath} alt={`${os.name} icon`} className="dark:invert" />
-                )}
-              </div>
-              <span className="font-medium text-xs text-zinc-700 dark:text-zinc-300 text-center">
-                {os.name}
-              </span>
-            </motion.div>
+            <IconChip key={index} iconPath={os.iconPath} name={os.name} invert />
           ))}
-        </div>
+        </motion.div>
 
         {/* Technologies */}
         {TECHNOLOGIES.map((category, idx_cat) => (
           <div key={idx_cat}>
-            <motion.div variants={itemVariants} className="flex items-center gap-2 mb-4 mt-8">
-              <Package size={24} className="text-zinc-700 dark:text-zinc-300" weight="bold" />
-              <h3 className="font-bold text-xl dark:text-white">{category.name}</h3>
-            </motion.div>
-            <div className="grid grid-cols-1 vsm:grid-cols-2 md:grid-cols-3 gap-3">
+            <GroupLabel icon={Package} title={category.name} />
+            <motion.div variants={containerVariants} className="flex flex-wrap gap-2">
               {category.technologies.map((name, index) => (
-                <motion.div
-                  key={index}
-                  className="group relative overflow-hidden border-[0.5px] border-zinc-300 dark:border-zinc-700 p-4 rounded-xl text-sm font-semibold text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 hover:shadow-md dark:hover:shadow-zinc-900/50 transition-all duration-150 cursor-default"
-                  variants={itemVariants}
-                  whileHover={{ y: -2 }}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-zinc-50/50 to-transparent dark:from-zinc-700/20 dark:to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-150" />
-                  <div className="relative flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600 group-hover:bg-zinc-700 dark:group-hover:bg-zinc-300 transition-colors duration-150" />
-                    <span>{name}</span>
-                  </div>
-                </motion.div>
+                <TextChip key={index} name={name} />
               ))}
-            </div>
+            </motion.div>
           </div>
         ))}
       </motion.section>
@@ -415,28 +394,24 @@ const Skills: React.FC = () => {
 
         <motion.p
           variants={itemVariants}
-          className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mt-6 mb-4 max-w-3xl"
+          className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mt-6 mb-2 max-w-3xl"
         >
           Beyond the tools, what matters most to me is clear communication :)
         </motion.p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="divide-y divide-zinc-200 dark:divide-zinc-800">
           {PROJECT_MANAGEMENT.map((item, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="border-[0.5px] border-zinc-300 dark:border-zinc-700 rounded-xl p-5 bg-white dark:bg-zinc-800 hover:shadow-md dark:hover:shadow-zinc-900/50 transition-all duration-150"
-            >
-              <div className="flex items-start gap-4">
-                <div className="w-12 h-12 rounded-xl border-[0.5px] border-zinc-300 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center flex-shrink-0">
-                  <item.icon size={24} weight="bold" className="text-zinc-700 dark:text-zinc-300" />
-                </div>
-                <div className="flex-1 min-w-0">
-                  <span className="font-bold text-zinc-900 dark:text-white block">{item.name}</span>
-                  <p className="text-sm text-zinc-600 dark:text-zinc-300 mt-1 leading-relaxed">
-                    {item.description}
-                  </p>
-                </div>
+            <motion.div key={index} variants={itemVariants} className="py-5 flex items-start gap-4">
+              <div className="w-9 h-9 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center flex-shrink-0">
+                <item.icon size={17} weight="bold" className="text-zinc-700 dark:text-zinc-300" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <span className="font-bold text-zinc-900 dark:text-white text-sm block">
+                  {item.name}
+                </span>
+                <p className="text-sm text-zinc-600 dark:text-zinc-300 mt-0.5 leading-relaxed">
+                  {item.description}
+                </p>
               </div>
             </motion.div>
           ))}

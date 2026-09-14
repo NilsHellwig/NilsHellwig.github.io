@@ -504,9 +504,9 @@ export const PROJECTS: Project[] = [
   {
     id: "portfolio",
     title: "portfolio",
-    subtitle: "Nils' porfolio from June 2024",
+    subtitle: "This website, redesigned since June 2024",
     description:
-      "I aimed to create a unique portfolio to present my projects, skills, publications, and courses. The design was developed entirely from scratch, without using any pre-made templates.",
+      "I aimed to create a unique portfolio to present my projects, skills, publications, and courses. The design was developed entirely from scratch, without using any pre-made templates, and has been continuously reworked since the initial June 2024 version, most recently with a redesigned Skills page and an AI-heavy overhaul of the Projects section.",
     type: "Website",
     category: "Web Development",
     programmingLanguages: ["TypeScript"],

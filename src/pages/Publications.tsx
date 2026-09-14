@@ -103,8 +103,8 @@ const Publications: React.FC = () => {
           </h2>
         </div>
         <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1.5">
-          Research in NLP, Computational Linguistics, and Sentiment Analysis. Code and data for
-          each publication are publicly available on GitHub and referenced in the respective papers.
+          Research in NLP, Computational Linguistics, and Sentiment Analysis. Code and data for each
+          publication are publicly available on GitHub and referenced in the respective papers.
         </p>
       </motion.div>
 
@@ -191,7 +191,7 @@ const Publications: React.FC = () => {
                     {publication.authors}
                   </p>
 
-                  {/* Footer buttons — pinned to bottom */}
+                  {/* Footer buttons, pinned to bottom */}
                   <div className="flex items-center gap-2 mt-auto pt-4 border-t border-zinc-100 dark:border-zinc-700">
                     <a
                       href={publication.url}
