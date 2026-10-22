@@ -1,6 +1,7 @@
 export const OPERATING_SYSTEMS = [
   {
     name: "macOS",
+    favorite: true,
     iconPath: require("../img/icons/operating-systems/mac-os.svg").default,
   },
   {
@@ -9,6 +10,7 @@ export const OPERATING_SYSTEMS = [
   },
   {
     name: "Linux",
+    favorite: true,
     iconPath: require("../img/icons/operating-systems/linux.svg").default,
   },
 ];

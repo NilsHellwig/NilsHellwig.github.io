@@ -48,7 +48,7 @@ const Home: React.FC = () => {
           className="text-xl md:text-2xl text-zinc-600 dark:text-zinc-400 font-light leading-relaxed"
         >
           I'm an <strong>NLP Researcher</strong> at the University of Regensburg working on
-          <strong> Structured Sentiment Analysis and Agents</strong>. Welcome to my portfolio!
+          <strong> Structured Learning and Agents</strong>. Welcome to my portfolio!
         </motion.h2>
       </div>
 

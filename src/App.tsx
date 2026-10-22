@@ -7,7 +7,6 @@ import Blog from "./pages/Blog";
 import Lectures from "./pages/Lectures";
 import Projects from "./pages/Projects";
 import Publications from "./pages/Publications";
-import Skills from "./pages/Skills";
 
 // Components
 import NavBar from "./components/Navbar";
@@ -65,14 +64,6 @@ const App: React.FC = () => {
             element={
               <StandardUI transparentBackground={false}>
                 <Publications />
-              </StandardUI>
-            }
-          />
-          <Route
-            path="skills"
-            element={
-              <StandardUI transparentBackground={false}>
-                <Skills />
               </StandardUI>
             }
           />

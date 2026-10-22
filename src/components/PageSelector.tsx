@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { House, User, Code, Briefcase, BookOpen, Chalkboard, Article } from "phosphor-react";
+import { House, User, Briefcase, BookOpen, Chalkboard, Article } from "phosphor-react";
 
 const iconVariants = {
   hover: {
@@ -27,7 +27,6 @@ const PageSelector: React.FC<PageSelectorProps> = ({ mobileMenuOpen, setMobileMe
   const navigationItems = [
     { path: "/", label: "Home", icon: House },
     { path: "/about", label: "About", icon: User },
-    { path: "/skills", label: "Skills", icon: Code },
     { path: "/projects", label: "Projects", icon: Briefcase },
     { path: "/publications", label: "Publications", icon: BookOpen },
     { path: "/lectures", label: "Lectures", icon: Chalkboard },

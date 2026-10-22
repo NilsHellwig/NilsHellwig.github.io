@@ -15,16 +15,14 @@ import {
   GitPullRequest,
   GitBranch,
   Kanban,
-  ListChecks,
   Heart,
 } from "phosphor-react";
 import { PROGRAMMING_LANGUAGES } from "../data/programming-languages";
 import { IDES } from "../data/ides";
 import { OPERATING_SYSTEMS } from "../data/operating-systems";
 import { TECHNOLOGIES } from "../data/technologies";
-import Footer from "../components/Footer";
 
-type Skill = { name: string; note?: string };
+type Skill = { name: string; note?: React.ReactNode; favorite?: boolean };
 type AICategory = {
   icon: React.ComponentType<any>;
   title: string;
@@ -35,16 +33,6 @@ type AICategory = {
 
 const AI_CATEGORIES: AICategory[] = [
   {
-    icon: Sparkle,
-    title: "Context Engineering & Prompting",
-    description: "",
-    skills: [
-      { name: "Prompting Techniques", note: "From basic formatting to advanced strategies" },
-      { name: "Structured Outputs", note: "Pydantic, XGrammar / Context-free grammars" },
-      { name: "Function Calling / Tool Use / MCP Server" },
-    ],
-  },
-  {
     icon: Robot,
     title: "Agents & Workflows",
     skills: [
@@ -53,13 +41,21 @@ const AI_CATEGORIES: AICategory[] = [
         note: "e.g. Standard/Agentic RAG, GraphRAG, HyDE, ReAct, Advanced Chunking & Reranking",
       },
       {
-        name: "Multi-Agent Systems & Frameworks",
-        note: "LangChain (LangGraph, LangSmith), LlamaIndex",
+        name: "Agent Frameworks",
+        note: (
+          <>
+            PydanticAI{" "}
+            <Heart size={10} weight="fill" className="inline text-red-500 align-baseline" />,
+            LangChain (LangGraph, LangSmith), LlamaIndex
+          </>
+        ),
       },
       {
         name: "Orchestration & Governance",
         note: "State Management, Human-in-the-Loop (HITL) Workflows, Tool Calling & Function Binding",
       },
+      { name: "Structured Outputs", note: "Pydantic, XGrammar / Context-free grammars" },
+      { name: "MCP" },
       { name: "Langfuse" },
     ],
   },
@@ -67,10 +63,13 @@ const AI_CATEGORIES: AICategory[] = [
     icon: Lightning,
     title: "Inference, Serving & Optimization",
     skills: [
-      { name: "vLLM", note: "My preferred engine due to Prefix Caching & PagedAttention <3" },
+      {
+        name: "vLLM",
+        favorite: true,
+        note: "My preferred engine due to Prefix Caching & PagedAttention",
+      },
       { name: "Ollama" },
-      { name: "Inference Optimization", note: "e.g. Quantization, TurboQuant, MTP Drafter" },
-      { name: "unsloth", note: "LoRA/QLoRA, SFT, DPO & GRPO" },
+      { name: "unsloth (Fine-tuning)", favorite: true, note: "LoRA/QLoRA, SFT, DPO & GRPO" },
     ],
   },
   {
@@ -81,7 +80,6 @@ const AI_CATEGORIES: AICategory[] = [
       { name: "Google Cloud Run" },
       { name: "Google Kubernetes Engine (GKE)" },
       { name: "Docker" },
-      { name: "FastAPI" },
     ],
   },
   {
@@ -119,17 +117,12 @@ const PROJECT_MANAGEMENT: {
   {
     icon: Kanban,
     name: "Scrum & Agile",
-    description: "Most important: Stand-ups and well-written issues.",
-  },
-  {
-    icon: ListChecks,
-    name: "Jira & Confluence",
-    description: "Issue tracking and documentation across the Atlassian suite.",
+    description: "Most important: Stand-ups.",
   },
   {
     icon: GitBranch,
     name: "Git Workflows",
-    description: "Clean branching and a readable commit history.",
+    description: "Clean branching, a readable commit history, and issue tracking with GitHub.",
   },
 ];
 
@@ -216,19 +209,24 @@ const IconChip: React.FC<{
 );
 
 /* Plain text pill, used for the longer technology lists. */
-const TextChip: React.FC<{ name: string }> = ({ name }) => (
+const TextChip: React.FC<{ name: string; favorite?: boolean }> = ({ name, favorite }) => (
   <motion.span
     variants={itemVariants}
     whileHover={{ y: -2 }}
     className="inline-flex items-center px-3 py-1.5 rounded-full border-[0.5px] border-zinc-200 dark:border-zinc-600 bg-zinc-100 dark:bg-zinc-700 text-xs font-medium text-zinc-600 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-500 transition-colors duration-150"
   >
     {name}
+    {favorite && <Heart size={10} weight="fill" className="text-red-500 ml-1.5 flex-shrink-0" />}
   </motion.span>
 );
 
 const Skills: React.FC = () => {
   return (
-    <div className="pb-8">
+    <div className="mt-14">
+      <h3 className="text-3xl md:text-4xl font-black text-zinc-900 dark:text-white leading-tight">
+        Skills
+      </h3>
+
       {/* ============================ 01 · AI & NLP ENGINEERING ============================ */}
       <motion.section
         className="mt-10"
@@ -240,7 +238,7 @@ const Skills: React.FC = () => {
           <SectionDivider
             number="01"
             title="AI & NLP Engineering"
-            subtitle="I gained 5+ years of experience in Natural Language Processing (NLP) in the research domain, including collaborations with external companies."
+            subtitle="I gained many years of experience in Natural Language Processing (NLP) in the research domain, including company-funded projects."
           />
         </motion.div>
 
@@ -277,8 +275,11 @@ const Skills: React.FC = () => {
                   <li key={sIdx} className="flex items-start gap-2.5">
                     <span className="block w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600 mt-[7px] flex-shrink-0" />
                     <div className="min-w-0">
-                      <span className="block text-sm font-semibold text-zinc-800 dark:text-zinc-200 leading-relaxed">
+                      <span className="flex items-center gap-1.5 text-sm font-semibold text-zinc-800 dark:text-zinc-200 leading-relaxed">
                         {skill.name}
+                        {skill.favorite && (
+                          <Heart size={10} weight="fill" className="text-red-500 flex-shrink-0" />
+                        )}
                       </span>
                       {skill.note && (
                         <span className="block text-xs text-zinc-500 dark:text-zinc-400 leading-snug mt-0.5">
@@ -340,7 +341,7 @@ const Skills: React.FC = () => {
           className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-4 max-w-2xl"
         >
           Especially Claude Code is a core part of my daily development workflow. Of course, I also
-          use custom rules, skills, and hooks to establish consistent behavior across sessions
+          use custom rules, skills, hooks, slash commands, subagents, and MCP servers.
         </motion.p>
         <motion.div variants={containerVariants} className="flex flex-wrap gap-2">
           {VIBE_CODING.map((tool, index) => (
@@ -360,7 +361,13 @@ const Skills: React.FC = () => {
         <GroupLabel icon={Laptop} title="Operating Systems" />
         <motion.div variants={containerVariants} className="flex flex-wrap gap-2">
           {OPERATING_SYSTEMS.map((os, index) => (
-            <IconChip key={index} iconPath={os.iconPath} name={os.name} invert />
+            <IconChip
+              key={index}
+              iconPath={os.iconPath}
+              name={os.name}
+              favorite={os.favorite}
+              invert
+            />
           ))}
         </motion.div>
 
@@ -369,9 +376,13 @@ const Skills: React.FC = () => {
           <div key={idx_cat}>
             <GroupLabel icon={Package} title={category.name} />
             <motion.div variants={containerVariants} className="flex flex-wrap gap-2">
-              {category.technologies.map((name, index) => (
-                <TextChip key={index} name={name} />
-              ))}
+              {category.technologies.map((tech, index) =>
+                typeof tech === "string" ? (
+                  <TextChip key={index} name={tech} />
+                ) : (
+                  <TextChip key={index} name={tech.name} favorite={tech.favorite} />
+                )
+              )}
             </motion.div>
           </div>
         ))}
@@ -417,8 +428,6 @@ const Skills: React.FC = () => {
           ))}
         </div>
       </motion.section>
-
-      <Footer />
     </div>
   );
 };

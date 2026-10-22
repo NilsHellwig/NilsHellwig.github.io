@@ -9,7 +9,7 @@ export const PUBLICATIONS = [
     url: "https://aclanthology.org/2026.semeval-1.6/",
     pdfUrl: "https://aclanthology.org/2026.semeval-1.6.pdf",
     tooltipUrl: "aclanthology.org",
-    award: "2nd Place",
+    award: "2nd Place in 3 of 4 english subsets",
   },
   {
     name: "schmerle at SemEval-2026 Task 4: Exploring Large Language Model Prompting Strategies for Low-Resource Narrative Similarity Detection",

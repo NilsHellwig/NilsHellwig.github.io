@@ -1,25 +1,23 @@
-export const TECHNOLOGIES = [
+export type Technology = string | { name: string; favorite?: boolean };
+
+export const TECHNOLOGIES: { name: string; technologies: Technology[] }[] = [
   {
     name: "Web Technologies (Frontend)",
     technologies: [
+      { name: "React (+Next.js)", favorite: true },
       "HTML",
       "CSS",
       "Tailwind",
       "shadCN",
       "JavaScript",
       "jQuery",
-      "React (+Next.js)",
       "Vue.js (+Nuxt.js)",
       "Angular",
     ],
   },
   {
     name: "Web Technologies (Backend)",
-    technologies: ["Node.js", "Django", "FastAPI", "socket.io"],
-  },
-  {
-    name: "App Development",
-    technologies: ["React Native (Expo)", "Native Android development", "Framework7"],
+    technologies: [{ name: "FastAPI", favorite: true }, "Node.js", "Django", "socket.io"],
   },
   {
     name: "Data Analysis",
@@ -35,7 +33,7 @@ export const TECHNOLOGIES = [
   },
   {
     name: "CI/CD",
-    technologies: ["GitHub Actions", "GitLab CI/CD", "Docker", "nginx", "Vercel"],
+    technologies: ["GitHub CI/CD", "GitLab CI/CD", "Docker", "nginx", "Vercel"],
   },
   {
     name: "Testing",
