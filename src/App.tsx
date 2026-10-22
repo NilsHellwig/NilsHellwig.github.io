@@ -94,7 +94,7 @@ const StandardUI: React.FC<{ children: ReactNode; transparentBackground: boolean
 
   return (
     <div
-      className={`page-outer min-h-screen flex flex-col ${transparentBackground ? "gradient-bg" : "bg-zinc-50 dark:bg-zinc-900"}`}
+      className={`page-outer min-h-screen flex flex-col ${transparentBackground ? "" : "bg-zinc-50 dark:bg-zinc-900"}`}
       style={{ fontFamily: "Inter" }}
     >
       <div className="flex-1 flex flex-col">

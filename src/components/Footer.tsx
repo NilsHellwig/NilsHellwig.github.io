@@ -13,6 +13,8 @@ import {
   User,
   Heart,
   Code,
+  Chalkboard,
+  Article,
 } from "@phosphor-icons/react";
 
 const Footer: React.FC = () => {
@@ -53,7 +55,8 @@ const Footer: React.FC = () => {
     { to: "/about", icon: User, label: "About" },
     { to: "/projects", icon: Briefcase, label: "Projects" },
     { to: "/publications", icon: BookOpen, label: "Publications" },
-    { to: "/blog", icon: BookOpen, label: "Blog" },
+    { to: "/lectures", icon: Chalkboard, label: "Lectures" },
+    { to: "/blog", icon: Article, label: "Blog" },
   ];
 
   return (
