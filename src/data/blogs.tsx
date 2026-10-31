@@ -1,4 +1,13 @@
-export const BLOGS = [
+export interface BlogType {
+  id: string;
+  url: string;
+  category: string;
+  author: string;
+  term: string;
+  title: string;
+}
+
+export const BLOGS: BlogType[] = [
   {
     id: "3",
     url: "lrec2026",
@@ -6,8 +15,6 @@ export const BLOGS = [
     author: "Nils Hellwig",
     term: "20/05/2026",
     title: "LREC 2026: Three Papers in Palma",
-    textColor: "#fefce8",
-    bgColor: "#134e4a",
   },
   {
     id: "2",
@@ -16,8 +23,6 @@ export const BLOGS = [
     author: "Nils Hellwig",
     term: "17/04/2026",
     title: "Beyond Prompting: Advanced Techniques for Efficient LLM Inference",
-    textColor: "#fefce8",
-    bgColor: "#134e4a",
   },
   {
     id: "1",
@@ -26,8 +31,6 @@ export const BLOGS = [
     author: "Nils Hellwig",
     term: "01/07/2025",
     title: "ACL 2025: My Journey to Vienna",
-    textColor: "#fefce8",
-    bgColor: "#134e4a",
   },
   {
     id: "0",
@@ -37,12 +40,10 @@ export const BLOGS = [
     term: "12/06/2024",
     title:
       "Master Thesis: Data Augmentation with Large Language Models for Aspect-Based Sentiment Analysis in Low-Resource Scenarios",
-    textColor: "#fefce8",
-    bgColor: "#134e4a",
   },
 ];
 
-export const convertMonth = {
+export const convertMonth: Record<number, string> = {
   1: "January",
   2: "February",
   3: "March",
@@ -55,4 +56,10 @@ export const convertMonth = {
   10: "October",
   11: "November",
   12: "December",
+};
+
+// Blog terms are stored as "DD/MM/YYYY".
+export const formatBlogDate = (term: string) => {
+  const [day, month, year] = term.split("/");
+  return `${convertMonth[parseInt(month)]} ${parseInt(day)}, ${year}`;
 };

@@ -2,6 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import { GraduationCap, Code, MapPin } from "phosphor-react";
 import Footer from "../components/Footer";
+import PageHeader from "../components/PageHeader";
 import Skills from "../components/Skills";
 
 const About: React.FC = () => {
@@ -48,8 +49,7 @@ const About: React.FC = () => {
     {
       year: "2022-2024",
       title: "Master of Science (1.0)",
-      description:
-        "Media Computer Science at University of Regensburg.",
+      description: "Media Computer Science at University of Regensburg.",
     },
     {
       year: "2022-now",
@@ -76,14 +76,12 @@ const About: React.FC = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-          <div>
-            <h2 className="text-3xl font-bold dark:text-white mb-2">About Me</h2>
-            <p className="text-zinc-500 dark:text-zinc-400 text-sm">
-              PhD Candidate in NLP & Software Engineer
-            </p>
-          </div>
-        </div>
+        <PageHeader
+          number="01"
+          title="About Me"
+          subtitle="PhD Candidate in NLP & Software Engineer"
+          className="mt-10"
+        />
       </motion.div>
 
       {/* Quick Info */}
@@ -139,86 +137,83 @@ const About: React.FC = () => {
             </h3>
 
             <div className="text-zinc-600 dark:text-zinc-300 flex flex-col gap-5 text-sm md:text-base leading-relaxed font-normal">
-                <p>
-                  I'm a {currentAge}-year-old PhD candidate at the{" "}
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                    University of Regensburg
-                  </span>
-                  , Germany. Currently, I'm pursuing my doctoral degree at the{" "}
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                    Faculty of Informatics and Data Science
-                  </span>
-                  , specializing in{" "}
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                    Natural Language Processing
-                  </span>{" "}
-                  and{" "}
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                    Computational Linguistics
-                  </span>
-                  .
-                </p>
-                <p>
-                  My research focuses on advancing LLM-based approaches to tackle{" "}
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                    aspect-based sentiment analysis
-                  </span>{" "}
-                  in low-resource scenarios. I've published my work in high-impact journals such as{" "}
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                    Knowledge-Based Systems
-                  </span>{" "}
-                  and{" "}
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                    Expert Systems with Applications
-                  </span>
-                  , as well as conferences like{" "}
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100">LREC</span> and{" "}
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100">KONVENS</span>.
-                </p>
-                <p>
-                  I have expertise in {" "}
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100">LLM efficiency</span>
-                  ,{" "}
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                    structured learning
-                  </span>
-                  , and {" "}
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                    agentic systems
-                  </span>
-                  . Beyond my academic work, I'm a passionate{" "}
-                  <span className="font-bold text-zinc-900 dark:text-zinc-100">
-                    Software Engineer
-                  </span>{" "}
-                  dedicated to building full-stack, user-friendly applications.
-                </p>
-              </div>
-            </motion.div>
+              <p>
+                I'm a {currentAge}-year-old PhD candidate at the{" "}
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">
+                  University of Regensburg
+                </span>
+                , Germany. Currently, I'm pursuing my doctoral degree at the{" "}
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">
+                  Faculty of Informatics and Data Science
+                </span>
+                , specializing in{" "}
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">
+                  Natural Language Processing
+                </span>{" "}
+                and{" "}
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">
+                  Computational Linguistics
+                </span>
+                .
+              </p>
+              <p>
+                My research focuses on advancing LLM-based approaches to tackle{" "}
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">
+                  aspect-based sentiment analysis
+                </span>{" "}
+                in low-resource scenarios. I've published my work in high-impact journals such as{" "}
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">
+                  Knowledge-Based Systems
+                </span>{" "}
+                and{" "}
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">
+                  Expert Systems with Applications
+                </span>
+                , as well as conferences like{" "}
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">LREC</span> and{" "}
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">KONVENS</span>.
+              </p>
+              <p>
+                I have expertise in{" "}
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">LLM efficiency</span>,{" "}
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">
+                  structured learning
+                </span>
+                , and{" "}
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">agentic systems</span>.
+                Beyond my academic work, I'm a passionate{" "}
+                <span className="font-bold text-zinc-900 dark:text-zinc-100">
+                  Software Engineer
+                </span>{" "}
+                dedicated to building full-stack, user-friendly applications.
+              </p>
+            </div>
+          </motion.div>
 
-            <div className="w-64 md:w-72 flex-shrink-0 order-1 md:order-2">
-              <div className="relative">
-                {/* Soft grayscale glow behind the portrait */}
-                <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-zinc-300/40 via-zinc-200/20 to-transparent dark:from-zinc-100/10 dark:via-zinc-400/5 dark:to-transparent blur-2xl -z-10" />
+          <div className="w-64 md:w-72 flex-shrink-0 order-1 md:order-2">
+            <div className="relative">
+              {/* Soft grayscale glow behind the portrait */}
+              <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-zinc-300/40 via-zinc-200/20 to-transparent dark:from-zinc-100/10 dark:via-zinc-400/5 dark:to-transparent blur-2xl -z-10" />
 
-                <motion.div
-                  className="relative group bg-white dark:bg-zinc-800 rounded-2xl"
-                  whileHover={{ rotate: -1, scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 250, damping: 15 }}
-                >
-                  <img
-                    src="portrait.png"
-                    alt="Nils Hellwig"
-                    className="block dark:hidden rounded-xl object-cover w-full aspect-[4/5] transition-all duration-700 ease-in-out border border-zinc-200 dark:border-zinc-700"
-                  />
-                  <img
-                    src="portrait-dark.png"
-                    alt="Nils Hellwig"
-                    className="hidden dark:block rounded-xl object-cover w-full aspect-[4/5] transition-all duration-700 ease-in-out border border-zinc-200 dark:border-zinc-700"
-                  />
-                </motion.div>
-              </div>
+              <motion.div
+                className="relative group bg-white dark:bg-zinc-800 rounded-2xl"
+                whileHover={{ rotate: -1, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 250, damping: 15 }}
+              >
+                <img
+                  src="portrait.png"
+                  alt="Nils Hellwig"
+                  className="block dark:hidden rounded-xl object-cover w-full aspect-[4/5] transition-all duration-700 ease-in-out border border-zinc-200 dark:border-zinc-700"
+                />
+                <img
+                  src="portrait-dark.png"
+                  alt="Nils Hellwig"
+                  className="hidden dark:block rounded-xl object-cover w-full aspect-[4/5] transition-all duration-700 ease-in-out border border-zinc-200 dark:border-zinc-700"
+                />
+              </motion.div>
             </div>
           </div>
+        </div>
       </motion.div>
 
       {/* Timeline */}
@@ -274,7 +269,7 @@ const About: React.FC = () => {
                       {item.year}
                     </span>
                     {isOngoing && (
-                      <span className="text-[10px] font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+                      <span className="text-[10px] font-bold uppercase tracking-wider text-zinc-900 dark:text-zinc-100">
                         Ongoing
                       </span>
                     )}

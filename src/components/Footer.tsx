@@ -15,6 +15,7 @@ import {
   Code,
   Chalkboard,
   Article,
+  Stamp,
 } from "@phosphor-icons/react";
 
 const Footer: React.FC = () => {
@@ -29,25 +30,25 @@ const Footer: React.FC = () => {
       icon: LinkedinLogo,
       url: "https://www.linkedin.com/in/nils-ch/",
       label: "LinkedIn",
-      color: "hover:text-blue-600 dark:hover:text-blue-400",
+      color: "hover:text-zinc-900 dark:hover:text-zinc-100",
     },
     {
       icon: At,
       url: "mailto:nils.hellwig@ur.de",
       label: "Email",
-      color: "hover:text-emerald-600 dark:hover:text-emerald-400",
+      color: "hover:text-zinc-900 dark:hover:text-zinc-100",
     },
     {
       icon: Student,
       url: "https://scholar.google.com/citations?user=VzUTKcwAAAAJ",
       label: "Google Scholar",
-      color: "hover:text-indigo-600 dark:hover:text-indigo-400",
+      color: "hover:text-zinc-900 dark:hover:text-zinc-100",
     },
     {
       icon: GlobeHemisphereWest,
       url: "https://orcid.org/0009-0000-7305-8797",
       label: "ORCID",
-      color: "hover:text-lime-600 dark:hover:text-lime-400",
+      color: "hover:text-zinc-900 dark:hover:text-zinc-100",
     },
   ];
 
@@ -55,6 +56,7 @@ const Footer: React.FC = () => {
     { to: "/about", icon: User, label: "About" },
     { to: "/projects", icon: Briefcase, label: "Projects" },
     { to: "/publications", icon: BookOpen, label: "Publications" },
+    { to: "/service", icon: Stamp, label: "Service" },
     { to: "/lectures", icon: Chalkboard, label: "Lectures" },
     { to: "/blog", icon: Article, label: "Blog" },
   ];

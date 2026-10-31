@@ -340,11 +340,18 @@ const rollMountain = (
   s.size[i] = layer.size * (0.75 + Math.random() * 0.5);
 };
 
-const MountainBackground: React.FC = () => {
+interface MountainBackgroundProps {
+  subtle?: boolean; // dimmed variant for content pages
+}
+
+const MountainBackground: React.FC<MountainBackgroundProps> = ({ subtle = false }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { theme } = useTheme();
   const themeRef = useRef(theme);
   const redrawRef = useRef<() => void>(() => {});
+  // Read through a ref: route changes can swap the prop without remounting the canvas.
+  const subtleRef = useRef(subtle);
+  subtleRef.current = subtle;
 
   useEffect(() => {
     themeRef.current = theme;
@@ -756,6 +763,11 @@ const MountainBackground: React.FC = () => {
       }, 200);
     };
     const onPointerMove = (e: PointerEvent) => {
+      // The subtle variant sits behind content pages and ignores the pointer.
+      if (subtleRef.current) {
+        pointer.active = false;
+        return;
+      }
       pointer.x = e.clientX;
       pointer.y = e.clientY;
       pointer.active = true;
@@ -768,7 +780,7 @@ const MountainBackground: React.FC = () => {
     };
     const onPointerDown = (e: PointerEvent) => {
       onPointerMove(e);
-      if (!reducedMotion) {
+      if (!reducedMotion && !subtleRef.current) {
         ripples.push({ x: e.clientX, y: e.clientY, t: (performance.now() - start) / 1000 });
         if (ripples.length > 4) ripples.shift();
       }
@@ -798,7 +810,7 @@ const MountainBackground: React.FC = () => {
     <canvas
       ref={canvasRef}
       aria-hidden="true"
-      className="fixed inset-0 w-screen h-screen pointer-events-none"
+      className={`fixed inset-0 w-screen h-screen pointer-events-none ${subtle ? "opacity-40" : ""}`}
       style={{ zIndex: -1 }}
     />
   );

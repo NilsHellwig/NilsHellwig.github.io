@@ -3,20 +3,10 @@ import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { BLOGS, convertMonth } from "../../data/blogs";
+import { BLOGS, BlogType, formatBlogDate } from "../../data/blogs";
 import { ArrowLeft, Share, Copy, Check } from "phosphor-react";
 import { motion } from "framer-motion";
-
-interface BlogType {
-  id: string;
-  url: string;
-  category: string;
-  author: string;
-  term: string;
-  title: string;
-  bgColor: string;
-  textColor: string;
-}
+import Footer from "../Footer";
 
 const BlogPost: React.FC = () => {
   const { projectName } = useParams();
@@ -127,7 +117,7 @@ const BlogPost: React.FC = () => {
         initial={{ opacity: 0, x: -16 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.4 }}
-        className="flex items-center gap-3 mt-10 mb-4"
+        className="sticky top-[92px] md:top-[156px] z-10 flex items-center gap-3 mt-10 mb-4"
       >
         <Link
           to="/blog"
@@ -149,54 +139,27 @@ const BlogPost: React.FC = () => {
         </button>
       </motion.div>
 
-      {/* Hero Card */}
-      <motion.div
+      {/* Article header */}
+      <motion.header
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.1 }}
-        className="rounded-2xl overflow-hidden border-[0.5px] border-zinc-300 dark:border-zinc-700 shadow-sm mb-8"
+        className="mt-8 pb-8 mb-4 border-b border-zinc-200 dark:border-zinc-700"
       >
-        <div
-          className="relative px-8 pt-8 pb-10 overflow-hidden"
-          style={{ backgroundColor: blog?.bgColor }}
-        >
-          {/* Decorative circles */}
-          <div className="absolute top-0 right-0 w-80 h-80 rounded-full translate-x-1/3 -translate-y-1/3 bg-white opacity-[0.06]" />
-          <div className="absolute bottom-0 left-0 w-56 h-56 rounded-full -translate-x-1/3 translate-y-1/3 bg-white opacity-[0.06]" />
-
-          {/* Category + date + author */}
-          <div className="flex flex-wrap items-center gap-3 mb-6 relative z-10">
-            <span
-              className="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-white/20 backdrop-blur-sm"
-              style={{ color: blog?.textColor }}
-            >
-              {blog?.category}
-            </span>
-            <span className="text-sm opacity-60" style={{ color: blog?.textColor }}>
-              {blog?.term &&
-                convertMonth[parseInt(blog.term.split("/")[1])] +
-                  " " +
-                  blog.term.split("/")[0] +
-                  ", " +
-                  blog.term.split("/")[2]}
-            </span>
-            <span className="opacity-30" style={{ color: blog?.textColor }}>
-              •
-            </span>
-            <span className="text-sm opacity-60" style={{ color: blog?.textColor }}>
-              By {blog?.author}
-            </span>
-          </div>
-
-          {/* Title */}
-          <h1
-            className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight relative z-10"
-            style={{ color: blog?.textColor }}
-          >
-            {blog?.title}
-          </h1>
+        <div className="flex flex-wrap items-center gap-3 mb-5">
+          <span className="text-xs font-medium bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 px-2.5 py-1 rounded-full border-[0.5px] border-zinc-200 dark:border-zinc-600">
+            {blog?.category}
+          </span>
+          <span className="text-sm font-semibold text-zinc-400 dark:text-zinc-500 tabular-nums">
+            {blog?.term && formatBlogDate(blog.term)}
+          </span>
+          <span className="text-zinc-300 dark:text-zinc-600">•</span>
+          <span className="text-sm text-zinc-500 dark:text-zinc-400">By {blog?.author}</span>
         </div>
-      </motion.div>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-white">
+          {blog?.title}
+        </h1>
+      </motion.header>
 
       {/* Content Section */}
       <div className="pt-2 pb-16">
@@ -229,9 +192,7 @@ const BlogPost: React.FC = () => {
                 </p>
               ),
               strong: ({ children }) => (
-                <strong className="font-semibold text-zinc-900 dark:text-white">
-                  {children}
-                </strong>
+                <strong className="font-semibold text-zinc-900 dark:text-white">{children}</strong>
               ),
               em: ({ children }) => (
                 <em className="italic text-zinc-800 dark:text-zinc-200">{children}</em>
@@ -266,7 +227,7 @@ const BlogPost: React.FC = () => {
                   target="_blank"
                   rel="noreferrer"
                   href={href}
-                  className="font-medium text-blue-600 dark:text-blue-400 underline underline-offset-2 decoration-blue-300 dark:decoration-blue-700 hover:decoration-blue-500 dark:hover:decoration-blue-400 transition-colors"
+                  className="font-medium text-zinc-900 dark:text-zinc-100 underline underline-offset-2 decoration-zinc-400 dark:decoration-zinc-500 hover:decoration-zinc-900 dark:hover:decoration-zinc-100 transition-colors"
                 >
                   {children}
                 </a>
@@ -327,6 +288,8 @@ const BlogPost: React.FC = () => {
           </ReactMarkdown>
         </motion.div>
       </div>
+
+      <Footer />
     </motion.div>
   );
 };

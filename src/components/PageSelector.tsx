@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { House, User, Briefcase, BookOpen, Chalkboard, Article } from "phosphor-react";
+import { House, User, Briefcase, BookOpen, Chalkboard, Article, Stamp } from "phosphor-react";
 
 const iconVariants = {
   hover: {
@@ -29,6 +29,7 @@ const PageSelector: React.FC<PageSelectorProps> = ({ mobileMenuOpen, setMobileMe
     { path: "/about", label: "About", icon: User },
     { path: "/projects", label: "Projects", icon: Briefcase },
     { path: "/publications", label: "Publications", icon: BookOpen },
+    { path: "/service", label: "Service", icon: Stamp },
     { path: "/lectures", label: "Lectures", icon: Chalkboard },
     { path: "/blog", label: "Blog", icon: Article },
   ];
@@ -84,12 +85,15 @@ const PageSelector: React.FC<PageSelectorProps> = ({ mobileMenuOpen, setMobileMe
       <AnimatePresence>
         {mobileMenuOpen && (
           <>
-            <div className="fixed inset-0 z-10 md:hidden" onClick={() => setMobileMenuOpen(false)} />
+            <div
+              className="fixed inset-0 z-10 md:hidden"
+              onClick={() => setMobileMenuOpen(false)}
+            />
             <motion.div
               initial={{ opacity: 0, scale: 0.97, y: -10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.97, y: -10 }}
-              className="md:hidden absolute left-0 right-0 top-full mt-2 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-xl rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden shadow-2xl z-20"
+              className="md:hidden absolute left-4 right-4 top-full mt-2 bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden shadow-2xl z-20"
             >
               {navigationItems.map((item) => {
                 const Icon = item.icon;

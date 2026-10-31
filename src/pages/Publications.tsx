@@ -3,6 +3,7 @@ import { PUBLICATIONS } from "../data/publications";
 import { ArrowSquareOut, FilePdf, Medal } from "phosphor-react";
 import { motion, AnimatePresence } from "framer-motion";
 import Footer from "../components/Footer";
+import PageHeader from "../components/PageHeader";
 
 const DOMAIN_STYLES: Record<string, { color: string; text: string; bg: string; hover: string }> = {
   "aclanthology.org": {
@@ -89,24 +90,12 @@ const Publications: React.FC = () => {
 
   return (
     <motion.div className="pb-8" initial="hidden" animate="visible" variants={containerVariants}>
-      {/* Header */}
-      <motion.div
+      <PageHeader
+        number="01"
+        title="Publications"
+        subtitle="Research in NLP, Computational Linguistics, and Sentiment Analysis. Code and data for each publication are publicly available on GitHub and referenced in the respective papers."
         variants={itemVariants}
-        className="border-b border-zinc-200 dark:border-zinc-700 pb-3 mb-6 mt-10"
-      >
-        <div className="flex items-baseline gap-2.5">
-          <span className="text-base sm:text-lg font-mono font-bold text-zinc-400 dark:text-zinc-500 tabular-nums">
-            01
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white tracking-tight">
-            Publications
-          </h2>
-        </div>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1.5">
-          Research in NLP, Computational Linguistics, and Sentiment Analysis. Code and data for each
-          publication are publicly available on GitHub and referenced in the respective papers.
-        </p>
-      </motion.div>
+      />
 
       {/* Year filter */}
       <motion.div variants={itemVariants} className="flex flex-wrap gap-2 mb-6">

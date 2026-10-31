@@ -7,10 +7,12 @@ import Blog from "./pages/Blog";
 import Lectures from "./pages/Lectures";
 import Projects from "./pages/Projects";
 import Publications from "./pages/Publications";
+import Service from "./pages/Service";
 
 // Components
 import NavBar from "./components/Navbar";
 import PageSelector from "./components/PageSelector";
+import MountainBackground from "./components/MountainBackground";
 
 const App: React.FC = () => {
   const [showOverlay, setShowOverlay] = useState(false);
@@ -22,7 +24,7 @@ const App: React.FC = () => {
           <Route
             path=""
             element={
-              <StandardUI transparentBackground={true}>
+              <StandardUI background="hero">
                 <Home />
               </StandardUI>
             }
@@ -30,7 +32,7 @@ const App: React.FC = () => {
           <Route
             path="about"
             element={
-              <StandardUI transparentBackground={false}>
+              <StandardUI background="subtle">
                 <About />
               </StandardUI>
             }
@@ -38,7 +40,7 @@ const App: React.FC = () => {
           <Route
             path="blog/*"
             element={
-              <StandardUI transparentBackground={false}>
+              <StandardUI background="subtle">
                 <Blog />
               </StandardUI>
             }
@@ -46,7 +48,7 @@ const App: React.FC = () => {
           <Route
             path="lectures"
             element={
-              <StandardUI transparentBackground={false}>
+              <StandardUI background="subtle">
                 <Lectures />
               </StandardUI>
             }
@@ -54,7 +56,7 @@ const App: React.FC = () => {
           <Route
             path="projects/:projectName?"
             element={
-              <StandardUI transparentBackground={false}>
+              <StandardUI background="subtle">
                 <Projects showOverlay={showOverlay} setShowOverlay={setShowOverlay} />
               </StandardUI>
             }
@@ -62,8 +64,16 @@ const App: React.FC = () => {
           <Route
             path="publications"
             element={
-              <StandardUI transparentBackground={false}>
+              <StandardUI background="subtle">
                 <Publications />
+              </StandardUI>
+            }
+          />
+          <Route
+            path="service"
+            element={
+              <StandardUI background="subtle">
+                <Service />
               </StandardUI>
             }
           />
@@ -86,20 +96,18 @@ const App: React.FC = () => {
   );
 };
 
-const StandardUI: React.FC<{ children: ReactNode; transparentBackground: boolean }> = ({
+const StandardUI: React.FC<{ children: ReactNode; background: "hero" | "subtle" }> = ({
   children,
-  transparentBackground,
+  background,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div
-      className={`page-outer min-h-screen flex flex-col ${transparentBackground ? "" : "bg-zinc-50 dark:bg-zinc-900"}`}
-      style={{ fontFamily: "Inter" }}
-    >
+    <div className="page-outer min-h-screen flex flex-col" style={{ fontFamily: "Inter" }}>
+      <MountainBackground subtle={background === "subtle"} />
       <div className="flex-1 flex flex-col">
         <div
-          className={`fixed w-screen ${!transparentBackground ? "bg-zinc-50 dark:bg-zinc-900" : ""} bg-opacity-90 backdrop-blur-sm pt-2 z-20`}
+          className={`fixed w-screen pt-2 z-20 ${background === "subtle" ? "bg-zinc-50/80 dark:bg-zinc-900/80 backdrop-blur-md" : "backdrop-blur-sm"}`}
         >
           <header className="max-w-[1100px] w-[100%] mx-auto px-4 mt-0 relative">
             <NavBar mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />

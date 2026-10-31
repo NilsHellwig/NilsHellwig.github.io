@@ -21,6 +21,7 @@ import { PROGRAMMING_LANGUAGES } from "../data/programming-languages";
 import { IDES } from "../data/ides";
 import { OPERATING_SYSTEMS } from "../data/operating-systems";
 import { TECHNOLOGIES } from "../data/technologies";
+import PageHeader from "./PageHeader";
 
 type Skill = { name: string; note?: React.ReactNode; favorite?: boolean };
 type AICategory = {
@@ -146,24 +147,6 @@ const itemVariants = {
   visible: { opacity: 1, y: 0 },
 };
 
-const SectionDivider: React.FC<{ number: string; title: string; subtitle: string }> = ({
-  number,
-  title,
-  subtitle,
-}) => (
-  <div className="border-b border-zinc-200 dark:border-zinc-700 pb-3">
-    <div className="flex items-baseline gap-2.5">
-      <span className="text-base sm:text-lg font-mono font-bold text-zinc-400 dark:text-zinc-500 tabular-nums">
-        {number}
-      </span>
-      <h3 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white tracking-tight">
-        {title}
-      </h3>
-    </div>
-    <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1.5">{subtitle}</p>
-  </div>
-);
-
 /* A small "tab title" for a sub-group within a section: icon + label,
    understated, no box around it. */
 const GroupLabel: React.FC<{ icon: React.ComponentType<any>; title: string }> = ({
@@ -235,8 +218,10 @@ const Skills: React.FC = () => {
         variants={containerVariants}
       >
         <motion.div variants={itemVariants}>
-          <SectionDivider
-            number="01"
+          <PageHeader
+            as="h3"
+            className=""
+            number="02"
             title="AI & NLP Engineering"
             subtitle="I gained many years of experience in Natural Language Processing (NLP) in the research domain, including company-funded projects."
           />
@@ -314,8 +299,10 @@ const Skills: React.FC = () => {
         variants={containerVariants}
       >
         <motion.div variants={itemVariants}>
-          <SectionDivider
-            number="02"
+          <PageHeader
+            as="h3"
+            className=""
+            number="03"
             title="Software Development"
             subtitle="Languages, tools and frameworks I build with"
           />
@@ -381,7 +368,7 @@ const Skills: React.FC = () => {
                   <TextChip key={index} name={tech} />
                 ) : (
                   <TextChip key={index} name={tech.name} favorite={tech.favorite} />
-                )
+                ),
               )}
             </motion.div>
           </div>
@@ -396,8 +383,10 @@ const Skills: React.FC = () => {
         variants={containerVariants}
       >
         <motion.div variants={itemVariants}>
-          <SectionDivider
-            number="03"
+          <PageHeader
+            as="h3"
+            className=""
+            number="04"
             title="Project Management"
             subtitle="How I collaborate and ship in a team"
           />

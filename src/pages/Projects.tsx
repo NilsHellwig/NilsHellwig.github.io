@@ -5,6 +5,7 @@ import { useParams } from "react-router";
 import SingleProject from "../popups/SingleProject";
 import { GithubLogo } from "@phosphor-icons/react";
 import Footer from "../components/Footer";
+import PageHeader from "../components/PageHeader";
 
 interface ProjectsProps {
   showOverlay: boolean;
@@ -66,23 +67,13 @@ const Projects: React.FC<ProjectsProps> = ({ showOverlay, setShowOverlay }) => {
 
   return (
     <motion.div className="pb-8" initial="hidden" animate="visible" variants={containerVariants}>
-      {/* Header */}
-      <motion.div
+      <PageHeader
+        number="01"
+        title="Projects"
+        subtitle="Selected software projects: web apps, AI tools, mobile apps, and research utilities"
+        className="mb-8 mt-10"
         variants={itemVariants}
-        className="border-b border-zinc-200 dark:border-zinc-700 pb-3 mb-8 mt-10"
-      >
-        <div className="flex items-baseline gap-2.5">
-          <span className="text-base sm:text-lg font-mono font-bold text-zinc-400 dark:text-zinc-500 tabular-nums">
-            01
-          </span>
-          <h2 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white tracking-tight">
-            Projects
-          </h2>
-        </div>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1.5">
-          Selected software projects: web apps, AI tools, mobile apps, and research utilities
-        </p>
-      </motion.div>
+      />
 
       {/* GitHub link */}
       <motion.div variants={itemVariants} className="mb-8">
@@ -112,23 +103,14 @@ const Projects: React.FC<ProjectsProps> = ({ showOverlay, setShowOverlay }) => {
         />
       </motion.div>
 
-      {/* Section header: Selected Projects */}
-      <motion.div
+      <PageHeader
+        number="02"
+        title="Selected Projects"
+        subtitle="Click a card to see details, tech stack, and links"
+        as="h3"
+        className="mb-6"
         variants={itemVariants}
-        className="border-b border-zinc-200 dark:border-zinc-700 pb-3 mb-6"
-      >
-        <div className="flex items-baseline gap-2.5">
-          <span className="text-base sm:text-lg font-mono font-bold text-zinc-400 dark:text-zinc-500 tabular-nums">
-            02
-          </span>
-          <h3 className="text-2xl sm:text-3xl font-bold text-zinc-900 dark:text-white tracking-tight">
-            Selected Projects
-          </h3>
-        </div>
-        <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1.5">
-          Click a card to see details, tech stack, and links
-        </p>
-      </motion.div>
+      />
 
       {/* Filter pills */}
       <motion.div variants={itemVariants} className="flex flex-wrap gap-2 mb-6">
