@@ -14,6 +14,44 @@ type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    id: "dentist-agent",
+    title: "Dentist Agent",
+    subtitle: "Local voice-to-voice support agent for a dental practice",
+    description:
+      "Dentist Agent is a voice assistant for dental practice customer support that runs entirely on a laptop. Customers talk to it with push-to-talk in a minimalist Next.js interface and get spoken answers back; when the conversation is over the app returns to its start screen. The pipeline is a cascade: Whisper (MLX) transcribes the speech, a small Ollama model (Gemma 4) drives a Pydantic AI agent that calls tools, and Qwen3-TTS (MLX) speaks the reply sentence by sentence so the first words are audible while the rest is still being synthesized. Practice knowledge such as special rules for children lives in a folder of Markdown files that the agent searches and reads on demand, so staff can extend it without touching code. Personal data is protected: appointments, bookings and invoices are only available after the customer states their customer number and date of birth. The check is enforced server-side in every tool rather than in the prompt, rejects malformed numbers without burning an attempt, and locks the call after three failures. Practical details came from testing with real speech: Whisper hallucinates \"Thank you\" on silence and drops zeros in digit strings, so the voice service gates quiet audio, filters known hallucinations and accepts spoken digit groups. Backend behavior such as the auth lock-out, access to other customers' data and booking rules is covered by pytest, and the whole stack starts with Docker Compose plus a single script.",
+    type: "Web-App",
+    category: "AI & NLP",
+    programmingLanguages: ["TypeScript", "Python"],
+    technologies: [
+      "Next.js",
+      "React",
+      "Tailwind",
+      "FastAPI",
+      "Pydantic AI",
+      "Ollama",
+      "Whisper",
+      "Qwen3-TTS",
+      "MLX",
+      "PostgreSQL",
+      "SQLAlchemy",
+      "WebSocket",
+      "pytest",
+      "Docker",
+    ],
+    iconPath: require("../img/icons/projects/dentist-agent.svg").default,
+    galleryImages: [
+      "dentist-agent/dentist-agent-1.png",
+      "dentist-agent/dentist-agent-2.png",
+      "dentist-agent/dentist-agent-3.png",
+    ],
+    links: [
+      {
+        name: "GitHub Repository: Dentist Agent",
+        url: "https://github.com/NilsHellwig/dentist-agent",
+      },
+    ],
+  },
+  {
     id: "comark",
     title: "CoMark",
     subtitle: "Collaborative Markdown editing with live presence",
