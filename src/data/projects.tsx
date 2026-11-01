@@ -8,6 +8,7 @@ type Project = {
   type: string;
   category: string;
   iconPath: string;
+  claude?: boolean;
   galleryImages?: string[];
   links?: { name: string; url: string }[];
 };
@@ -15,6 +16,7 @@ type Project = {
 export const PROJECTS: Project[] = [
   {
     id: "dentist-agent",
+    claude: true,
     title: "Dentist Agent",
     subtitle: "Local voice-to-voice support agent for a dental practice",
     description:
@@ -53,6 +55,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "comark",
+    claude: true,
     title: "CoMark",
     subtitle: "Collaborative Markdown editing with live presence",
     description:
@@ -87,6 +90,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "bibtexy",
+    claude: true,
     title: "BibTeXy",
     subtitle: "Turn any webpage into a BibTeX entry.",
     description:
@@ -541,6 +545,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "portfolio",
+    claude: true,
     title: "portfolio",
     subtitle: "This website, redesigned since June 2024",
     description:

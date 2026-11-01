@@ -7,6 +7,7 @@ interface TooltipProps {
   asChild?: boolean;
   position?: "top" | "bottom" | "left" | "right";
   className?: string;
+  contentClassName?: string;
 }
 
 export const Tooltip: React.FC<TooltipProps> = ({
@@ -15,6 +16,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
   asChild,
   position = "top",
   className,
+  contentClassName,
 }) => {
   return (
     <RadixTooltip.Provider delayDuration={500}>
@@ -23,7 +25,10 @@ export const Tooltip: React.FC<TooltipProps> = ({
           {children}
         </RadixTooltip.Trigger>
         <RadixTooltip.Content
-          className="bg-zinc-700 text-white text-[12px] rounded px-2 py-1 leading-none z-50"
+          className={
+            contentClassName ??
+            "bg-zinc-700 text-white text-[12px] rounded px-2 py-1 leading-none z-50"
+          }
           side={position}
           sideOffset={5}
         >

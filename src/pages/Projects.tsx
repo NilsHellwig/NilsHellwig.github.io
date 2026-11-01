@@ -3,9 +3,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { PROJECTS } from "../data/projects";
 import { useParams } from "react-router";
 import SingleProject from "../popups/SingleProject";
-import { GithubLogo } from "@phosphor-icons/react";
+import { ArrowSquareOut, GithubLogo, Info } from "@phosphor-icons/react";
+import { Tooltip } from "../components/Tooltip";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
+import ClaudeBadge from "../components/ClaudeBadge";
 
 interface ProjectsProps {
   showOverlay: boolean;
@@ -112,6 +114,46 @@ const Projects: React.FC<ProjectsProps> = ({ showOverlay, setShowOverlay }) => {
         variants={itemVariants}
       />
 
+      {/* Claude legend (hover) */}
+      <motion.div variants={itemVariants} className="mb-3">
+        <Tooltip
+          position="bottom"
+          contentClassName="z-50 w-72 rounded-xl border-[0.5px] border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-4 shadow-lg dark:shadow-zinc-900/50"
+          text={
+            <div className="flex flex-col gap-3 whitespace-normal">
+              <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                System and architecture decisions are always mine. Claude assists with the
+                implementation, guided by skills from Matt Pocock's collection.
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {["/grill-with-docs", "/tdd", "/diagnosing-bugs"].map((skill) => (
+                  <span
+                    key={skill}
+                    className="font-mono text-[11px] px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-700 border-[0.5px] border-zinc-200 dark:border-zinc-600 text-zinc-600 dark:text-zinc-300"
+                  >
+                    {skill}
+                  </span>
+                ))}
+              </div>
+              <a
+                href="https://github.com/mattpocock/skills"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 text-xs font-semibold text-[#c4552f] dark:text-[#e8896b] hover:underline"
+              >
+                mattpocock/skills
+                <ArrowSquareOut size={12} weight="bold" />
+              </a>
+            </div>
+          }
+        >
+          <span className="inline-flex items-center gap-1 text-xs text-zinc-400 dark:text-zinc-500 cursor-help">
+            <Info size={13} />
+            w/ Claude = AI-assisted
+          </span>
+        </Tooltip>
+      </motion.div>
+
       {/* Filter pills */}
       <motion.div variants={itemVariants} className="flex flex-wrap gap-2 mb-6">
         {categories.map((category) => (
@@ -159,7 +201,8 @@ const Projects: React.FC<ProjectsProps> = ({ showOverlay, setShowOverlay }) => {
             >
               <div className="p-4 flex flex-col flex-1">
                 {/* Type badge */}
-                <div className="flex justify-end mb-3">
+                <div className="flex justify-between items-center gap-1 mb-3">
+                  <ClaudeBadge withClaude={!!project.claude} />
                   <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300">
                     {project.type}
                   </span>

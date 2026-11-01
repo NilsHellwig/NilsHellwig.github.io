@@ -5,6 +5,7 @@ import { PROGRAMMING_LANGUAGES, ProgrammingLanguage } from "../data/programming-
 import { openLinkInNewTab } from "../helper";
 import { Modal, ModalContent } from "../components/Modal";
 import { motion } from "framer-motion";
+import ClaudeBadge from "../components/ClaudeBadge";
 
 interface SingleProjectProps {
   showSingleProjectFct: MouseEventHandler<HTMLDivElement>;
@@ -100,6 +101,7 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
                 <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">
                   {project?.subtitle}
                 </p>
+                <ClaudeBadge withClaude={!!project?.claude} className="mt-2" />
               </div>
             </div>
 
