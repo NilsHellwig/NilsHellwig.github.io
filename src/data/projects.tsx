@@ -15,6 +15,35 @@ type Project = {
 
 export const PROJECTS: Project[] = [
   {
+    id: "acl-paper-skills",
+    claude: true,
+    title: "ACL Paper Skills",
+    subtitle: "Claude Code skills that check an ACL paper before reviewers do",
+    description:
+      "ACL Paper Skills is a Claude Code plugin for quality control of NLP papers written with the ACL template. It is built for checking a paper the authors wrote themselves, not for generating one. A proofreading skill reviews content, citations, language, consistency and machine-sounding prose and writes every finding with a severity level into a report.md, from which single items can later be applied as minimal edits. Literature comes from the ACL Anthology (via the acl-anthology package) and arXiv, and further sources can be added per project through a small adapter interface. Every paper is stored as PDF, as text extracted with pdftotext, and with reading notes. A paper only counts as citable once its notes record which parts of the body were read and which claims it supports with their location, so a citation never rests on the abstract alone. BibTeX entries are taken from the source itself and never written by the model, and a hook keeps the paper's .bib file equal to the set of cited keys after every edit. Skills for ARR guideline checks, simulated reviews on the official review form, author responses and camera-ready preparation fetch the current ACL Rolling Review and ACLPUB documents from GitHub on every run instead of relying on stored copies, and a weekly CI job reports when one of them moves. The deterministic parts (bib parsing, sync, checks) are a dependency-free Python core covered by pytest.",
+    type: "Claude Code Plugin",
+    category: "AI & NLP",
+    programmingLanguages: ["Python"],
+    technologies: [
+      "Claude Code",
+      "ACL Anthology",
+      "arXiv API",
+      "BibTeX",
+      "LaTeX",
+      "pdftotext",
+      "pytest",
+      "GitHub Actions",
+    ],
+    iconPath: require("../img/icons/projects/acl-paper-skills.png"),
+    galleryImages: ["acl-paper-skills/acl-paper-skills-1.jpg"],
+    links: [
+      {
+        name: "GitHub Repository: ACL Paper Skills",
+        url: "https://github.com/NilsHellwig/acl-paper-skills",
+      },
+    ],
+  },
+  {
     id: "dentist-agent",
     claude: true,
     title: "Dentist Agent",
