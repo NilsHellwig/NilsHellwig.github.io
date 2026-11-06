@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 const SPARK_PATH =
@@ -17,7 +19,7 @@ const ClaudeBadge: React.FC<ClaudeBadgeProps> = ({ withClaude, className = "" })
     } ${className}`}
     title={withClaude ? "Built with Claude" : "Built without Claude"}
   >
-    <svg viewBox="0 0 100 100" className="w-3 h-3 flex-shrink-0" fill="currentColor" aria-hidden>
+    <svg viewBox="0 0 100 100" className="w-3 h-3 shrink-0" fill="currentColor" aria-hidden>
       <path d={SPARK_PATH} />
       {!withClaude && (
         <line

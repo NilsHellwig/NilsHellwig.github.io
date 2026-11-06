@@ -1,4 +1,4 @@
-import { Robot, Code } from "phosphor-react";
+import { Robot, Code } from "@phosphor-icons/react";
 
 export const LECTURES = [
   {

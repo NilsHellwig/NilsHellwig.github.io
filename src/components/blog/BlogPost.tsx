@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+"use client";
+
+import React, { useState } from "react";
+import Link from "next/link";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
-import { BLOGS, BlogType, formatBlogDate } from "../../data/blogs";
-import { ArrowLeft, Share, Copy, Check } from "phosphor-react";
+import { BlogType, formatBlogDate } from "../../data/blogs";
+import { ArrowLeft, Share, Copy, Check } from "@phosphor-icons/react";
 import { motion } from "framer-motion";
 import Footer from "../Footer";
 
-const BlogPost: React.FC = () => {
-  const { projectName } = useParams();
-  const [markdownContent, setMarkdownContent] = useState<string>("");
-  const [blog, setBlog] = useState<BlogType | null>(null);
+const BlogPost: React.FC<{ blog: BlogType; markdown: string }> = ({ blog, markdown }) => {
   const [copiedToClipboard, setCopiedToClipboard] = useState<boolean>(false);
   const [copiedCode, setCopiedCode] = useState<{ [key: string]: boolean }>({});
 
@@ -33,7 +32,7 @@ const BlogPost: React.FC = () => {
         <div className="absolute right-3 top-3 z-10">
           <button
             onClick={handleCopy}
-            className="flex items-center gap-2 px-3 py-1.5 bg-zinc-700/80 hover:bg-zinc-600/80 text-zinc-100 rounded-lg text-xs font-medium transition-all backdrop-blur-sm border border-zinc-600/50 shadow-lg hover:shadow-xl"
+            className="flex items-center gap-2 px-3 py-1.5 bg-zinc-700/80 hover:bg-zinc-600/80 text-zinc-100 rounded-lg text-xs font-medium transition-all backdrop-blur-xs border border-zinc-600/50 shadow-lg hover:shadow-xl"
           >
             {copiedCode[codeId] ? (
               <>
@@ -66,32 +65,12 @@ const BlogPost: React.FC = () => {
     );
   };
 
-  useEffect(() => {
-    const foundBlog = BLOGS.find((el) => el.url === projectName);
-    setBlog(foundBlog || null);
-
-    const fetchMarkdownContent = async () => {
-      if (projectName) {
-        try {
-          const file = require(`../../data/blog-entries/${projectName}.md`);
-          const response = await fetch(file);
-          const text = await response.text();
-          setMarkdownContent(text);
-        } catch (error) {
-          console.error("Error loading markdown file:", error);
-        }
-      }
-    };
-
-    fetchMarkdownContent();
-  }, [projectName]);
-
   const handleShare = async () => {
     try {
       if (navigator.share) {
         await navigator.share({
-          title: blog?.title,
-          text: blog?.title,
+          title: blog.title,
+          text: blog.title,
           url: window.location.href,
         });
       } else {
@@ -120,8 +99,8 @@ const BlogPost: React.FC = () => {
         className="sticky top-[92px] md:top-[156px] z-10 flex items-center gap-3 mt-10 mb-4"
       >
         <Link
-          to="/blog"
-          className="group inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 border-[0.5px] border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors shadow-sm"
+          href="/blog"
+          className="group inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 border-[0.5px] border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors shadow-xs"
         >
           <ArrowLeft
             size={16}
@@ -132,7 +111,7 @@ const BlogPost: React.FC = () => {
         </Link>
         <button
           onClick={handleShare}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 border-[0.5px] border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors shadow-sm"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-zinc-700 dark:text-zinc-300 bg-white dark:bg-zinc-800 border-[0.5px] border-zinc-300 dark:border-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-colors shadow-xs"
         >
           <Share size={16} weight="bold" />
           {copiedToClipboard ? "Copied!" : "Share"}
@@ -148,16 +127,16 @@ const BlogPost: React.FC = () => {
       >
         <div className="flex flex-wrap items-center gap-3 mb-5">
           <span className="text-xs font-medium bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 px-2.5 py-1 rounded-full border-[0.5px] border-zinc-200 dark:border-zinc-600">
-            {blog?.category}
+            {blog.category}
           </span>
           <span className="text-sm font-semibold text-zinc-400 dark:text-zinc-500 tabular-nums">
-            {blog?.term && formatBlogDate(blog.term)}
+            {formatBlogDate(blog.term)}
           </span>
           <span className="text-zinc-300 dark:text-zinc-600">•</span>
-          <span className="text-sm text-zinc-500 dark:text-zinc-400">By {blog?.author}</span>
+          <span className="text-sm text-zinc-500 dark:text-zinc-400">By {blog.author}</span>
         </div>
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-zinc-900 dark:text-white">
-          {blog?.title}
+          {blog.title}
         </h1>
       </motion.header>
 
@@ -252,7 +231,7 @@ const BlogPost: React.FC = () => {
                   <img
                     src={src}
                     alt={alt}
-                    className="w-full rounded-xl border-[0.5px] border-zinc-300 dark:border-zinc-700 shadow-sm"
+                    className="w-full rounded-xl border-[0.5px] border-zinc-300 dark:border-zinc-700 shadow-xs"
                   />
                   {alt && (
                     <figcaption className="mt-3 text-center text-sm text-zinc-500 dark:text-zinc-400 italic">
@@ -284,7 +263,7 @@ const BlogPost: React.FC = () => {
               ),
             }}
           >
-            {markdownContent}
+            {markdown}
           </ReactMarkdown>
         </motion.div>
       </div>

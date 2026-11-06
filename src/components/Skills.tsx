@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 import {
   Code,
   Desktop,
@@ -16,7 +18,7 @@ import {
   GitBranch,
   Kanban,
   Heart,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import { PROGRAMMING_LANGUAGES } from "../data/programming-languages";
 import { IDES } from "../data/ides";
 import { OPERATING_SYSTEMS } from "../data/operating-systems";
@@ -127,7 +129,7 @@ const PROJECT_MANAGEMENT: {
   },
 ];
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -142,7 +144,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 };
@@ -174,7 +176,7 @@ const IconChip: React.FC<{
     whileHover={{ y: -2 }}
     className="inline-flex items-center gap-2 pl-1.5 pr-3.5 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-500 transition-colors duration-150"
   >
-    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-zinc-50 dark:bg-zinc-900 flex-shrink-0 overflow-hidden">
+    <span className="flex items-center justify-center w-6 h-6 rounded-full bg-zinc-50 dark:bg-zinc-900 shrink-0 overflow-hidden">
       {iconPath && (
         <img
           src={iconPath}
@@ -187,7 +189,7 @@ const IconChip: React.FC<{
     <span className="text-xs font-medium text-zinc-700 dark:text-zinc-300 whitespace-nowrap">
       {name}
     </span>
-    {favorite && <Heart size={10} weight="fill" className="text-red-500 flex-shrink-0" />}
+    {favorite && <Heart size={10} weight="fill" className="text-red-500 shrink-0" />}
   </motion.div>
 );
 
@@ -199,7 +201,7 @@ const TextChip: React.FC<{ name: string; favorite?: boolean }> = ({ name, favori
     className="inline-flex items-center px-3 py-1.5 rounded-full border-[0.5px] border-zinc-200 dark:border-zinc-600 bg-zinc-100 dark:bg-zinc-700 text-xs font-medium text-zinc-600 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-500 transition-colors duration-150"
   >
     {name}
-    {favorite && <Heart size={10} weight="fill" className="text-red-500 ml-1.5 flex-shrink-0" />}
+    {favorite && <Heart size={10} weight="fill" className="text-red-500 ml-1.5 shrink-0" />}
   </motion.span>
 );
 
@@ -235,8 +237,8 @@ const Skills: React.FC = () => {
               variants={itemVariants}
               className="py-6 flex flex-col sm:flex-row gap-4 sm:gap-8"
             >
-              <div className="flex items-start gap-3 sm:w-64 flex-shrink-0">
-                <div className="w-9 h-9 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center flex-shrink-0">
+              <div className="flex items-start gap-3 sm:w-64 shrink-0">
+                <div className="w-9 h-9 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center shrink-0">
                   <category.icon
                     size={17}
                     weight="bold"
@@ -258,12 +260,12 @@ const Skills: React.FC = () => {
               <ul className="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-2.5">
                 {category.skills.map((skill, sIdx) => (
                   <li key={sIdx} className="flex items-start gap-2.5">
-                    <span className="block w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600 mt-[7px] flex-shrink-0" />
+                    <span className="block w-1.5 h-1.5 rounded-full bg-zinc-400 dark:bg-zinc-600 mt-[7px] shrink-0" />
                     <div className="min-w-0">
                       <span className="flex items-center gap-1.5 text-sm font-semibold text-zinc-800 dark:text-zinc-200 leading-relaxed">
                         {skill.name}
                         {skill.favorite && (
-                          <Heart size={10} weight="fill" className="text-red-500 flex-shrink-0" />
+                          <Heart size={10} weight="fill" className="text-red-500 shrink-0" />
                         )}
                       </span>
                       {skill.note && (
@@ -277,7 +279,7 @@ const Skills: React.FC = () => {
               </ul>
 
               {category.patterns && (
-                <div className="sm:w-56 flex-shrink-0">
+                <div className="sm:w-56 shrink-0">
                   <p className="text-[11px] font-bold uppercase tracking-wider text-zinc-500 dark:text-zinc-500 mb-1.5">
                     Agent Patterns
                   </p>
@@ -402,7 +404,7 @@ const Skills: React.FC = () => {
         <div className="divide-y divide-zinc-200 dark:divide-zinc-800">
           {PROJECT_MANAGEMENT.map((item, index) => (
             <motion.div key={index} variants={itemVariants} className="py-5 flex items-start gap-4">
-              <div className="w-9 h-9 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center flex-shrink-0">
+              <div className="w-9 h-9 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center shrink-0">
                 <item.icon size={17} weight="bold" className="text-zinc-700 dark:text-zinc-300" />
               </div>
               <div className="flex-1 min-w-0">

@@ -2,15 +2,15 @@ export const OPERATING_SYSTEMS = [
   {
     name: "macOS",
     favorite: true,
-    iconPath: require("../img/icons/operating-systems/mac-os.svg").default,
+    iconPath: "/img/icons/operating-systems/mac-os.svg",
   },
   {
     name: "Windows",
-    iconPath: require("../img/icons/operating-systems/windows.svg").default,
+    iconPath: "/img/icons/operating-systems/windows.svg",
   },
   {
     name: "Linux",
     favorite: true,
-    iconPath: require("../img/icons/operating-systems/linux.svg").default,
+    iconPath: "/img/icons/operating-systems/linux.svg",
   },
 ];

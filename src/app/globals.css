@@ -1,6 +1,22 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-hover-gray: #efefef;
+  --breakpoint-xsm: 340px;
+  --breakpoint-vsm: 500px;
+  --breakpoint-xmd: 800px;
+}
+
+/* Tailwind v4 defaults borders to currentColor; keep the v3 look */
+@layer base {
+  *,
+  ::after,
+  ::before {
+    border-color: var(--color-gray-200, currentColor);
+  }
+}
 
 @layer base {
   body {

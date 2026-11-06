@@ -34,7 +34,7 @@ export const PROJECTS: Project[] = [
       "pytest",
       "GitHub Actions",
     ],
-    iconPath: require("../img/icons/projects/acl-paper-skills.png"),
+    iconPath: "/img/icons/projects/acl-paper-skills.png",
     galleryImages: ["acl-paper-skills/acl-paper-skills-1.jpg"],
     links: [
       {
@@ -49,7 +49,7 @@ export const PROJECTS: Project[] = [
     title: "Dentist Agent",
     subtitle: "Local voice-to-voice support agent for a dental practice",
     description:
-      "Dentist Agent is a voice assistant for dental practice customer support that runs entirely on a laptop. Customers talk to it with push-to-talk in a minimalist Next.js interface and get spoken answers back; when the conversation is over the app returns to its start screen. The pipeline is a cascade: Whisper (MLX) transcribes the speech, a small Ollama model (Gemma 4) drives a Pydantic AI agent that calls tools, and Qwen3-TTS (MLX) speaks the reply sentence by sentence so the first words are audible while the rest is still being synthesized. Practice knowledge such as special rules for children lives in a folder of Markdown files that the agent searches and reads on demand, so staff can extend it without touching code. Personal data is protected: appointments, bookings and invoices are only available after the customer states their customer number and date of birth. The check is enforced server-side in every tool rather than in the prompt, rejects malformed numbers without burning an attempt, and locks the call after three failures. Practical details came from testing with real speech: Whisper hallucinates \"Thank you\" on silence and drops zeros in digit strings, so the voice service gates quiet audio, filters known hallucinations and accepts spoken digit groups. Backend behavior such as the auth lock-out, access to other customers' data and booking rules is covered by pytest, and the whole stack starts with Docker Compose plus a single script.",
+      'Dentist Agent is a voice assistant for dental practice customer support that runs entirely on a laptop. Customers talk to it with push-to-talk in a minimalist Next.js interface and get spoken answers back; when the conversation is over the app returns to its start screen. The pipeline is a cascade: Whisper (MLX) transcribes the speech, a small Ollama model (Gemma 4) drives a Pydantic AI agent that calls tools, and Qwen3-TTS (MLX) speaks the reply sentence by sentence so the first words are audible while the rest is still being synthesized. Practice knowledge such as special rules for children lives in a folder of Markdown files that the agent searches and reads on demand, so staff can extend it without touching code. Personal data is protected: appointments, bookings and invoices are only available after the customer states their customer number and date of birth. The check is enforced server-side in every tool rather than in the prompt, rejects malformed numbers without burning an attempt, and locks the call after three failures. Practical details came from testing with real speech: Whisper hallucinates "Thank you" on silence and drops zeros in digit strings, so the voice service gates quiet audio, filters known hallucinations and accepts spoken digit groups. Backend behavior such as the auth lock-out, access to other customers\' data and booking rules is covered by pytest, and the whole stack starts with Docker Compose plus a single script.',
     type: "Web-App",
     category: "AI & NLP",
     programmingLanguages: ["TypeScript", "Python"],
@@ -69,7 +69,7 @@ export const PROJECTS: Project[] = [
       "pytest",
       "Docker",
     ],
-    iconPath: require("../img/icons/projects/dentist-agent.svg").default,
+    iconPath: "/img/icons/projects/dentist-agent.svg",
     galleryImages: [
       "dentist-agent/dentist-agent-1.png",
       "dentist-agent/dentist-agent-2.png",
@@ -108,7 +108,7 @@ export const PROJECTS: Project[] = [
       "Playwright",
       "Docker",
     ],
-    iconPath: require("../img/icons/projects/comark.svg").default,
+    iconPath: "/img/icons/projects/comark.svg",
     galleryImages: ["comark/comark-1.png", "comark/comark-2.png", "comark/comark-3.png"],
     links: [
       {
@@ -128,7 +128,7 @@ export const PROJECTS: Project[] = [
     category: "AI & NLP",
     programmingLanguages: ["TypeScript"],
     technologies: ["WXT", "React", "Zod", "Ollama", "OpenAI API", "Vite"],
-    iconPath: require("../img/icons/projects/bibtexy.png"),
+    iconPath: "/img/icons/projects/bibtexy.png",
     galleryImages: ["bibtexy/bibtexy-1.png"],
     links: [
       {
@@ -147,7 +147,7 @@ export const PROJECTS: Project[] = [
     category: "AI & NLP",
     programmingLanguages: ["TypeScript", "Python"],
     technologies: ["React", "Vite", "Tailwind", "FastAPI", "Ollama", "OpenAI API", "BM25"],
-    iconPath: require("../img/icons/projects/annoabsa.png"),
+    iconPath: "/img/icons/projects/annoabsa.png",
     galleryImages: ["annoabsa/annoabsa-1.png"],
     links: [
       {
@@ -166,7 +166,7 @@ export const PROJECTS: Project[] = [
     category: "Software Development",
     programmingLanguages: ["TypeScript"],
     technologies: ["Tailwind", "HTML", "CSS", "Radix", "Draft.js"],
-    iconPath: require("../img/icons/projects/basisdokument.png"),
+    iconPath: "/img/icons/projects/basisdokument.png",
     galleryImages: [
       "basisdokument/basisdokument-1.png",
       "basisdokument/basisdokument-2.png",
@@ -200,7 +200,7 @@ export const PROJECTS: Project[] = [
     category: "Software Development",
     programmingLanguages: ["JavaScript", "Python"],
     technologies: ["FastApi", "Uvicorn", "Bcrypt", "PyTest", "SQLAlchemy", "Radix", "React.js"],
-    iconPath: require("../img/icons/projects/ur-device-manager.svg").default,
+    iconPath: "/img/icons/projects/ur-device-manager.svg",
     galleryImages: [
       "device-manager/device-manager-1.png",
       "device-manager/device-manager-2.gif",
@@ -224,7 +224,7 @@ export const PROJECTS: Project[] = [
     category: "Software Development",
     programmingLanguages: ["Python"],
     technologies: ["Django", "HTML", "CSS", "numpy", "pandas", "matplotlib", "svglib", "seaborn"],
-    iconPath: require("../img/icons/projects/amadeus.png"),
+    iconPath: "/img/icons/projects/amadeus.png",
     galleryImages: [
       "amadeus/amadeus-1.png",
       "amadeus/amadeus-2.png",
@@ -256,7 +256,7 @@ export const PROJECTS: Project[] = [
       "Flyway",
       "Maven",
     ],
-    iconPath: require("../img/icons/projects/byles.png"),
+    iconPath: "/img/icons/projects/byles.png",
     galleryImages: [],
     links: [
       {
@@ -290,7 +290,7 @@ export const PROJECTS: Project[] = [
       "SQLite",
       "AdobeXD",
     ],
-    iconPath: require("../img/icons/projects/bird-id.png"),
+    iconPath: "/img/icons/projects/bird-id.png",
     galleryImages: ["bird-id/bird-id-1.png", "bird-id/bird-id-2.png", "bird-id/bird-id-3.png"],
     links: [{ name: "GitHub Repository: BirdID", url: "https://github.com/NilsHellwig/birdid" }],
   },
@@ -304,7 +304,7 @@ export const PROJECTS: Project[] = [
     category: "Web Development",
     programmingLanguages: ["JavaScript"],
     technologies: ["Angular", "HTML", "CSS", "Tailwind"],
-    iconPath: require("../img/icons/projects/vall-music.svg").default,
+    iconPath: "/img/icons/projects/vall-music.svg",
     galleryImages: [
       "vall-music/vall-music-1.png",
       "vall-music/vall-music-2.png",
@@ -339,7 +339,7 @@ export const PROJECTS: Project[] = [
       "CSS",
       "AdobeXD",
     ],
-    iconPath: require("../img/icons/projects/whistle-tube.svg").default,
+    iconPath: "/img/icons/projects/whistle-tube.svg",
     galleryImages: [
       "whistle-tube/whistle-tube-1.png",
       "whistle-tube/whistle-tube-2.png",
@@ -362,7 +362,7 @@ export const PROJECTS: Project[] = [
     category: "Web Development",
     programmingLanguages: ["JavaScript"],
     technologies: ["Docsify", "HTML", "CSS", "Markdown"],
-    iconPath: require("../img/icons/projects/discover-malta.png"),
+    iconPath: "/img/icons/projects/discover-malta.png",
     galleryImages: [
       "discover-malta/discover-malta-1.png",
       "discover-malta/discover-malta-2.png",
@@ -386,7 +386,7 @@ export const PROJECTS: Project[] = [
     category: "Web Development",
     programmingLanguages: ["JavaScript"],
     technologies: ["Node.js", "framework7", "HTML", "CSS", "Firebase", "Cordova"],
-    iconPath: require("../img/icons/projects/game-hub.svg").default,
+    iconPath: "/img/icons/projects/game-hub.svg",
     galleryImages: [
       "game-hub/game-hub-1.png",
       "game-hub/game-hub-2.png",
@@ -420,7 +420,7 @@ export const PROJECTS: Project[] = [
       "NLTK",
       "pandas",
     ],
-    iconPath: require("../img/icons/projects/weather-assistant.svg").default,
+    iconPath: "/img/icons/projects/weather-assistant.svg",
     galleryImages: ["weather-assistant/weather-assistant-1.png"],
     links: [
       {
@@ -439,7 +439,7 @@ export const PROJECTS: Project[] = [
     category: "Mobile Apps",
     programmingLanguages: ["Java"],
     technologies: ["XML", "Android", "Responsive Layout", "Fingerprint Authentication", "SQLite"],
-    iconPath: require("../img/icons/projects/uni-hub.svg").default,
+    iconPath: "/img/icons/projects/uni-hub.svg",
     galleryImages: [
       "uni-hub/uni-hub-1.png",
       "uni-hub/uni-hub-2.png",
@@ -464,7 +464,7 @@ export const PROJECTS: Project[] = [
     category: "AI & Data Collection",
     programmingLanguages: ["Python"],
     technologies: ["flickrapi", "pandas", "Pillow"],
-    iconPath: require("../img/icons/projects/flickr-fetcher.svg").default,
+    iconPath: "/img/icons/projects/flickr-fetcher.svg",
     galleryImages: ["flickr-fetcher/flickr-fetcher-1.png"],
     links: [{ name: "", url: "" }],
   },
@@ -478,7 +478,7 @@ export const PROJECTS: Project[] = [
     category: "AI & Data Collection",
     programmingLanguages: ["Python"],
     technologies: ["Chromium", "Selenium"],
-    iconPath: require("../img/icons/projects/image-fetcher.svg").default,
+    iconPath: "/img/icons/projects/image-fetcher.svg",
     galleryImages: ["image-fetcher/image-fetcher-1.png"],
     links: [
       {
@@ -497,7 +497,7 @@ export const PROJECTS: Project[] = [
     category: "AI & Data Science",
     programmingLanguages: ["Java"],
     technologies: ["GraphViz", "Java PrintStream"],
-    iconPath: require("../img/icons/projects/id3-algorithm.svg").default,
+    iconPath: "/img/icons/projects/id3-algorithm.svg",
     galleryImages: ["id3-algorithm/id3-algorithm-1.png", "id3-algorithm/id3-algorithm-2.png"],
     links: [
       { name: "ID3 Algorithm", url: "https://github.com/NilsHellwig/Decision-Tree-Algorithm" },
@@ -513,7 +513,7 @@ export const PROJECTS: Project[] = [
     category: "AI & Data Science",
     programmingLanguages: ["Python"],
     technologies: ["Tensorflow", "Keras", "Sklearn", "Pandas", "Numpy", "matplotlib"],
-    iconPath: require("../img/icons/projects/pedestrian-rnn.svg").default,
+    iconPath: "/img/icons/projects/pedestrian-rnn.svg",
     galleryImages: [
       "pedestrian-rnn/pedestrian-rnn-1.png",
       "pedestrian-rnn/pedestrian-rnn-2.png",
@@ -536,7 +536,7 @@ export const PROJECTS: Project[] = [
     category: "AI & Data Science",
     programmingLanguages: ["Python"],
     technologies: ["Tensorflow", "Keras", "pandas", "numpy", "matplotlib"],
-    iconPath: require("../img/icons/projects/painting-colorizer.png"),
+    iconPath: "/img/icons/projects/painting-colorizer.png",
     galleryImages: [
       "painting-colorizer/painting-colorizer-1.png",
       "painting-colorizer/painting-colorizer-2.png",
@@ -560,7 +560,7 @@ export const PROJECTS: Project[] = [
     category: "AI & Data Science",
     programmingLanguages: ["R"],
     technologies: ["ggplot", "tidyverse", "dplyr", "forcats", "caret", "e1071"],
-    iconPath: require("../img/icons/projects/flight-delay-prediction.svg").default,
+    iconPath: "/img/icons/projects/flight-delay-prediction.svg",
     galleryImages: [
       "flight-delay-prediction/flight-delay-prediction-1.png",
       "flight-delay-prediction/flight-delay-prediction-2.png",
@@ -583,7 +583,7 @@ export const PROJECTS: Project[] = [
     category: "Web Development",
     programmingLanguages: ["TypeScript"],
     technologies: ["HTML", "CSS", "Framer Motion", "Tailwind", "Radix", "React"],
-    iconPath: require("../img/icons/projects/portfolio.png"),
+    iconPath: "/img/icons/projects/portfolio.png",
     galleryImages: [
       "portfolio/portfolio-1.png",
       "portfolio/portfolio-2.png",

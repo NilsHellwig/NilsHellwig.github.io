@@ -1,10 +1,12 @@
+"use client";
+
 import React from "react";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ArrowRight } from "phosphor-react";
+import Link from "next/link";
+import { motion, type Variants } from "framer-motion";
+import { ArrowRight } from "@phosphor-icons/react";
 
 const Home: React.FC = () => {
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -14,7 +16,7 @@ const Home: React.FC = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
@@ -51,7 +53,7 @@ const Home: React.FC = () => {
       </div>
 
       <motion.div variants={itemVariants} className="mb-6 sm:mb-10">
-        <Link to="/about">
+        <Link href="/about">
           <motion.div
             className="inline-flex items-center gap-3 px-7 py-3 rounded-full text-sm font-medium tracking-wide border border-zinc-900 dark:border-zinc-100 text-zinc-900 dark:text-zinc-100 hover:bg-zinc-900 hover:text-white dark:hover:bg-zinc-100 dark:hover:text-zinc-900 transition-colors duration-300 group cursor-pointer"
             whileHover={{ y: -1 }}

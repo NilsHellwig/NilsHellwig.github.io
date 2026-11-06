@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Build resume PDF
         uses: xu-cheng/latex-action@v3
@@ -21,20 +21,20 @@ jobs:
         run: cp resume/resume.pdf public/resume.pdf
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: 22.x
 
       - name: Install dependencies
         run: npm ci
 
       - name: Build app
-        run: npm run build && npm run gh-pages:404
+        run: npm run build
 
       - name: Upload pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./build
+          path: ./out
 
   deploy:
     needs: build

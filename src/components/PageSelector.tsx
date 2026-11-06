@@ -1,7 +1,18 @@
+"use client";
+
 import React from "react";
-import { Link, useLocation } from "react-router-dom";
-import { motion, AnimatePresence } from "framer-motion";
-import { House, User, Briefcase, BookOpen, Chalkboard, Article, Stamp } from "phosphor-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
+import {
+  House,
+  User,
+  Briefcase,
+  BookOpen,
+  Chalkboard,
+  Article,
+  Stamp,
+} from "@phosphor-icons/react";
 
 const iconVariants = {
   hover: {
@@ -14,7 +25,7 @@ const iconVariants = {
       rotate: { duration: 0.3, ease: "easeInOut" },
     },
   },
-};
+} satisfies Variants;
 
 interface PageSelectorProps {
   mobileMenuOpen: boolean;
@@ -22,7 +33,7 @@ interface PageSelectorProps {
 }
 
 const PageSelector: React.FC<PageSelectorProps> = ({ mobileMenuOpen, setMobileMenuOpen }) => {
-  const location = useLocation();
+  const pathname = usePathname();
 
   const navigationItems = [
     { path: "/", label: "Home", icon: House },
@@ -36,9 +47,9 @@ const PageSelector: React.FC<PageSelectorProps> = ({ mobileMenuOpen, setMobileMe
 
   const isActive = (path: string) => {
     if (path === "/") {
-      return location.pathname === path;
+      return pathname === path;
     }
-    return location.pathname.startsWith(path);
+    return pathname.startsWith(path);
   };
 
   return (
@@ -61,7 +72,7 @@ const PageSelector: React.FC<PageSelectorProps> = ({ mobileMenuOpen, setMobileMe
               transition={{ duration: 0.3, delay: index * 0.05 }}
             >
               <Link
-                to={item.path}
+                href={item.path}
                 className={`
                   flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300
                   ${
@@ -102,7 +113,7 @@ const PageSelector: React.FC<PageSelectorProps> = ({ mobileMenuOpen, setMobileMe
                 return (
                   <Link
                     key={item.path}
-                    to={item.path}
+                    href={item.path}
                     onClick={() => setMobileMenuOpen(false)}
                     className={`
                       flex items-center gap-3 px-4 py-3 transition-colors border-b border-zinc-100 dark:border-zinc-700 last:border-b-0

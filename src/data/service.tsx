@@ -15,8 +15,7 @@ export interface SupervisionEntry {
 
 export const SUPERVISION: SupervisionEntry[] = [
   {
-    title:
-      "SemEval-2026 Task 4: Narrative Story Similarity and Narrative Representation Learning",
+    title: "SemEval-2026 Task 4: Narrative Story Similarity and Narrative Representation Learning",
     type: "Master's Thesis",
     student: "Maximilian Schmerle",
     publishedIn: {

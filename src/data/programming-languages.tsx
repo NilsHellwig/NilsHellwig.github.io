@@ -8,19 +8,19 @@ export const PROGRAMMING_LANGUAGES: ProgrammingLanguage[] = [
   {
     name: "Python",
     favorite: true,
-    iconPath: require("../img/icons/programming-languages/python.svg").default,
+    iconPath: "/img/icons/programming-languages/python.svg",
   },
   {
     name: "TypeScript",
     favorite: true,
-    iconPath: require("../img/icons/programming-languages/typescript.svg").default,
+    iconPath: "/img/icons/programming-languages/typescript.svg",
   },
   {
     name: "R",
-    iconPath: require("../img/icons/programming-languages/r.svg").default,
+    iconPath: "/img/icons/programming-languages/r.svg",
   },
   {
     name: "Java",
-    iconPath: require("../img/icons/programming-languages/java.svg").default,
+    iconPath: "/img/icons/programming-languages/java.svg",
   },
 ];

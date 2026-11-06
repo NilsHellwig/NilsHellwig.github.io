@@ -2,7 +2,8 @@ export const PUBLICATIONS = [
   {
     name: "nchellwig at SemEval-2026 Task 3: Self-Consistent Structured Generation (SCSG) for Dimensional Aspect-Based Sentiment Analysis using Large Language Models",
     authors: "Hellwig, Nils Constantin, Fehle, Jakob, Kruschwitz, Udo, & Wolff, Christian",
-    conference: "Proceedings of the 20th International Workshop on Semantic Evaluation (SemEval-2026)",
+    conference:
+      "Proceedings of the 20th International Workshop on Semantic Evaluation (SemEval-2026)",
     pages: "37–47",
     year: 2026,
     publisher: "Association for Computational Linguistics",
@@ -14,7 +15,8 @@ export const PUBLICATIONS = [
   {
     name: "schmerle at SemEval-2026 Task 4: Exploring Large Language Model Prompting Strategies for Low-Resource Narrative Similarity Detection",
     authors: "Schmerle, Maximilian, & Hellwig, Nils Constantin",
-    conference: "Proceedings of the 20th International Workshop on Semantic Evaluation (SemEval-2026)",
+    conference:
+      "Proceedings of the 20th International Workshop on Semantic Evaluation (SemEval-2026)",
     pages: "2046–2056",
     year: 2026,
     publisher: "Association for Computational Linguistics",

@@ -1,7 +1,15 @@
+"use client";
+
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { DownloadSimple, FilePdf, Books, CaretUp, CaretDown, GithubLogo } from "phosphor-react";
-import { lectureFiles } from "../downloadable-files/lectures/lectureFiles";
+import {
+  DownloadSimple,
+  FilePdf,
+  Books,
+  CaretUp,
+  CaretDown,
+  GithubLogo,
+} from "@phosphor-icons/react";
 
 type LectureProps = {
   lecture: {
@@ -22,11 +30,7 @@ const Lecture: React.FC<LectureProps> = ({ lecture }) => {
 
   const handleDownload = (filePath: string) => {
     try {
-      const pdfUrl = lectureFiles[filePath];
-      if (!pdfUrl) {
-        alert("Datei nicht gefunden. Bitte versuchen Sie es später erneut.");
-        return;
-      }
+      const pdfUrl = `/downloadable-files/lectures/${encodeURI(filePath)}`;
       const link = document.createElement("a");
       link.href = pdfUrl;
       link.download = filePath.split("/").pop() || "document.pdf";
@@ -45,9 +49,13 @@ const Lecture: React.FC<LectureProps> = ({ lecture }) => {
       <div className="p-5">
         {/* Header: icon + title + meta */}
         <div className="flex items-start gap-4 mb-4">
-          <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-900 border-[0.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center flex-shrink-0 p-2">
+          <div className="w-12 h-12 rounded-xl bg-zinc-100 dark:bg-zinc-900 border-[0.5px] border-zinc-300 dark:border-zinc-700 flex items-center justify-center shrink-0 p-2">
             {lecture.icon ? (
-              <lecture.icon size={28} weight="duotone" className="text-zinc-700 dark:text-zinc-300" />
+              <lecture.icon
+                size={28}
+                weight="duotone"
+                className="text-zinc-700 dark:text-zinc-300"
+              />
             ) : (
               <img
                 src={lecture.iconPath}
@@ -107,7 +115,7 @@ const Lecture: React.FC<LectureProps> = ({ lecture }) => {
               href={lecture.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-700 dark:hover:bg-zinc-300 transition-all duration-150 shadow-sm"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 hover:bg-zinc-700 dark:hover:bg-zinc-300 transition-all duration-150 shadow-xs"
             >
               <GithubLogo size={12} weight="fill" />
               View on GitHub
@@ -142,7 +150,7 @@ const Lecture: React.FC<LectureProps> = ({ lecture }) => {
                   </div>
                   <button
                     onClick={() => handleDownload(material.documentPath)}
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-600 transition-all duration-150 flex-shrink-0"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-600 transition-all duration-150 shrink-0"
                   >
                     <DownloadSimple size={12} weight="bold" />
                     <FilePdf size={12} weight="bold" />

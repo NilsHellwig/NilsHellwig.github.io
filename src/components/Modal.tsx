@@ -1,4 +1,6 @@
-import { X } from "phosphor-react";
+"use client";
+
+import { X } from "@phosphor-icons/react";
 import React, { ReactNode, useEffect, useState } from "react";
 
 interface ModalProps {
@@ -43,7 +45,7 @@ export const ModalContent: React.FC<ModalContentProps> = ({ onClose, screenshotU
 
   return (
     <div
-      className="fixed z-50 inset-0 overflow-auto bg-opacity-60 bg-black backdrop-blur-sm p-4"
+      className="fixed z-50 inset-0 overflow-auto bg-black/60 backdrop-blur-xs p-4"
       onClick={onClose}
     >
       <span className="absolute top-4 right-4 text-white cursor-pointer">

@@ -1,7 +1,9 @@
+"use client";
+
 import React, { useEffect, useState, useMemo } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { PROJECTS } from "../data/projects";
-import { useParams } from "react-router";
+import { useOverlay } from "../context/OverlayContext";
 import SingleProject from "../popups/SingleProject";
 import { ArrowSquareOut, GithubLogo, Info } from "@phosphor-icons/react";
 import { Tooltip } from "../components/Tooltip";
@@ -10,11 +12,10 @@ import PageHeader from "../components/PageHeader";
 import ClaudeBadge from "../components/ClaudeBadge";
 
 interface ProjectsProps {
-  showOverlay: boolean;
-  setShowOverlay: React.Dispatch<React.SetStateAction<boolean>>;
+  projectName?: string;
 }
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -23,15 +24,15 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 };
 
-const Projects: React.FC<ProjectsProps> = ({ showOverlay, setShowOverlay }) => {
+const Projects: React.FC<ProjectsProps> = ({ projectName }) => {
+  const { showOverlay, setShowOverlay } = useOverlay();
   const [projectId, setProjectId] = useState("");
   const [activeFilter, setActiveFilter] = useState<string>("All");
-  const { projectName } = useParams();
 
   const categories = useMemo(() => {
     const uniqueTypes = Array.from(new Set(PROJECTS.map((p) => p.type)));
@@ -54,7 +55,7 @@ const Projects: React.FC<ProjectsProps> = ({ showOverlay, setShowOverlay }) => {
   function showSingleProjectFct() {
     document.body.style.overflow = document.body.style.overflow === "hidden" ? "scroll" : "hidden";
     if (showOverlay) {
-      window.history.replaceState(null, "Nils Hellwig - Portfolio", "/projects");
+      window.history.replaceState(null, "Nils Hellwig - Portfolio", "/projects/");
     }
     setShowOverlay(!showOverlay);
   }
@@ -83,7 +84,7 @@ const Projects: React.FC<ProjectsProps> = ({ showOverlay, setShowOverlay }) => {
           href="https://github.com/NilsHellwig"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-white dark:bg-zinc-800 border-[0.5px] border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-all duration-150 shadow-sm"
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-white dark:bg-zinc-800 border-[0.5px] border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-all duration-150 shadow-xs"
         >
           <GithubLogo size={16} weight="fill" />
           github/NilsHellwig

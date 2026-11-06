@@ -1,6 +1,8 @@
-import { Link } from "react-router-dom";
+"use client";
+
+import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight } from "phosphor-react";
+import { ArrowRight } from "@phosphor-icons/react";
 import { BlogType, formatBlogDate } from "../../data/blogs";
 
 interface BlogListElementProps {
@@ -9,7 +11,7 @@ interface BlogListElementProps {
 
 const BlogListElement: React.FC<BlogListElementProps> = ({ blog }) => {
   return (
-    <Link to={`/blog/${blog.url}`} className="block group h-full">
+    <Link href={`/blog/${blog.url}`} className="block group h-full">
       <motion.div
         whileHover={{ y: -4 }}
         transition={{ duration: 0.2 }}

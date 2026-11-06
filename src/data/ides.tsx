@@ -1,26 +1,26 @@
 export const IDES = [
   {
     name: "VSCode",
-    iconPath: require("../img/icons/ides/vsc.svg").default,
+    iconPath: "/img/icons/ides/vsc.svg",
   },
   {
     name: "Atom",
-    iconPath: require("../img/icons/ides/atom.svg").default,
+    iconPath: "/img/icons/ides/atom.svg",
   },
   {
     name: "IntelliJ",
-    iconPath: require("../img/icons/ides/intellij.svg").default,
+    iconPath: "/img/icons/ides/intellij.svg",
   },
   {
     name: "PyCharm",
-    iconPath: require("../img/icons/ides/pycharm.svg").default,
+    iconPath: "/img/icons/ides/pycharm.svg",
   },
   {
     name: "Android Studio",
-    iconPath: require("../img/icons/ides/android-studio.svg").default,
+    iconPath: "/img/icons/ides/android-studio.svg",
   },
   {
     name: "Jupyter (Lab)",
-    iconPath: require("../img/icons/ides/jupyter.svg").default,
+    iconPath: "/img/icons/ides/jupyter.svg",
   },
 ];

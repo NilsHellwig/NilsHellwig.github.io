@@ -1,5 +1,7 @@
+"use client";
+
 import React from "react";
-import { Moon, Sun } from "phosphor-react";
+import { Moon, Sun } from "@phosphor-icons/react";
 import { useTheme } from "../context/ThemeContext";
 import { motion } from "framer-motion";
 

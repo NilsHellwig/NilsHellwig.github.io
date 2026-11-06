@@ -1,7 +1,9 @@
+"use client";
+
 import React, { useMemo, useState } from "react";
 import { PUBLICATIONS } from "../data/publications";
-import { ArrowSquareOut, FilePdf, Medal } from "phosphor-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { ArrowSquareOut, FilePdf, Medal } from "@phosphor-icons/react";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
 
@@ -45,7 +47,7 @@ const fallbackDomain = {
   hover: "hover:bg-zinc-200 dark:hover:bg-zinc-600",
 };
 
-const containerVariants = {
+const containerVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
@@ -60,7 +62,7 @@ const containerVariants = {
   },
 };
 
-const itemVariants = {
+const itemVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
   visible: { opacity: 1, y: 0 },
 };
@@ -141,7 +143,7 @@ const Publications: React.FC = () => {
                 className="border-[0.5px] border-zinc-300 dark:border-zinc-700 rounded-xl bg-white dark:bg-zinc-800 overflow-hidden flex flex-col hover:shadow-md dark:hover:shadow-zinc-900/50 transition-all duration-150"
               >
                 {/* Domain-colored top strip */}
-                <div className="h-1.5 flex-shrink-0" style={{ backgroundColor: domain.color }} />
+                <div className="h-1.5 shrink-0" style={{ backgroundColor: domain.color }} />
 
                 <div className="p-5 flex flex-col flex-1">
                   {/* Meta: source badge + year */}
@@ -157,7 +159,7 @@ const Publications: React.FC = () => {
                       </span>
                     )}
                     {publication.award && (
-                      <span className="inline-flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full bg-gradient-to-r from-slate-300 via-zinc-300 to-slate-400 dark:from-slate-500 dark:via-zinc-500 dark:to-slate-600 text-zinc-800 dark:text-zinc-50 shadow-sm">
+                      <span className="inline-flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full bg-gradient-to-r from-slate-300 via-zinc-300 to-slate-400 dark:from-slate-500 dark:via-zinc-500 dark:to-slate-600 text-zinc-800 dark:text-zinc-50 shadow-xs">
                         <Medal size={12} weight="fill" />
                         {publication.award}
                       </span>

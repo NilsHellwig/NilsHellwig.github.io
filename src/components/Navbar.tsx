@@ -1,5 +1,7 @@
+"use client";
+
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, type Variants } from "framer-motion";
 import {
   Student,
   TwitterLogo,
@@ -10,8 +12,8 @@ import {
   DotsThree,
   List,
   X,
-} from "phosphor-react";
-import { Link } from "react-router-dom";
+} from "@phosphor-icons/react";
+import Link from "next/link";
 import { openLinkInNewTab } from "../helper";
 import { Tooltip } from "./Tooltip";
 import ThemeToggle from "./ThemeToggle";
@@ -27,7 +29,7 @@ const iconVariants = {
       rotate: { duration: 0.4, ease: "easeInOut" },
     },
   },
-};
+} satisfies Variants;
 
 const textVariants = {
   hover: {
@@ -35,7 +37,7 @@ const textVariants = {
     textShadow: "0px 0px 8px rgba(0,0,0,0.2)",
     transition: { duration: 0.3 },
   },
-};
+} satisfies Variants;
 
 const socialLinks = [
   {
@@ -83,7 +85,7 @@ const NavBar: React.FC<NavBarProps> = ({ mobileMenuOpen, setMobileMenuOpen }) =>
 
   return (
     <div className="flex flex-row items-center mt-2 mb-4 justify-between relative px-2 sm:px-0">
-      <Link to="/">
+      <Link href="/">
         <motion.h1
           className="font-bold text-md hover:cursor-pointer hover:text-zinc-500 dark:text-zinc-100 dark:hover:text-zinc-400 duration-300"
           whileHover={textVariants.hover}

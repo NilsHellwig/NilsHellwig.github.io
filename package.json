@@ -3,61 +3,32 @@
   "homepage": "https://nilshellwig.github.io",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@phosphor-icons/react": "^2.0.15",
-    "@radix-ui/react-tooltip": "^1.0.7",
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.18.68",
-    "@types/react-dom": "^18.2.17",
-    "@types/react-router": "^5.1.20",
-    "@types/react-syntax-highlighter": "^15.5.13",
-    "classnames": "^2.3.2",
-    "framer-motion": "^10.18.0",
-    "phosphor-react": "^1.4.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-markdown": "^9.0.1",
-    "react-modal-image": "^2.6.0",
-    "react-router-dom": "^6.21.0",
-    "react-scripts": "5.0.1",
-    "react-syntax-highlighter": "^16.1.0",
-    "typescript": "^4.9.5",
-    "web-vitals": "^2.1.4"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "gh-pages:404": "cp build/index.html build/404.html",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
+    "dev": "next dev",
+    "build": "next build",
+    "start": "npx serve out",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\""
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "dependencies": {
+    "@phosphor-icons/react": "^2.1.10",
+    "@radix-ui/react-tooltip": "^1.4.1",
+    "classnames": "^2.5.1",
+    "framer-motion": "^14.10.0",
+    "next": "^16.4.5",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-markdown": "^10.1.0",
+    "react-syntax-highlighter": "^16.1.2"
   },
   "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@types/react": "^18.3.20",
-    "gh-pages": "^6.1.0",
-    "prettier": "^3.8.3",
-    "tailwindcss": "^3.3.6"
+    "@tailwindcss/postcss": "^4.3.4",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "@types/react-syntax-highlighter": "^15.5.13",
+    "postcss": "^8.5.32",
+    "prettier": "^3.9.10",
+    "tailwindcss": "^4.3.4",
+    "typescript": "^7.0.2"
   }
 }

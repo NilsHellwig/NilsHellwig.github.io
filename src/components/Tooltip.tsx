@@ -1,3 +1,5 @@
+"use client";
+
 import * as RadixTooltip from "@radix-ui/react-tooltip";
 import cx from "classnames";
 
@@ -27,7 +29,7 @@ export const Tooltip: React.FC<TooltipProps> = ({
         <RadixTooltip.Content
           className={
             contentClassName ??
-            "bg-zinc-700 text-white text-[12px] rounded px-2 py-1 leading-none z-50"
+            "bg-zinc-700 text-white text-[12px] rounded-sm px-2 py-1 leading-none z-50"
           }
           side={position}
           sideOffset={5}

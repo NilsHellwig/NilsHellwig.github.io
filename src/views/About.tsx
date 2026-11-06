@@ -1,12 +1,14 @@
+"use client";
+
 import React from "react";
-import { motion } from "framer-motion";
-import { GraduationCap, Code, MapPin } from "phosphor-react";
+import { motion, type Variants } from "framer-motion";
+import { GraduationCap, Code, MapPin } from "@phosphor-icons/react";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
 import Skills from "../components/Skills";
 
 const About: React.FC = () => {
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
@@ -21,7 +23,7 @@ const About: React.FC = () => {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
   };
@@ -95,7 +97,7 @@ const About: React.FC = () => {
           <React.Fragment key={index}>
             <motion.div variants={itemVariants} className="flex items-center gap-3">
               <motion.div
-                className="flex items-center justify-center w-10 h-10 rounded-full border border-zinc-200 dark:border-zinc-700 flex-shrink-0"
+                className="flex items-center justify-center w-10 h-10 rounded-full border border-zinc-200 dark:border-zinc-700 shrink-0"
                 whileHover={{ rotate: 360 }}
                 transition={{ duration: 0.6 }}
               >
@@ -190,7 +192,7 @@ const About: React.FC = () => {
             </div>
           </motion.div>
 
-          <div className="w-64 md:w-72 flex-shrink-0 order-1 md:order-2">
+          <div className="w-64 md:w-72 shrink-0 order-1 md:order-2">
             <div className="relative">
               {/* Soft grayscale glow behind the portrait */}
               <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-zinc-300/40 via-zinc-200/20 to-transparent dark:from-zinc-100/10 dark:via-zinc-400/5 dark:to-transparent blur-2xl -z-10" />
@@ -230,9 +232,9 @@ const About: React.FC = () => {
             return (
               <motion.div key={index} variants={itemVariants} className="flex gap-5">
                 {/* Rail: node + connecting line */}
-                <div className="flex flex-col items-center flex-shrink-0">
+                <div className="flex flex-col items-center shrink-0">
                   <span
-                    className={`relative flex items-center justify-center w-4 h-4 rounded-full border-2 flex-shrink-0 ${
+                    className={`relative flex items-center justify-center w-4 h-4 rounded-full border-2 shrink-0 ${
                       isOngoing
                         ? "border-zinc-900 dark:border-white bg-white dark:bg-zinc-900"
                         : "border-zinc-300 dark:border-zinc-600 bg-white dark:bg-zinc-800"

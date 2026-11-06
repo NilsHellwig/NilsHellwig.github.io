@@ -1,6 +1,8 @@
+"use client";
+
 import React from "react";
 import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import { Tooltip } from "./Tooltip";
 import {
   GithubLogo,
@@ -86,7 +88,7 @@ const Footer: React.FC = () => {
               {navigationLinks.map((link, index) => (
                 <Link
                   key={index}
-                  to={link.to}
+                  href={link.to}
                   className="text-sm text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors flex items-center gap-2 group"
                 >
                   <link.icon

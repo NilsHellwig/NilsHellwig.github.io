@@ -1,4 +1,6 @@
-import { ArrowLeft, ArrowRight, ArrowSquareOut, X } from "phosphor-react";
+"use client";
+
+import { ArrowLeft, ArrowRight, ArrowSquareOut, X } from "@phosphor-icons/react";
 import React, { MouseEventHandler, useEffect, useState } from "react";
 import { PROJECTS } from "../data/projects";
 import { PROGRAMMING_LANGUAGES, ProgrammingLanguage } from "../data/programming-languages";
@@ -26,7 +28,7 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
     if (project?.galleryImages?.[galleryIndex]) {
       const img = new Image();
       img.onload = () => setImageDimensions({ width: img.width, height: img.height });
-      img.src = require(`../img/screenshots-projects/${project.galleryImages[galleryIndex]}`);
+      img.src = `/img/screenshots-projects/${project.galleryImages[galleryIndex]}`;
     }
   }, [project, galleryIndex]);
 
@@ -37,7 +39,7 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
     <>
       {/* Backdrop */}
       <div
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+        className="fixed inset-0 bg-black/50 backdrop-blur-xs z-40"
         onClick={showSingleProjectFct}
       />
 
@@ -55,9 +57,9 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
           onClick={(e) => e.stopPropagation()}
         >
           {/* Sticky header */}
-          <div className="flex-shrink-0 flex items-center justify-between px-5 py-4 border-b border-zinc-100 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md">
+          <div className="shrink-0 flex items-center justify-between px-5 py-4 border-b border-zinc-100 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-7 h-7 rounded-lg bg-zinc-100 dark:bg-zinc-800 border-[0.5px] border-zinc-200 dark:border-zinc-700 p-1 flex-shrink-0">
+              <div className="w-7 h-7 rounded-lg bg-zinc-100 dark:bg-zinc-800 border-[0.5px] border-zinc-200 dark:border-zinc-700 p-1 shrink-0">
                 {project?.iconPath && (
                   <img
                     src={project.iconPath}
@@ -69,12 +71,12 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
               <span className="font-bold text-sm text-zinc-900 dark:text-white truncate">
                 {project?.title}
               </span>
-              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400 flex-shrink-0">
+              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400 shrink-0">
                 {project?.type}
               </span>
             </div>
             <div
-              className="w-8 h-8 rounded-lg bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors cursor-pointer flex-shrink-0 ml-3"
+              className="w-8 h-8 rounded-lg bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors cursor-pointer shrink-0 ml-3"
               onClick={showSingleProjectFct}
             >
               <X size={16} weight="bold" className="text-zinc-600 dark:text-zinc-400" />
@@ -85,7 +87,7 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
           <div className="overflow-y-auto overflow-x-hidden flex-1 px-5 py-5 flex flex-col gap-6">
             {/* Hero: icon + title + subtitle */}
             <div className="flex items-start gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border-[0.5px] border-zinc-200 dark:border-zinc-700 p-3 flex-shrink-0">
+              <div className="w-16 h-16 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border-[0.5px] border-zinc-200 dark:border-zinc-700 p-3 shrink-0">
                 {project?.iconPath && (
                   <img
                     src={project.iconPath}
@@ -115,19 +117,17 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
                   {galleryFullView && project?.galleryImages && (
                     <ModalContent
                       onClose={() => setGalleryFullView(false)}
-                      screenshotUrl={require(
-                        `../img/screenshots-projects/${project.galleryImages[galleryIndex]}`,
-                      )}
+                      screenshotUrl={`/img/screenshots-projects/${project.galleryImages[galleryIndex]}`}
                     />
                   )}
                   <div className="flex items-center justify-between gap-2 p-3">
                     {/* Prev arrow */}
                     <button
                       onClick={() => galleryIndex > 0 && setGalleryIndex(galleryIndex - 1)}
-                      className={`p-2 rounded-lg transition-all flex-shrink-0 ${
+                      className={`p-2 rounded-lg transition-all shrink-0 ${
                         galleryIndex === 0
                           ? "text-zinc-300 dark:text-zinc-600 cursor-not-allowed"
-                          : "text-zinc-600 dark:text-zinc-300 bg-white dark:bg-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-600 shadow-sm cursor-pointer"
+                          : "text-zinc-600 dark:text-zinc-300 bg-white dark:bg-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-600 shadow-xs cursor-pointer"
                       }`}
                     >
                       <ArrowLeft size={18} weight="bold" />
@@ -145,9 +145,7 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
                               ? "w-full max-h-[480px] object-contain"
                               : "max-h-[480px] object-contain"
                           }`}
-                          src={require(
-                            `../img/screenshots-projects/${project.galleryImages[galleryIndex]}`,
-                          )}
+                          src={`/img/screenshots-projects/${project.galleryImages[galleryIndex]}`}
                           alt={`${project.title} screenshot`}
                         />
                       </Modal>
@@ -160,10 +158,10 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
                         galleryIndex < project.galleryImages.length - 1 &&
                         setGalleryIndex(galleryIndex + 1)
                       }
-                      className={`p-2 rounded-lg transition-all flex-shrink-0 ${
+                      className={`p-2 rounded-lg transition-all shrink-0 ${
                         galleryIndex + 1 === project?.galleryImages?.length
                           ? "text-zinc-300 dark:text-zinc-600 cursor-not-allowed"
-                          : "text-zinc-600 dark:text-zinc-300 bg-white dark:bg-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-600 shadow-sm cursor-pointer"
+                          : "text-zinc-600 dark:text-zinc-300 bg-white dark:bg-zinc-700 hover:bg-zinc-50 dark:hover:bg-zinc-600 shadow-xs cursor-pointer"
                       }`}
                     >
                       <ArrowRight size={18} weight="bold" />
@@ -259,7 +257,7 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
                         <ArrowSquareOut
                           size={15}
                           weight="bold"
-                          className="text-zinc-400 dark:text-zinc-500 flex-shrink-0"
+                          className="text-zinc-400 dark:text-zinc-500 shrink-0"
                         />
                       </button>
                     ))}

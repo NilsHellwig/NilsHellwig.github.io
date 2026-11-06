@@ -1,3 +1,5 @@
+"use client";
+
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 type Theme = "light" | "dark";
@@ -10,29 +12,23 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Check localStorage first
-    const savedTheme = localStorage.getItem("theme") as Theme | null;
-    if (savedTheme) return savedTheme;
+  const [theme, setTheme] = useState<Theme>("light");
+  const [ready, setReady] = useState(false);
 
-    // Check system preference
-    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
-      return "dark";
-    }
-
-    return "light";
-  });
+  // Read the stored/system preference after hydration (the inline script in the layout
+  // already applied the right class before first paint)
+  useEffect(() => {
+    const saved = localStorage.getItem("theme") as Theme | null;
+    if (saved) setTheme(saved);
+    else if (window.matchMedia("(prefers-color-scheme: dark)").matches) setTheme("dark");
+    setReady(true);
+  }, []);
 
   useEffect(() => {
-    // Update document class and localStorage
-    const root = document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
+    if (!ready) return;
+    document.documentElement.classList.toggle("dark", theme === "dark");
     localStorage.setItem("theme", theme);
-  }, [theme]);
+  }, [theme, ready]);
 
   // Listen for system preference changes
   useEffect(() => {
