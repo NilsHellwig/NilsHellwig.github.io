@@ -9,6 +9,14 @@ export interface BlogType {
 
 export const BLOGS: BlogType[] = [
   {
+    id: "5",
+    url: "agents-at-work",
+    category: "AI",
+    author: "Nils Hellwig",
+    term: "06/11/2026",
+    title: "How Agents Save Me Time at Work",
+  },
+  {
     id: "4",
     url: "predictions-2027",
     category: "AI",
