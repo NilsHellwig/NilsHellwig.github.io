@@ -67,3 +67,35 @@ export const REVIEWING: ReviewingEntry[] = [
     url: "https://www.sciencedirect.com/journal/expert-systems-with-applications",
   },
 ];
+
+export interface TalkEntry {
+  title: string;
+  /** Optional second-language title, shown below the main title. */
+  subtitle?: string;
+  event: string;
+  host: string;
+  type: "Invited Talk" | "Conference Talk";
+  date: string;
+  /** Recording or event page. */
+  url?: string;
+}
+
+export const TALKS: TalkEntry[] = [
+  {
+    title: "Introduction to Topic Modeling with BERTopic",
+    subtitle: "Case study: Twitter discourse around the 2021 German federal election",
+    event: "Bring-your-own-data-Lab: Topic Modeling",
+    host: "Datenkompetenzzentrum HERMES, Universität Trier",
+    type: "Invited Talk",
+    date: "Nov 2025",
+  },
+  {
+    title:
+      "Transformer-Based Analysis of Sentiment Towards German Political Parties on Twitter During the 2021 Election Year",
+    event: "ICNLSP 2023",
+    host: "International Conference on Natural Language and Speech Processing",
+    type: "Conference Talk",
+    date: "2023",
+    url: "https://www.youtube.com/watch?v=5p7_ocHhyTc",
+  },
+];

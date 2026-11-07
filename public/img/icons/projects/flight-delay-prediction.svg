@@ -1,14 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0 0 400 400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <linearGradient id="linear-gradient" x1="0.034" y1="0.965" x2="0.821" y2="0.172" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#a3bdff"/>
-      <stop offset="1" stop-color="#00247e"/>
-    </linearGradient>
-    <clipPath id="clip-Zeichenfläche_5">
-      <rect width="400" height="400"/>
-    </clipPath>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+    <filter id="softshadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16"/>
+    </filter>
+    <filter id="blur" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="46"/>
+    </filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18" result="b"/>
+      <feComponentTransfer in="b" result="g"><feFuncA type="linear" slope="0.7"/></feComponentTransfer>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="sheen" cx="0.25" cy="0.1" r="0.9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="clip"><rect width="512" height="512" rx="116"/></clipPath>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#e9ecef"/></linearGradient><linearGradient id="bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4ade80"/><stop offset="1" stop-color="#16a34a"/></linearGradient><linearGradient id="red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f87171"/><stop offset="1" stop-color="#dc2626"/></linearGradient>
   </defs>
-  <g id="Zeichenfläche_5" data-name="Zeichenfläche – 5" clip-path="url(#clip-Zeichenfläche_5)">
-    <path id="Pfad_56" data-name="Pfad 56" d="M264.524,239.541a10.047,10.047,0,0,1-2.336,10.536l-30.14,30.14a10.046,10.046,0,0,1-7.108,2.951,8.906,8.906,0,0,1-.992,0,10.046,10.046,0,0,1-7.372-4.421l-55.344-83.035L134.52,222.374v30.655a10.047,10.047,0,0,1-2.939,7.1S114,277.781,111.639,280.067a9.933,9.933,0,0,1-3.491,2.361,10.047,10.047,0,0,1-13.073-5.463L95,276.776,76.539,230.612l-46.252-18.5a10.047,10.047,0,0,1-3.378-16.426L47,175.594a10.047,10.047,0,0,1,7.146-2.939H84.789L111.5,145.944,28.478,90.587a10.047,10.047,0,0,1-1.532-15.472l30.14-30.14A10.047,10.047,0,0,1,67.622,42.64L175.548,81.884l39.6-39.6a35.165,35.165,0,1,1,49.731,49.731l-39.6,39.6Z" transform="translate(50.427 42.414)" fill="url(#linear-gradient)"/>
+  <g clip-path="url(#clip)">
+    <rect width="512" height="512" fill="url(#bg)"/>
+    <line x1="64" y1="404" x2="448" y2="404" stroke="#9ca3af" stroke-width="6" stroke-linecap="round"/>
+    <rect x="78" y="250" width="44" height="150" rx="10" fill="url(#bar)"/><rect x="140" y="204" width="44" height="196" rx="10" fill="url(#bar)"/><rect x="202" y="280" width="44" height="120" rx="10" fill="url(#bar)"/><rect x="264" y="180" width="44" height="220" rx="10" fill="url(#bar)"/><rect x="326" y="230" width="44" height="170" rx="10" fill="url(#bar)"/><rect x="388" y="200" width="44" height="200" rx="10" fill="url(#red)"/>
+    <g filter="url(#softshadow)"><g fill="#1f2937" transform="translate(75.0 55.0) scale(0.5859)" ><path d="M215.52,197.26a8,8,0,0,1-1.86,8.39l-24,24A8,8,0,0,1,184,232a7.09,7.09,0,0,1-.79,0,8,8,0,0,1-5.87-3.52l-44.07-66.12L112,183.59V208a8,8,0,0,1-2.34,5.65s-14,14.06-15.88,15.88A7.91,7.91,0,0,1,91,231.41a8,8,0,0,1-10.41-4.35l-.06-.15-14.7-36.76L29,175.42a8,8,0,0,1-2.69-13.08l16-16A8,8,0,0,1,48,144H72.4l21.27-21.27L27.56,78.65a8,8,0,0,1-1.22-12.32l24-24a8,8,0,0,1,8.39-1.86l85.94,31.25L176.2,40.19a28,28,0,0,1,39.6,39.6l-31.53,31.53Z"/></g></g>
+
+    <rect width="512" height="512" fill="url(#sheen)"/>
+    <rect x="1.5" y="1.5" width="509" height="509" rx="114.5" fill="none" stroke="#000000" stroke-opacity="0.07" stroke-width="3"/>
   </g>
 </svg>

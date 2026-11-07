@@ -1,14 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0 0 400 400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <clipPath id="clip-Zeichenfläche_1">
-      <rect width="400" height="400"/>
-    </clipPath>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+    <filter id="softshadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16"/>
+    </filter>
+    <filter id="blur" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="46"/>
+    </filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18" result="b"/>
+      <feComponentTransfer in="b" result="g"><feFuncA type="linear" slope="0.7"/></feComponentTransfer>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="sheen" cx="0.25" cy="0.1" r="0.9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="clip"><rect width="512" height="512" rx="116"/></clipPath>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffffff"/><stop offset="1" stop-color="#eef0f4"/></linearGradient>
   </defs>
-  <g id="Zeichenfläche_1" data-name="Zeichenfläche – 1" clip-path="url(#clip-Zeichenfläche_1)">
-    <g id="flickr-svgrepo-com" transform="translate(0 88.629)">
-      <circle id="Ellipse_19" data-name="Ellipse 19" cx="112.441" cy="112.441" r="112.441" transform="translate(0 0)" fill="#005de1"/>
-      <circle id="Ellipse_20" data-name="Ellipse 20" cx="112.441" cy="112.441" r="112.441" transform="translate(175.117 0)" fill="#ff007e"/>
+  <g clip-path="url(#clip)">
+    <rect width="512" height="512" fill="url(#bg)"/>
+    <g opacity="0.5">
+      <rect x="70" y="80" width="140" height="14" rx="7" fill="#a855f7"/><rect x="222" y="80" width="90" height="14" rx="7" fill="#94a3b8"/>
+      <rect x="70" y="112" width="96" height="14" rx="7" fill="#3b82f6"/><rect x="178" y="112" width="170" height="14" rx="7" fill="#cbd5e1"/>
     </g>
-    <text id="Fetcher." transform="translate(68 225.5)" fill="#fff" font-size="67" font-family="Manrope-Bold, Manrope" font-weight="700"><tspan x="0" y="0">Fetcher.</tspan></text>
+    <circle cx="186" cy="262" r="74" fill="#0063dc"/>
+    <circle cx="326" cy="262" r="74" fill="#ff0084"/>
+    <circle cx="378" cy="384" r="62" fill="#111827" filter="url(#shadow)"/>
+    <g fill="#ffffff" transform="translate(340.0 346.0) scale(0.2969)" ><path d="M228,144v64a12,12,0,0,1-12,12H40a12,12,0,0,1-12-12V144a12,12,0,0,1,24,0v52H204V144a12,12,0,0,1,24,0Zm-108.49,8.49a12,12,0,0,0,17,0l40-40a12,12,0,0,0-17-17L140,115V32a12,12,0,0,0-24,0v83L96.49,95.51a12,12,0,0,0-17,17Z"/></g>
+    <rect width="512" height="512" fill="url(#sheen)"/>
+    <rect x="1.5" y="1.5" width="509" height="509" rx="114.5" fill="none" stroke="#000000" stroke-opacity="0.07" stroke-width="3"/>
   </g>
 </svg>

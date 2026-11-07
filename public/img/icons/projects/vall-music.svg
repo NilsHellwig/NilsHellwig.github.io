@@ -1,14 +1,32 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0 0 400 400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <linearGradient id="linear-gradient" x1="0.783" y1="0.052" x2="0.042" y2="0.873" gradientUnits="objectBoundingBox">
-      <stop offset="0"/>
-      <stop offset="1" stop-color="#c7c7c7"/>
-    </linearGradient>
-    <clipPath id="clip-Zeichenfläche_1">
-      <rect width="400" height="400"/>
-    </clipPath>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+    <filter id="softshadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16"/>
+    </filter>
+    <filter id="blur" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="46"/>
+    </filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18" result="b"/>
+      <feComponentTransfer in="b" result="g"><feFuncA type="linear" slope="0.7"/></feComponentTransfer>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="sheen" cx="0.25" cy="0.1" r="0.9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="clip"><rect width="512" height="512" rx="116"/></clipPath>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b1d3f"/><stop offset="0.45" stop-color="#c2410c"/><stop offset="1" stop-color="#fb923c"/></linearGradient>
   </defs>
-  <g id="Zeichenfläche_1" data-name="Zeichenfläche – 1" clip-path="url(#clip-Zeichenfläche_1)">
-    <path id="Pfad_75" data-name="Pfad 75" d="M86.154,162.462V285.538a15.385,15.385,0,0,1-15.385,15.385H55.385A15.385,15.385,0,0,1,40,285.538V162.462a15.385,15.385,0,0,1,15.385-15.385H70.769A15.385,15.385,0,0,1,86.154,162.462ZM147.692,24H132.308a15.385,15.385,0,0,0-15.385,15.385V408.615A15.385,15.385,0,0,0,132.308,424h15.385a15.385,15.385,0,0,0,15.385-15.385V39.385A15.385,15.385,0,0,0,147.692,24Zm76.923,61.538H209.231a15.385,15.385,0,0,0-15.385,15.385V347.077a15.385,15.385,0,0,0,15.385,15.385h15.385A15.385,15.385,0,0,0,240,347.077V100.923A15.385,15.385,0,0,0,224.615,85.538Zm76.923,61.538H286.154a15.385,15.385,0,0,0-15.385,15.385V285.538a15.385,15.385,0,0,0,15.385,15.385h15.385a15.385,15.385,0,0,0,15.385-15.385V162.462A15.385,15.385,0,0,0,301.539,147.077Zm76.923-30.769H363.077a15.385,15.385,0,0,0-15.385,15.385V316.308a15.385,15.385,0,0,0,15.385,15.385h15.385a15.385,15.385,0,0,0,15.385-15.385V131.692A15.385,15.385,0,0,0,378.462,116.308Z" transform="translate(-16.923 -24)" fill="url(#linear-gradient)"/>
+  <g clip-path="url(#clip)">
+    <rect width="512" height="512" fill="url(#sky)"/>
+    <circle cx="256" cy="330" r="190" fill="#fdba74" opacity="0.55" filter="url(#blur)"/>
+    <g fill="#111111" transform="translate(116.0 178.0) scale(1.0938)" ><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24ZM72,128a8,8,0,0,1-16,0,72.08,72.08,0,0,1,72-72,8,8,0,0,1,0,16A56.06,56.06,0,0,0,72,128Zm32,0a24,24,0,1,1,24,24A24,24,0,0,1,104,128Zm24,72a8,8,0,0,1,0-16,56.06,56.06,0,0,0,56-56,8,8,0,0,1,16,0A72.08,72.08,0,0,1,128,200Z"/></g>
+    <path d="M0 380 C120 360 200 372 256 384 C330 398 420 372 512 380 V512 H0 Z" fill="#0a0a0a"/>
+    
+    <rect x="1.5" y="1.5" width="509" height="509" rx="114.5" fill="none" stroke="#ffffff" stroke-opacity="0.14" stroke-width="3"/>
   </g>
 </svg>

@@ -6,6 +6,8 @@ type Project = {
   technologies?: string[];
   programmingLanguages?: string[];
   type: string;
+  /** Year the project was built (or its current version, if rebuilt). */
+  year: number;
   category: string;
   iconPath: string;
   claude?: boolean;
@@ -16,6 +18,7 @@ type Project = {
 export const PROJECTS: Project[] = [
   {
     id: "acl-paper-skills",
+    year: 2026,
     claude: true,
     title: "ACL Paper Skills",
     subtitle: "Claude Code skills that check an ACL paper before reviewers do",
@@ -45,6 +48,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "dentist-agent",
+    year: 2026,
     claude: true,
     title: "Dentist Agent",
     subtitle: "Local voice-to-voice support agent for a dental practice",
@@ -84,6 +88,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "comark",
+    year: 2026,
     claude: true,
     title: "CoMark",
     subtitle: "Collaborative Markdown editing with live presence",
@@ -119,6 +124,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "bibtexy",
+    year: 2026,
     claude: true,
     title: "BibTeXy",
     subtitle: "Turn any webpage into a BibTeX entry.",
@@ -128,7 +134,7 @@ export const PROJECTS: Project[] = [
     category: "AI & NLP",
     programmingLanguages: ["TypeScript"],
     technologies: ["WXT", "React", "Zod", "Ollama", "OpenAI API", "Vite"],
-    iconPath: "/img/icons/projects/bibtexy.png",
+    iconPath: "/img/icons/projects/bibtexy.svg",
     galleryImages: ["bibtexy/bibtexy-1.png"],
     links: [
       {
@@ -139,6 +145,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "annoabsa",
+    year: 2025,
     title: "AnnoABSA",
     subtitle: "AI-assisted (RAG) annotation tool for Aspect-Based Sentiment Analysis",
     description:
@@ -147,7 +154,7 @@ export const PROJECTS: Project[] = [
     category: "AI & NLP",
     programmingLanguages: ["TypeScript", "Python"],
     technologies: ["React", "Vite", "Tailwind", "FastAPI", "Ollama", "OpenAI API", "BM25"],
-    iconPath: "/img/icons/projects/annoabsa.png",
+    iconPath: "/img/icons/projects/annoabsa.svg",
     galleryImages: ["annoabsa/annoabsa-1.png"],
     links: [
       {
@@ -158,6 +165,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "basisdokument",
+    year: 2022,
     title: "Das Basisdokument",
     subtitle: "Digital structuring for civil proceedings.",
     description:
@@ -166,7 +174,7 @@ export const PROJECTS: Project[] = [
     category: "Software Development",
     programmingLanguages: ["TypeScript"],
     technologies: ["Tailwind", "HTML", "CSS", "Radix", "Draft.js"],
-    iconPath: "/img/icons/projects/basisdokument.png",
+    iconPath: "/img/icons/projects/basisdokument.svg",
     galleryImages: [
       "basisdokument/basisdokument-1.png",
       "basisdokument/basisdokument-2.png",
@@ -192,6 +200,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "device-manager",
+    year: 2023,
     title: "UR Device Manager",
     subtitle: "Device Management for the University of Regensburg",
     description:
@@ -216,6 +225,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "amadeus",
+    year: 2024,
     title: "AMADEUS",
     subtitle: "Free, data protection-compliant lesson evaluation",
     description:
@@ -224,7 +234,7 @@ export const PROJECTS: Project[] = [
     category: "Software Development",
     programmingLanguages: ["Python"],
     technologies: ["Django", "HTML", "CSS", "numpy", "pandas", "matplotlib", "svglib", "seaborn"],
-    iconPath: "/img/icons/projects/amadeus.png",
+    iconPath: "/img/icons/projects/amadeus.svg",
     galleryImages: [
       "amadeus/amadeus-1.png",
       "amadeus/amadeus-2.png",
@@ -238,6 +248,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "byles",
+    year: 2024,
     title: "ByLes: Bayerisches Lesescreening",
     subtitle: "XDEV Software GMBH x Uni Regensburg",
     description:
@@ -256,7 +267,7 @@ export const PROJECTS: Project[] = [
       "Flyway",
       "Maven",
     ],
-    iconPath: "/img/icons/projects/byles.png",
+    iconPath: "/img/icons/projects/byles.svg",
     galleryImages: [],
     links: [
       {
@@ -271,6 +282,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "bird-id",
+    year: 2022,
     title: "BirdID",
     subtitle: "App for Bird species identification",
     description:
@@ -290,12 +302,13 @@ export const PROJECTS: Project[] = [
       "SQLite",
       "AdobeXD",
     ],
-    iconPath: "/img/icons/projects/bird-id.png",
+    iconPath: "/img/icons/projects/bird-id.svg",
     galleryImages: ["bird-id/bird-id-1.png", "bird-id/bird-id-2.png", "bird-id/bird-id-3.png"],
     links: [{ name: "GitHub Repository: BirdID", url: "https://github.com/NilsHellwig/birdid" }],
   },
   {
     id: "vall-music",
+    year: 2022,
     title: "Vall Music",
     subtitle: "New Portfolio for French producer Vall",
     description:
@@ -320,6 +333,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "whistle-tube",
+    year: 2022,
     title: "WhistleTube",
     subtitle: "A slightly different messenger service",
     description:
@@ -354,6 +368,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "discover-malta",
+    year: 2020,
     title: "Discover Malta",
     subtitle: "A fictional vacation blog implemented with docsify",
     description:
@@ -362,7 +377,7 @@ export const PROJECTS: Project[] = [
     category: "Web Development",
     programmingLanguages: ["JavaScript"],
     technologies: ["Docsify", "HTML", "CSS", "Markdown"],
-    iconPath: "/img/icons/projects/discover-malta.png",
+    iconPath: "/img/icons/projects/discover-malta.svg",
     galleryImages: [
       "discover-malta/discover-malta-1.png",
       "discover-malta/discover-malta-2.png",
@@ -378,6 +393,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "game-hub",
+    year: 2020,
     title: "GameHub",
     subtitle: "A platform for reviewing games",
     description:
@@ -399,6 +415,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "weather-assistant",
+    year: 2020,
     title: "weather Assistant",
     subtitle: "ChatBot for the weather",
     description:
@@ -431,6 +448,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "uni-hub",
+    year: 2019,
     title: "UniHub",
     subtitle: "Platform for storing documents during academic studies.",
     description:
@@ -456,6 +474,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "flickr-fetcher",
+    year: 2022,
     title: "TheFlickrFetcher",
     subtitle: "Image data extraction tool for Flickr",
     description:
@@ -470,6 +489,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "image-fetcher",
+    year: 2022,
     title: "TheImageFetcher",
     subtitle: "Image data extraction tool for Google images",
     description:
@@ -489,6 +509,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "id3-algorithm",
+    year: 2021,
     title: "ID3-Algorithm",
     subtitle: "A decision tree algorithm implemented in Java",
     description:
@@ -505,6 +526,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "predestrian-rnn",
+    year: 2022,
     title: "Pedestrian RNN",
     subtitle: "Position prediction using a recurrent neural network",
     description:
@@ -528,6 +550,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "painting-colorizer",
+    year: 2022,
     title: "Painting Colorizer",
     subtitle: "Colorizing black and white images",
     description:
@@ -536,7 +559,7 @@ export const PROJECTS: Project[] = [
     category: "AI & Data Science",
     programmingLanguages: ["Python"],
     technologies: ["Tensorflow", "Keras", "pandas", "numpy", "matplotlib"],
-    iconPath: "/img/icons/projects/painting-colorizer.png",
+    iconPath: "/img/icons/projects/painting-colorizer.svg",
     galleryImages: [
       "painting-colorizer/painting-colorizer-1.png",
       "painting-colorizer/painting-colorizer-2.png",
@@ -552,6 +575,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "flight-delay-prediction",
+    year: 2023,
     title: "Flight delay prediction with SVM",
     subtitle: "Flight delay prediction for munich airport ",
     description:
@@ -574,6 +598,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: "portfolio",
+    year: 2024,
     claude: true,
     title: "portfolio",
     subtitle: "This website, redesigned since June 2024",
@@ -583,12 +608,12 @@ export const PROJECTS: Project[] = [
     category: "Web Development",
     programmingLanguages: ["TypeScript"],
     technologies: ["HTML", "CSS", "Framer Motion", "Tailwind", "Radix", "React"],
-    iconPath: "/img/icons/projects/portfolio.png",
+    iconPath: "/img/icons/projects/portfolio.svg",
     galleryImages: [
-      "portfolio/portfolio-1.png",
-      "portfolio/portfolio-2.png",
-      "portfolio/portfolio-3.png",
-      "portfolio/portfolio-4.png",
+      "portfolio/portfolio-1.webp",
+      "portfolio/portfolio-2.webp",
+      "portfolio/portfolio-3.webp",
+      "portfolio/portfolio-4.webp",
     ],
     links: [
       {

@@ -5,11 +5,12 @@ import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { PROJECTS } from "../data/projects";
 import { useOverlay } from "../context/OverlayContext";
 import SingleProject from "../popups/SingleProject";
-import { ArrowSquareOut, GithubLogo, Info } from "@phosphor-icons/react";
+import { ArrowSquareOut, Info } from "@phosphor-icons/react";
 import { Tooltip } from "../components/Tooltip";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
 import ClaudeBadge from "../components/ClaudeBadge";
+import GitHubActivity from "../components/GitHubActivity";
 
 interface ProjectsProps {
   projectName?: string;
@@ -78,32 +79,9 @@ const Projects: React.FC<ProjectsProps> = ({ projectName }) => {
         variants={itemVariants}
       />
 
-      {/* GitHub link */}
+      {/* GitHub Activity */}
       <motion.div variants={itemVariants} className="mb-8">
-        <a
-          href="https://github.com/NilsHellwig"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold bg-white dark:bg-zinc-800 border-[0.5px] border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 hover:bg-zinc-50 dark:hover:bg-zinc-700 transition-all duration-150 shadow-xs"
-        >
-          <GithubLogo size={16} weight="fill" />
-          github/NilsHellwig
-        </a>
-      </motion.div>
-
-      {/* GitHub Activity Chart */}
-      <motion.div
-        variants={itemVariants}
-        className="border-[0.5px] border-zinc-300 dark:border-zinc-700 rounded-xl p-5 bg-white dark:bg-zinc-800 mb-8"
-      >
-        <p className="text-xs font-semibold text-zinc-400 dark:text-zinc-500 uppercase tracking-wider mb-4">
-          GitHub Activity
-        </p>
-        <img
-          src="https://ghchart.rshah.org/16a34a/NilsHellwig"
-          alt="GitHub Contribution Chart"
-          className="w-full dark:invert dark:hue-rotate-180"
-        />
+        <GitHubActivity />
       </motion.div>
 
       <PageHeader
@@ -202,21 +180,26 @@ const Projects: React.FC<ProjectsProps> = ({ projectName }) => {
             >
               <div className="p-4 flex flex-col flex-1">
                 {/* Type badge */}
-                <div className="flex justify-between items-center gap-1 mb-3">
-                  <ClaudeBadge withClaude={!!project.claude} />
-                  <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300">
+                <div className="flex flex-wrap justify-between items-center gap-1 mb-3">
+                  <ClaudeBadge withClaude={!!project.claude} className="shrink-0" />
+                  <span
+                    title={project.type}
+                    className="whitespace-nowrap text-[11px] sm:text-xs font-bold px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300"
+                  >
                     {project.type}
                   </span>
                 </div>
 
                 {/* Icon */}
                 <div className="flex justify-center mb-3">
-                  <div className="w-14 h-14 rounded-xl bg-zinc-100 dark:bg-zinc-900 border-[0.5px] border-zinc-200 dark:border-zinc-700 p-3">
+                  <div className="w-14 h-14 rounded-[22.5%] shadow-md shadow-zinc-900/15 dark:shadow-black/40">
                     {project.iconPath && (
                       <img
                         src={project.iconPath}
                         alt={project.title}
                         className="w-full h-full object-contain"
+                        loading="lazy"
+                        decoding="async"
                       />
                     )}
                   </div>
@@ -228,6 +211,9 @@ const Projects: React.FC<ProjectsProps> = ({ projectName }) => {
                 </h3>
                 <p className="text-xs text-zinc-400 dark:text-zinc-500 text-center mt-1 line-clamp-2 leading-relaxed">
                   {project.subtitle}
+                </p>
+                <p className="mt-auto pt-3 text-[11px] font-mono tabular-nums text-zinc-400 dark:text-zinc-500 text-center">
+                  {project.year}
                 </p>
               </div>
             </motion.div>

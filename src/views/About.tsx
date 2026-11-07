@@ -1,13 +1,37 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
-import { GraduationCap, Code, MapPin } from "@phosphor-icons/react";
+import { MapPin } from "@phosphor-icons/react";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
 import Skills from "../components/Skills";
+import { useTheme } from "../context/ThemeContext";
+
+const PORTRAIT_LIGHT = "/portrait.webp";
+const PORTRAIT_DARK = "/portrait-dark.webp";
 
 const About: React.FC = () => {
+  const { theme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Warm the cache with the other theme's portrait once the page is idle,
+  // so toggling the theme swaps the image instantly.
+  useEffect(() => {
+    if (!mounted) return;
+    const other = theme === "dark" ? PORTRAIT_LIGHT : PORTRAIT_DARK;
+    const id = window.setTimeout(() => {
+      const img = new Image();
+      img.decoding = "async";
+      img.src = other;
+    }, 1500);
+    return () => window.clearTimeout(id);
+  }, [mounted, theme]);
+
   const containerVariants: Variants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -36,8 +60,6 @@ const About: React.FC = () => {
       : 1);
 
   const highlights = [
-    { icon: GraduationCap, label: "PhD Candidate", value: "University of Regensburg" },
-    { icon: Code, label: "Role", value: "NLP Researcher" },
     { icon: MapPin, label: "Location", value: "Regensburg, Germany" },
   ];
 
@@ -202,16 +224,21 @@ const About: React.FC = () => {
                 whileHover={{ rotate: -1, scale: 1.02 }}
                 transition={{ type: "spring", stiffness: 250, damping: 15 }}
               >
-                <img
-                  src="portrait.png"
-                  alt="Nils Hellwig"
-                  className="block dark:hidden rounded-xl object-cover w-full aspect-[4/5] transition-all duration-700 ease-in-out border border-zinc-200 dark:border-zinc-700"
-                />
-                <img
-                  src="portrait-dark.png"
-                  alt="Nils Hellwig"
-                  className="hidden dark:block rounded-xl object-cover w-full aspect-[4/5] transition-all duration-700 ease-in-out border border-zinc-200 dark:border-zinc-700"
-                />
+                {/* Only the portrait for the active theme is requested; before hydration the
+                    theme is unknown, so an empty frame of the same size holds the layout. */}
+                {mounted ? (
+                  <img
+                    src={theme === "dark" ? PORTRAIT_DARK : PORTRAIT_LIGHT}
+                    alt="Nils Hellwig"
+                    width={720}
+                    height={833}
+                    decoding="async"
+                    fetchPriority="high"
+                    className="block rounded-xl object-cover w-full h-auto aspect-[4/5] border border-zinc-200 dark:border-zinc-700"
+                  />
+                ) : (
+                  <div className="rounded-xl w-full aspect-[4/5] border border-zinc-200 dark:border-zinc-700" />
+                )}
               </motion.div>
             </div>
           </div>

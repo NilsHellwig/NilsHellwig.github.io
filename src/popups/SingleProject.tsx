@@ -59,7 +59,7 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
           {/* Sticky header */}
           <div className="shrink-0 flex items-center justify-between px-5 py-4 border-b border-zinc-100 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md">
             <div className="flex items-center gap-3 min-w-0">
-              <div className="w-7 h-7 rounded-lg bg-zinc-100 dark:bg-zinc-800 border-[0.5px] border-zinc-200 dark:border-zinc-700 p-1 shrink-0">
+              <div className="w-7 h-7 rounded-[22.5%] shadow-sm shadow-zinc-900/15 dark:shadow-black/40 shrink-0">
                 {project?.iconPath && (
                   <img
                     src={project.iconPath}
@@ -71,9 +71,14 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
               <span className="font-bold text-sm text-zinc-900 dark:text-white truncate">
                 {project?.title}
               </span>
-              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400 shrink-0">
+              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400 shrink-0 whitespace-nowrap">
                 {project?.type}
               </span>
+              {project?.year && (
+                <span className="text-xs font-mono tabular-nums text-zinc-400 dark:text-zinc-500 shrink-0">
+                  {project.year}
+                </span>
+              )}
             </div>
             <div
               className="w-8 h-8 rounded-lg bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors cursor-pointer shrink-0 ml-3"
@@ -87,7 +92,7 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
           <div className="overflow-y-auto overflow-x-hidden flex-1 px-5 py-5 flex flex-col gap-6">
             {/* Hero: icon + title + subtitle */}
             <div className="flex items-start gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-zinc-100 dark:bg-zinc-900 border-[0.5px] border-zinc-200 dark:border-zinc-700 p-3 shrink-0">
+              <div className="w-16 h-16 rounded-[22.5%] shadow-md shadow-zinc-900/15 dark:shadow-black/40 shrink-0">
                 {project?.iconPath && (
                   <img
                     src={project.iconPath}

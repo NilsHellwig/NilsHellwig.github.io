@@ -1,17 +1,33 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0 0 400 400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <linearGradient id="linear-gradient" x1="1" y1="0.5" x2="0.041" y2="0.5" gradientUnits="objectBoundingBox">
-      <stop offset="0"/>
-      <stop offset="1" stop-color="#db7676"/>
-    </linearGradient>
-    <clipPath id="clip-Zeichenfläche_1">
-      <rect width="400" height="400"/>
-    </clipPath>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+    <filter id="softshadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16"/>
+    </filter>
+    <filter id="blur" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="46"/>
+    </filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18" result="b"/>
+      <feComponentTransfer in="b" result="g"><feFuncA type="linear" slope="0.7"/></feComponentTransfer>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="sheen" cx="0.25" cy="0.1" r="0.9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="clip"><rect width="512" height="512" rx="116"/></clipPath>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f4f4f5"/><stop offset="1" stop-color="#d4d4d8"/></linearGradient><linearGradient id="chip" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3f3f46"/><stop offset="1" stop-color="#18181b"/></linearGradient>
   </defs>
-  <g id="Zeichenfläche_1" data-name="Zeichenfläche – 1" clip-path="url(#clip-Zeichenfläche_1)">
-    <g id="Gruppe_24" data-name="Gruppe 24" transform="translate(0 -4)">
-      <rect id="Rechteck_127" data-name="Rechteck 127" width="408" height="408" fill="none"/>
-      <path id="Pfad_54" data-name="Pfad 54" d="M399.685,181.918a6.344,6.344,0,0,1-2.823,5.282l-76.131,50.754a6.344,6.344,0,0,1-9.865-5.282V194.607H114.2v76.131h57.1V258.049a19.033,19.033,0,0,1,19.033-19.033H241.08a19.033,19.033,0,0,1,19.033,19.033V308.8a19.033,19.033,0,0,1-19.033,19.033H190.326A19.033,19.033,0,0,1,171.294,308.8V296.114H114.2a25.377,25.377,0,0,1-25.377-25.377V194.607H12.688a12.688,12.688,0,1,1,0-25.377H88.819V93.1A25.377,25.377,0,0,1,114.2,67.722h58.954a44.41,44.41,0,1,1,0,25.377H114.2V169.23H310.866V131.165a6.344,6.344,0,0,1,9.865-5.282l76.131,50.754A6.344,6.344,0,0,1,399.685,181.918Z" transform="translate(0 21.097)" fill="url(#linear-gradient)"/>
-    </g>
+  <g clip-path="url(#clip)">
+    <rect width="512" height="512" fill="url(#bg)"/>
+    <rect x="106" y="106" width="300" height="300" rx="78" fill="url(#chip)" filter="url(#shadow)"/>
+    <g fill="#ffffff" transform="translate(161.0 161.0) scale(0.7422)" ><path d="M200,64V80H176a16,16,0,0,0-16,16v80H40a16,16,0,0,1-16-16V64A16,16,0,0,1,40,48H184A16,16,0,0,1,200,64Z" opacity="0.35"/>
+<path d="M224,72H212V64a28,28,0,0,0-28-28H40A28,28,0,0,0,12,64v88a28,28,0,0,0,28,28h96v12a28,28,0,0,0,28,28h60a28,28,0,0,0,28-28V100A28,28,0,0,0,224,72ZM40,156a4,4,0,0,1-4-4V64a4,4,0,0,1,4-4H184a4,4,0,0,1,4,4v8H164a28,28,0,0,0-28,28v56Zm188,36a4,4,0,0,1-4,4H164a4,4,0,0,1-4-4V100a4,4,0,0,1,4-4h60a4,4,0,0,1,4,4ZM124,208a12,12,0,0,1-12,12H88a12,12,0,0,1,0-24h24A12,12,0,0,1,124,208Zm88-84a12,12,0,0,1-12,12H188a12,12,0,0,1,0-24h12A12,12,0,0,1,212,124Z"/></g>
+    <circle cx="372" cy="140" r="22" fill="#22c55e" stroke="#f4f4f5" stroke-width="8"/>
+    <rect width="512" height="512" fill="url(#sheen)"/>
+    <rect x="1.5" y="1.5" width="509" height="509" rx="114.5" fill="none" stroke="#000000" stroke-opacity="0.07" stroke-width="3"/>
   </g>
 </svg>

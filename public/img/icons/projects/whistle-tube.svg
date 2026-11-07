@@ -1,14 +1,34 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0 0 400 400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <linearGradient id="linear-gradient" x1="0.845" y1="0.897" x2="-0.061" y2="0.059" gradientUnits="objectBoundingBox">
-      <stop offset="0" stop-color="#213900"/>
-      <stop offset="1" stop-color="#baff5c"/>
-    </linearGradient>
-    <clipPath id="clip-Zeichenfläche_1">
-      <rect width="400" height="400"/>
-    </clipPath>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.28"/>
+    </filter>
+    <filter id="softshadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16"/>
+    </filter>
+    <filter id="blur" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="46"/>
+    </filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18" result="b"/>
+      <feComponentTransfer in="b" result="g"><feFuncA type="linear" slope="0.7"/></feComponentTransfer>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="sheen" cx="0.25" cy="0.1" r="0.9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="clip"><rect width="512" height="512" rx="116"/></clipPath>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#eefaf4"/><stop offset="1" stop-color="#bfe6d3"/></linearGradient>
   </defs>
-  <g id="Zeichenfläche_1" data-name="Zeichenfläche – 1" clip-path="url(#clip-Zeichenfläche_1)">
-    <path id="Pfad_75" data-name="Pfad 75" d="M344.57,286.237s-7.563-39.391,15.9-77.308c9.222-14.9,58.254-22.905,58.254-22.905l-29.8-17.746,51.058-45.827s-33.024,18.279-29.308,0c5.059-24.884,30.926-26.638,27.757-59.559,0,0-78.834,74.448-173.371,89.338V122.451C265.06,81.5,229.281,47.5,185.551,48c-31.509.343-59.945,17.769-72.89,44.669,0,0-13.058-18.93-31.223-25.24s-41.436,0-41.436,0,24.926,15.421,41.436,36.62c6.472,8.31-40.73-22.717-41.436-11.381-1.06,17.009,41.436,75.606,41.436,75.606,8.468,124.4,144.027,207.3,279.034,207.3,63.608,0,79.51-22.334,79.51-22.334S376.374,330.905,344.57,286.237Z" transform="translate(-39.981 -11.786)" fill="url(#linear-gradient)"/>
+  <g clip-path="url(#clip)">
+    <rect width="512" height="512" fill="url(#bg)"/>
+    <g fill="none" stroke="#7b8b3a" stroke-opacity="0.35" stroke-width="10" stroke-linecap="round">
+      <path d="M380 150 a60 60 0 0 1 0 84"/><path d="M412 120 a100 100 0 0 1 0 144"/>
+    </g>
+    <g filter="url(#softshadow)"><g fill="#6b7b2c" transform="translate(86.0 116.0) scale(1.1719)" ><path d="M232,80,208,96v24a96,96,0,0,1-96,96H24a8,8,0,0,1-6.25-13L104,99.52V76.89c0-28.77,23-52.75,51.74-52.89a52,52,0,0,1,50.59,38.89Z" opacity="0.35"/>
+<path d="M176,72a16,16,0,1,1-16-16A16,16,0,0,1,176,72Zm68,8a12,12,0,0,1-5.34,10L220,102.42V120A108.12,108.12,0,0,1,112,228H24A20,20,0,0,1,8.41,195.5l.15-.18L92,95.18V76.89C92,41.28,120.57,12.17,155.69,12H156a63.94,63.94,0,0,1,60.58,43.29L238.66,70A12,12,0,0,1,244,80Zm-33.63,0-10.69-7.13a12,12,0,0,1-5-7A40,40,0,0,0,156,36h-.19c-21.95.11-39.8,18.45-39.8,40.89V99.52a12,12,0,0,1-2.79,7.69L32.57,204H53.05l69.74-83.68a12,12,0,1,1,18.43,15.36L84.29,204H112a84.09,84.09,0,0,0,84-84V96a12,12,0,0,1,5.35-10Z"/></g></g>
+    <rect width="512" height="512" fill="url(#sheen)"/>
+    <rect x="1.5" y="1.5" width="509" height="509" rx="114.5" fill="none" stroke="#000000" stroke-opacity="0.07" stroke-width="3"/>
   </g>
 </svg>

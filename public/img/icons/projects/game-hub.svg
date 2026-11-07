@@ -1,23 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="400" height="400" viewBox="0 0 400 400">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
   <defs>
-    <filter id="Pfad_44" x="-16.129" y="-2.672" width="467.949" height="405.345" filterUnits="userSpaceOnUse">
-      <feOffset dy="3" input="SourceAlpha"/>
-      <feGaussianBlur stdDeviation="3" result="blur"/>
-      <feFlood flood-opacity="0.502" result="color"/>
-      <feComposite operator="out" in="SourceGraphic" in2="blur"/>
-      <feComposite operator="in" in="color"/>
-      <feComposite operator="in" in2="SourceGraphic"/>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#000000" flood-opacity="0.28"/>
     </filter>
-    <clipPath id="clip-Zeichenfläche_1">
-      <rect width="400" height="400"/>
-    </clipPath>
+    <filter id="softshadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16"/>
+    </filter>
+    <filter id="blur" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="46"/>
+    </filter>
+    <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="18" result="b"/>
+      <feComponentTransfer in="b" result="g"><feFuncA type="linear" slope="0.7"/></feComponentTransfer>
+      <feMerge><feMergeNode in="g"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <radialGradient id="sheen" cx="0.25" cy="0.1" r="0.9">
+      <stop offset="0" stop-color="#ffffff" stop-opacity="0.35"/>
+      <stop offset="0.55" stop-color="#ffffff" stop-opacity="0"/>
+    </radialGradient>
+    <clipPath id="clip"><rect width="512" height="512" rx="116"/></clipPath>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#27272a"/><stop offset="1" stop-color="#050505"/></linearGradient><linearGradient id="red" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ff5a5a"/><stop offset="1" stop-color="#dc2626"/></linearGradient>
   </defs>
-  <g id="Zeichenfläche_1" data-name="Zeichenfläche – 1" clip-path="url(#clip-Zeichenfläche_1)">
-    <g data-type="innerShadowGroup">
-      <path id="Pfad_44-2" data-name="Pfad 44" d="M400.2,259.093a1.117,1.117,0,0,0,0-.229L373.352,120.986v-.295A98.416,98.416,0,0,0,276.624,40H132.293a98.088,98.088,0,0,0-96.646,81.117L8.929,258.863a1.115,1.115,0,0,0,0,.229,58.971,58.971,0,0,0,99.759,51.943l.573-.606,65.015-73.861h60.609l65.048,73.861c.18.213.377.409.573.606a58.93,58.93,0,0,0,99.677-51.943ZM165.235,157.941h-13.1v13.1a13.1,13.1,0,1,1-26.209,0v-13.1h-13.1a13.1,13.1,0,0,1,0-26.209h13.1v-13.1a13.1,13.1,0,1,1,26.209,0v13.1h13.1a13.1,13.1,0,0,1,0,26.209Zm65.523-13.1a13.1,13.1,0,0,1,13.1-13.1h39.314a13.1,13.1,0,0,1,0,26.209H243.862A13.1,13.1,0,0,1,230.758,144.837Zm138.2,143.282A32.5,32.5,0,0,1,347.831,301.6a32.909,32.909,0,0,1-28.617-8.829l-49.47-56.2h6.88a98.29,98.29,0,0,0,83.549-46.5l14.31,73.725A32.467,32.467,0,0,1,368.962,288.119Z" transform="translate(88.608 -43.007) rotate(20)" fill="#ea4235"/>
-      <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#Pfad_44)">
-        <path id="Pfad_44-3" data-name="Pfad 44" d="M400.2,259.093a1.117,1.117,0,0,0,0-.229L373.352,120.986v-.295A98.416,98.416,0,0,0,276.624,40H132.293a98.088,98.088,0,0,0-96.646,81.117L8.929,258.863a1.115,1.115,0,0,0,0,.229,58.971,58.971,0,0,0,99.759,51.943l.573-.606,65.015-73.861h60.609l65.048,73.861c.18.213.377.409.573.606a58.93,58.93,0,0,0,99.677-51.943ZM165.235,157.941h-13.1v13.1a13.1,13.1,0,1,1-26.209,0v-13.1h-13.1a13.1,13.1,0,0,1,0-26.209h13.1v-13.1a13.1,13.1,0,1,1,26.209,0v13.1h13.1a13.1,13.1,0,0,1,0,26.209Zm65.523-13.1a13.1,13.1,0,0,1,13.1-13.1h39.314a13.1,13.1,0,0,1,0,26.209H243.862A13.1,13.1,0,0,1,230.758,144.837Zm138.2,143.282A32.5,32.5,0,0,1,347.831,301.6a32.909,32.909,0,0,1-28.617-8.829l-49.47-56.2h6.88a98.29,98.29,0,0,0,83.549-46.5l14.31,73.725A32.467,32.467,0,0,1,368.962,288.119Z" transform="translate(88.61 -43.01) rotate(20)" fill="#fff"/>
-      </g>
-    </g>
+  <g clip-path="url(#clip)">
+    <rect width="512" height="512" fill="url(#bg)"/>
+    <circle cx="256" cy="300" r="170" fill="#dc2626" opacity="0.35" filter="url(#blur)"/>
+    <g filter="url(#glow)"><g fill="url(#red)" transform="translate(96.0 102.0) scale(1.2500)" ><path d="M247.44,173.75a.68.68,0,0,0,0-.14L231.05,89.44c0-.06,0-.12,0-.18A60.08,60.08,0,0,0,172,40H83.89a59.88,59.88,0,0,0-59,49.52L8.58,173.61a.68.68,0,0,0,0,.14,36,36,0,0,0,60.9,31.71l.35-.37L109.52,160h37l39.71,45.09c.11.13.23.25.35.37A36.08,36.08,0,0,0,212,216a36,36,0,0,0,35.43-42.25ZM104,112H96v8a8,8,0,0,1-16,0v-8H72a8,8,0,0,1,0-16h8V88a8,8,0,0,1,16,0v8h8a8,8,0,0,1,0,16Zm40-8a8,8,0,0,1,8-8h24a8,8,0,0,1,0,16H152A8,8,0,0,1,144,104Zm84.37,87.47a19.84,19.84,0,0,1-12.9,8.23A20.09,20.09,0,0,1,198,194.31L167.8,160H172a60,60,0,0,0,51-28.38l8.74,45A19.82,19.82,0,0,1,228.37,191.47Z"/></g></g>
+    
+    <rect x="1.5" y="1.5" width="509" height="509" rx="114.5" fill="none" stroke="#ffffff" stroke-opacity="0.14" stroke-width="3"/>
   </g>
 </svg>

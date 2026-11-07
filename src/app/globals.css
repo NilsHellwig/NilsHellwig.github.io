@@ -46,3 +46,23 @@
   color: white;
   background: black;
 }
+
+/* GitHub activity heatmap: cells pop in column by column */
+@keyframes gh-cell-in {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.gh-cell {
+  animation: gh-cell-in 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .gh-cell {
+    animation: none;
+  }
+}

@@ -746,7 +746,7 @@ const MountainBackground: React.FC<MountainBackgroundProps> = ({ subtle = false 
       raf = requestAnimationFrame(loop);
     };
 
-    setup(true);
+    setup(!subtleRef.current);
     if (reducedMotion) {
       frame(performance.now());
       redrawRef.current = () => frame(performance.now());
