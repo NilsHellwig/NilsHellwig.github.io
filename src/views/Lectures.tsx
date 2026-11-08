@@ -6,6 +6,7 @@ import { LECTURES } from "../data/lectures";
 import Lecture from "../components/Lecture";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
+import FilterPills from "../components/FilterPills";
 
 const containerVariants: Variants = {
   hidden: { opacity: 0, y: 20 },
@@ -47,34 +48,20 @@ const Lectures: React.FC = () => {
       />
 
       {/* Term filter */}
-      <motion.div variants={itemVariants} className="flex flex-wrap gap-2 mb-6">
-        {terms.map((term) => (
-          <button
-            key={term}
-            onClick={() => setActiveTerm(term)}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 border-[0.5px]
-              ${
-                activeTerm === term
-                  ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 border-zinc-900 dark:border-zinc-100"
-                  : "bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-zinc-50 dark:hover:bg-zinc-700"
-              }`}
-          >
-            {term}
-            <span
-              className={`text-xs px-1.5 py-0.5 rounded-full tabular-nums
-                ${activeTerm === term ? "bg-white/20 dark:bg-zinc-900/20" : "bg-zinc-100 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400"}`}
-            >
-              {getTermCount(term)}
-            </span>
-          </button>
-        ))}
-      </motion.div>
+      <FilterPills
+        options={terms}
+        active={activeTerm}
+        onChange={setActiveTerm}
+        getCount={getTermCount}
+        variants={itemVariants}
+        className="mb-6"
+      />
 
       {/* Lectures list */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeTerm}
-          className="flex flex-col gap-4"
+          className="flex flex-col gap-5"
           initial="hidden"
           animate="visible"
           exit="hidden"

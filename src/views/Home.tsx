@@ -47,7 +47,8 @@ const Home: React.FC = () => {
           variants={itemVariants}
           className="text-xl md:text-2xl text-zinc-600 dark:text-zinc-400 font-light leading-relaxed"
         >
-          <strong>NLP Researcher and Software Engineer</strong> at the University of Regensburg working on
+          <strong>NLP Researcher and Software Engineer</strong> at the University of Regensburg
+          working on
           <strong> Structured Learning and Agents</strong>. Welcome to my portfolio!
         </motion.h2>
       </div>

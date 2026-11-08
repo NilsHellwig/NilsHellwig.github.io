@@ -12,9 +12,9 @@ interface ClaudeBadgeProps {
 
 const ClaudeBadge: React.FC<ClaudeBadgeProps> = ({ withClaude, className = "" }) => (
   <span
-    className={`inline-flex items-center gap-1 text-xs font-bold pl-1.5 pr-2 py-0.5 rounded-full border-[0.5px] whitespace-nowrap ${
+    className={`inline-flex items-center gap-1 text-xs font-medium pl-2 pr-2.5 py-0.5 rounded-full border whitespace-nowrap ${
       withClaude
-        ? "bg-gradient-to-r from-[#d97757]/15 to-[#d97757]/5 border-[#d97757]/40 text-[#c4552f] dark:text-[#e8896b] shadow-[0_0_8px_-2px_rgba(217,119,87,0.45)]"
+        ? "bg-[#d97757]/10 border-[#d97757]/30 text-[#c4552f] dark:text-[#e8896b]"
         : "bg-transparent border-dashed border-zinc-300 dark:border-zinc-600 text-zinc-400 dark:text-zinc-500"
     } ${className}`}
     title={withClaude ? "Built with Claude" : "Built without Claude"}

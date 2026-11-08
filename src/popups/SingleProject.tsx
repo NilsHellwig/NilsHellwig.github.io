@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 import ClaudeBadge from "../components/ClaudeBadge";
 
 interface SingleProjectProps {
-  showSingleProjectFct: MouseEventHandler<HTMLDivElement>;
+  showSingleProjectFct: MouseEventHandler<HTMLElement>;
   projectId: string;
 }
 
@@ -49,7 +49,7 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
         onClick={showSingleProjectFct}
       >
         <motion.div
-          className="bg-white dark:bg-zinc-900 rounded-2xl border-[0.5px] border-zinc-300 dark:border-zinc-700 shadow-2xl w-full max-w-[960px] max-h-[88vh] flex flex-col overflow-hidden"
+          className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-700 shadow-2xl w-full max-w-[960px] max-h-[88vh] flex flex-col overflow-hidden"
           initial={{ opacity: 0, scale: 0.95, y: 16 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: 16 }}
@@ -57,7 +57,7 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
           onClick={(e) => e.stopPropagation()}
         >
           {/* Sticky header */}
-          <div className="shrink-0 flex items-center justify-between px-5 py-4 border-b border-zinc-100 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md">
+          <div className="shrink-0 flex items-center justify-between px-6 py-4 border-b border-zinc-100 dark:border-zinc-800 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md">
             <div className="flex items-center gap-3 min-w-0">
               <div className="w-7 h-7 rounded-[22.5%] shadow-sm shadow-zinc-900/15 dark:shadow-black/40 shrink-0">
                 {project?.iconPath && (
@@ -68,28 +68,23 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
                   />
                 )}
               </div>
-              <span className="font-bold text-sm text-zinc-900 dark:text-white truncate">
+              <span className="font-semibold text-sm text-zinc-900 dark:text-white truncate">
                 {project?.title}
               </span>
-              <span className="text-xs font-bold px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400 shrink-0 whitespace-nowrap">
-                {project?.type}
-              </span>
+              <span className="chip shrink-0">{project?.type}</span>
               {project?.year && (
                 <span className="text-xs font-mono tabular-nums text-zinc-400 dark:text-zinc-500 shrink-0">
                   {project.year}
                 </span>
               )}
             </div>
-            <div
-              className="w-8 h-8 rounded-lg bg-zinc-100 dark:bg-zinc-800 flex items-center justify-center hover:bg-zinc-200 dark:hover:bg-zinc-700 transition-colors cursor-pointer shrink-0 ml-3"
-              onClick={showSingleProjectFct}
-            >
-              <X size={16} weight="bold" className="text-zinc-600 dark:text-zinc-400" />
-            </div>
+            <button className="icon-btn ml-3" onClick={showSingleProjectFct} aria-label="Close">
+              <X size={18} weight="bold" />
+            </button>
           </div>
 
           {/* Scrollable content */}
-          <div className="overflow-y-auto overflow-x-hidden flex-1 px-5 py-5 flex flex-col gap-6">
+          <div className="overflow-y-auto overflow-x-hidden flex-1 px-6 py-6 flex flex-col gap-8">
             {/* Hero: icon + title + subtitle */}
             <div className="flex items-start gap-4">
               <div className="w-16 h-16 rounded-[22.5%] shadow-md shadow-zinc-900/15 dark:shadow-black/40 shrink-0">
@@ -102,7 +97,7 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
                 )}
               </div>
               <div className="pt-1">
-                <h2 className="font-bold text-xl text-zinc-900 dark:text-white leading-tight">
+                <h2 className="font-bold text-xl tracking-tight text-zinc-900 dark:text-white leading-tight">
                   {project?.title}
                 </h2>
                 <p className="text-sm text-zinc-500 dark:text-zinc-400 mt-1 leading-relaxed">
@@ -115,10 +110,8 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
             {/* Gallery */}
             {hasGallery && (
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3">
-                  Gallery
-                </p>
-                <div className="relative bg-zinc-100 dark:bg-zinc-800 rounded-xl border-[0.5px] border-zinc-200 dark:border-zinc-700 overflow-hidden">
+                <p className="eyebrow mb-3">Gallery</p>
+                <div className="relative bg-zinc-100 dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden">
                   {galleryFullView && project?.galleryImages && (
                     <ModalContent
                       onClose={() => setGalleryFullView(false)}
@@ -145,7 +138,7 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
                         className="flex-1 flex justify-center"
                       >
                         <img
-                          className={`rounded-lg border-[0.5px] border-zinc-200 dark:border-zinc-600 cursor-zoom-in ${
+                          className={`rounded-lg border border-zinc-200 dark:border-zinc-600 cursor-zoom-in ${
                             imageDimensions.width > imageDimensions.height
                               ? "w-full max-h-[480px] object-contain"
                               : "max-h-[480px] object-contain"
@@ -175,7 +168,7 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
 
                   {/* Counter */}
                   <div className="flex justify-center pb-3">
-                    <span className="text-xs font-bold bg-zinc-200 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400 px-2.5 py-1 rounded-full tabular-nums">
+                    <span className="chip tabular-nums bg-zinc-200 dark:bg-zinc-700">
                       {galleryIndex + 1} / {project?.galleryImages?.length}
                     </span>
                   </div>
@@ -186,10 +179,8 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
             {/* Description */}
             {project?.description && (
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3">
-                  About
-                </p>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
+                <p className="eyebrow mb-3">About</p>
+                <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed max-w-3xl">
                   {project.description}
                 </p>
               </div>
@@ -198,21 +189,19 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
             {/* Programming Languages */}
             {(project?.programmingLanguages?.length ?? 0) > 0 && (
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3">
-                  Languages
-                </p>
+                <p className="eyebrow mb-3">Languages</p>
                 <div className="flex flex-wrap gap-2">
                   {project!.programmingLanguages!.map((lang, i) => {
                     const data = getLanguageData(lang);
                     return (
                       <div
                         key={i}
-                        className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-zinc-100 dark:bg-zinc-800 border-[0.5px] border-zinc-200 dark:border-zinc-700"
+                        className="inline-flex h-8 items-center gap-2 px-3 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700"
                       >
                         {data?.iconPath && (
                           <img src={data.iconPath} alt={lang} className="w-4 h-4 object-contain" />
                         )}
-                        <span className="text-xs font-semibold text-zinc-700 dark:text-zinc-300">
+                        <span className="text-xs font-medium text-zinc-700 dark:text-zinc-300">
                           {lang}
                         </span>
                       </div>
@@ -225,14 +214,12 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
             {/* Technologies */}
             {(project?.technologies?.length ?? 0) > 0 && (
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3">
-                  Technologies
-                </p>
+                <p className="eyebrow mb-3">Technologies</p>
                 <div className="flex flex-wrap gap-2">
                   {project!.technologies!.map((tech, i) => (
                     <span
                       key={i}
-                      className="text-xs font-medium bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 px-2.5 py-1 rounded-full border-[0.5px] border-zinc-200 dark:border-zinc-600"
+                      className="inline-flex h-8 items-center px-3 rounded-full bg-white dark:bg-zinc-800 border border-zinc-200 dark:border-zinc-700 text-xs font-medium text-zinc-700 dark:text-zinc-300"
                     >
                       {tech}
                     </span>
@@ -244,17 +231,15 @@ const SingleProject: React.FC<SingleProjectProps> = ({ showSingleProjectFct, pro
             {/* Links */}
             {hasLinks && (
               <div>
-                <p className="text-xs font-bold uppercase tracking-wider text-zinc-400 dark:text-zinc-500 mb-3">
-                  Links
-                </p>
-                <div className="flex flex-col gap-2">
+                <p className="eyebrow mb-3">Links</p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                   {project!
                     .links!.filter((l) => l.url)
                     .map((link, i) => (
                       <button
                         key={i}
                         onClick={() => openLinkInNewTab(link.url)}
-                        className="flex items-center justify-between gap-3 p-3 rounded-xl border-[0.5px] border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-white dark:hover:bg-zinc-700 transition-all text-left w-full"
+                        className="flex items-center justify-between gap-3 px-4 py-3 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-800 hover:border-zinc-300 dark:hover:border-zinc-600 hover:bg-white dark:hover:bg-zinc-700 transition-colors text-left w-full cursor-pointer"
                       >
                         <span className="text-sm font-semibold text-zinc-700 dark:text-zinc-300 truncate">
                           {link.name}

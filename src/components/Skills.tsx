@@ -155,11 +155,9 @@ const GroupLabel: React.FC<{ icon: React.ComponentType<any>; title: string }> = 
   icon: Icon,
   title,
 }) => (
-  <motion.div variants={itemVariants} className="flex items-center gap-2 mb-4 mt-10">
-    <Icon size={18} className="text-zinc-400 dark:text-zinc-500" weight="bold" />
-    <h3 className="font-semibold text-sm uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-      {title}
-    </h3>
+  <motion.div variants={itemVariants} className="flex items-center gap-2 mb-3 mt-8">
+    <Icon size={15} className="text-zinc-400 dark:text-zinc-500" weight="bold" />
+    <h3 className="eyebrow">{title}</h3>
   </motion.div>
 );
 
@@ -173,8 +171,7 @@ const IconChip: React.FC<{
 }> = ({ iconPath, icon: Icon, name, invert, favorite }) => (
   <motion.div
     variants={itemVariants}
-    whileHover={{ y: -2 }}
-    className="inline-flex items-center gap-2 pl-1.5 pr-3.5 py-1.5 rounded-full border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-500 transition-colors duration-150"
+    className="inline-flex h-8 items-center gap-2 pl-1 pr-3 rounded-full border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-800/70 hover:border-zinc-300 dark:hover:border-zinc-600 transition-colors duration-150"
   >
     <span className="flex items-center justify-center w-6 h-6 rounded-full bg-zinc-50 dark:bg-zinc-900 shrink-0 overflow-hidden">
       {iconPath && (
@@ -197,8 +194,7 @@ const IconChip: React.FC<{
 const TextChip: React.FC<{ name: string; favorite?: boolean }> = ({ name, favorite }) => (
   <motion.span
     variants={itemVariants}
-    whileHover={{ y: -2 }}
-    className="inline-flex items-center px-3 py-1.5 rounded-full border-[0.5px] border-zinc-200 dark:border-zinc-600 bg-zinc-100 dark:bg-zinc-700 text-xs font-medium text-zinc-600 dark:text-zinc-300 hover:border-zinc-400 dark:hover:border-zinc-500 transition-colors duration-150"
+    className="inline-flex h-8 items-center px-3 rounded-full border border-zinc-200 dark:border-zinc-700/70 bg-white dark:bg-zinc-800/70 text-xs font-medium text-zinc-700 dark:text-zinc-300 hover:border-zinc-300 dark:hover:border-zinc-600 transition-colors duration-150"
   >
     {name}
     {favorite && <Heart size={10} weight="fill" className="text-red-500 ml-1.5 shrink-0" />}
@@ -207,14 +203,12 @@ const TextChip: React.FC<{ name: string; favorite?: boolean }> = ({ name, favori
 
 const Skills: React.FC = () => {
   return (
-    <div className="mt-14">
-      <h3 className="text-3xl md:text-4xl font-black text-zinc-900 dark:text-white leading-tight">
-        Skills
-      </h3>
+    <div className="mt-16">
+      <h3 className="section-title">Skills</h3>
 
       {/* ============================ 01 · AI & NLP ENGINEERING ============================ */}
       <motion.section
-        className="mt-10"
+        className="mt-8"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
@@ -230,7 +224,7 @@ const Skills: React.FC = () => {
         </motion.div>
 
         {/* Category rows */}
-        <div className="mt-2 divide-y divide-zinc-200 dark:divide-zinc-800">
+        <div className="mt-2 divide-y divide-zinc-200 dark:divide-zinc-700/70">
           {AI_CATEGORIES.map((category, idx) => (
             <motion.div
               key={idx}
@@ -295,7 +289,7 @@ const Skills: React.FC = () => {
 
       {/* ============================ 02 · SOFTWARE DEVELOPMENT ============================ */}
       <motion.section
-        className="mt-12"
+        className="mt-16"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
@@ -379,7 +373,7 @@ const Skills: React.FC = () => {
 
       {/* ============================ 03 · PROJECT MANAGEMENT ============================ */}
       <motion.section
-        className="mt-12"
+        className="mt-16"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
@@ -401,7 +395,7 @@ const Skills: React.FC = () => {
           Beyond the tools, what matters most to me is clear communication :)
         </motion.p>
 
-        <div className="divide-y divide-zinc-200 dark:divide-zinc-800">
+        <div className="divide-y divide-zinc-200 dark:divide-zinc-700/70">
           {PROJECT_MANAGEMENT.map((item, index) => (
             <motion.div key={index} variants={itemVariants} className="py-5 flex items-start gap-4">
               <div className="w-9 h-9 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 flex items-center justify-center shrink-0">

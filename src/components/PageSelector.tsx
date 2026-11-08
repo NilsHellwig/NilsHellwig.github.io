@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   House,
   User,
@@ -13,19 +13,6 @@ import {
   Article,
   Stamp,
 } from "@phosphor-icons/react";
-
-const iconVariants = {
-  hover: {
-    scale: 1.3,
-    rotate: [0, -10, 10, 0],
-    transition: {
-      duration: 0.5,
-      type: "spring",
-      stiffness: 400,
-      rotate: { duration: 0.3, ease: "easeInOut" },
-    },
-  },
-} satisfies Variants;
 
 interface PageSelectorProps {
   mobileMenuOpen: boolean;
@@ -56,7 +43,7 @@ const PageSelector: React.FC<PageSelectorProps> = ({ mobileMenuOpen, setMobileMe
     <>
       {/* Desktop Navigation */}
       <motion.nav
-        className="hidden md:flex items-center gap-1.5 mb-4 py-2 overflow-visible"
+        className="hidden md:flex items-center gap-1 pb-3 overflow-visible"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
       >
@@ -74,17 +61,15 @@ const PageSelector: React.FC<PageSelectorProps> = ({ mobileMenuOpen, setMobileMe
               <Link
                 href={item.path}
                 className={`
-                  flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300
+                  flex items-center gap-2 h-9 px-3 rounded-lg text-sm font-medium transition-colors duration-150
                   ${
                     active
-                      ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 shadow-md scale-105"
-                      : "text-zinc-600 dark:text-zinc-400 hover:bg-black/[0.05] dark:hover:bg-white/10 hover:backdrop-blur-md hover:text-zinc-900 dark:hover:text-zinc-100 hover:scale-110 hover:shadow-lg border border-transparent hover:border-black/[0.08] dark:hover:border-white/10"
+                      ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900"
+                      : "text-zinc-600 dark:text-zinc-400 hover:bg-zinc-900/[0.06] dark:hover:bg-white/10 hover:text-zinc-900 dark:hover:text-zinc-100"
                   }
                 `}
               >
-                <motion.div whileHover={iconVariants.hover}>
-                  <Icon size={16} weight={active ? "fill" : "regular"} />
-                </motion.div>
+                <Icon size={16} weight={active ? "fill" : "regular"} />
                 <span>{item.label}</span>
               </Link>
             </motion.div>
@@ -104,7 +89,7 @@ const PageSelector: React.FC<PageSelectorProps> = ({ mobileMenuOpen, setMobileMe
               initial={{ opacity: 0, scale: 0.97, y: -10 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.97, y: -10 }}
-              className="md:hidden absolute left-4 right-4 top-full mt-2 bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden shadow-2xl z-20"
+              className="md:hidden absolute left-4 right-4 top-full mt-2 bg-white dark:bg-zinc-800 rounded-xl border border-zinc-200 dark:border-zinc-700 overflow-hidden shadow-lg z-20"
             >
               {navigationItems.map((item) => {
                 const Icon = item.icon;
@@ -124,9 +109,7 @@ const PageSelector: React.FC<PageSelectorProps> = ({ mobileMenuOpen, setMobileMe
                       }
                     `}
                   >
-                    <motion.div whileHover={iconVariants.hover}>
-                      <Icon size={18} weight={active ? "fill" : "regular"} />
-                    </motion.div>
+                    <Icon size={18} weight={active ? "fill" : "regular"} />
                     <span className="text-sm">{item.label}</span>
                   </Link>
                 );

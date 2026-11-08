@@ -16,7 +16,7 @@ const AppShell: React.FC<{ children: ReactNode }> = ({ children }) => {
       <MountainBackground key={pathname} subtle={background === "subtle"} />
       <div className="flex-1 flex flex-col">
         <div
-          className={`fixed w-screen pt-2 z-20 ${background === "subtle" ? "bg-zinc-50/80 dark:bg-zinc-900/80 backdrop-blur-md" : "backdrop-blur-xs"}`}
+          className={`fixed w-screen pt-2 z-20 border-b ${background === "subtle" ? "bg-zinc-50/80 dark:bg-zinc-900/80 backdrop-blur-md border-zinc-200/70 dark:border-zinc-800" : "backdrop-blur-xs border-transparent"}`}
         >
           <header className="max-w-[1100px] w-[100%] mx-auto px-4 mt-0 relative">
             <NavBar mobileMenuOpen={mobileMenuOpen} setMobileMenuOpen={setMobileMenuOpen} />

@@ -6,6 +6,7 @@ import { ArrowSquareOut, FilePdf, Medal } from "@phosphor-icons/react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
+import FilterPills from "../components/FilterPills";
 
 const DOMAIN_STYLES: Record<string, { color: string; text: string; bg: string; hover: string }> = {
   "aclanthology.org": {
@@ -100,33 +101,19 @@ const Publications: React.FC = () => {
       />
 
       {/* Year filter */}
-      <motion.div variants={itemVariants} className="flex flex-wrap gap-2 mb-6">
-        {years.map((year) => (
-          <button
-            key={year}
-            onClick={() => setActiveYear(year)}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 border-[0.5px]
-              ${
-                activeYear === year
-                  ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 border-zinc-900 dark:border-zinc-100"
-                  : "bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-zinc-50 dark:hover:bg-zinc-700"
-              }`}
-          >
-            {year}
-            <span
-              className={`text-xs px-1.5 py-0.5 rounded-full tabular-nums
-                ${activeYear === year ? "bg-white/20 dark:bg-zinc-900/20" : "bg-zinc-100 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400"}`}
-            >
-              {getYearCount(year)}
-            </span>
-          </button>
-        ))}
-      </motion.div>
+      <FilterPills
+        options={years}
+        active={activeYear}
+        onChange={setActiveYear}
+        getCount={getYearCount}
+        variants={itemVariants}
+        className="mb-6"
+      />
 
       <AnimatePresence mode="wait">
         <motion.div
           key={activeYear}
-          className="grid grid-cols-1 md:grid-cols-2 gap-4"
+          className="grid grid-cols-1 md:grid-cols-2 gap-5"
           initial="hidden"
           animate="visible"
           exit="hidden"
@@ -137,29 +124,26 @@ const Publications: React.FC = () => {
 
             return (
               <motion.div
-                key={index}
+                key={publication.name}
                 variants={itemVariants}
-                whileHover={{ y: -4 }}
-                className="border-[0.5px] border-zinc-300 dark:border-zinc-700 rounded-xl bg-white dark:bg-zinc-800 overflow-hidden flex flex-col hover:shadow-md dark:hover:shadow-zinc-900/50 transition-all duration-150"
+                className="card overflow-hidden flex flex-col"
               >
                 {/* Domain-colored top strip */}
-                <div className="h-1.5 shrink-0" style={{ backgroundColor: domain.color }} />
+                <div className="h-1 shrink-0" style={{ backgroundColor: domain.color }} />
 
                 <div className="p-5 flex flex-col flex-1">
                   {/* Meta: source badge + year */}
                   <div className="flex items-center gap-2 mb-3 flex-wrap">
-                    <span
-                      className={`text-xs font-bold px-2.5 py-1 rounded-full ${domain.bg} ${domain.text}`}
-                    >
+                    <span className={`chip font-semibold ${domain.bg} ${domain.text}`}>
                       {publication.tooltipUrl}
                     </span>
                     {publication.year && (
-                      <span className="text-xs font-semibold text-zinc-400 dark:text-zinc-500 tabular-nums">
+                      <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500 tabular-nums">
                         {publication.year}
                       </span>
                     )}
                     {publication.award && (
-                      <span className="inline-flex items-center gap-1 text-xs font-bold px-2.5 py-1 rounded-full bg-gradient-to-r from-slate-300 via-zinc-300 to-slate-400 dark:from-slate-500 dark:via-zinc-500 dark:to-slate-600 text-zinc-800 dark:text-zinc-50 shadow-xs">
+                      <span className="chip font-semibold bg-gradient-to-r from-slate-300 via-zinc-300 to-slate-400 dark:from-slate-500 dark:via-zinc-500 dark:to-slate-600 text-zinc-800 dark:text-zinc-50 shadow-xs">
                         <Medal size={12} weight="fill" />
                         {publication.award}
                       </span>
@@ -167,43 +151,45 @@ const Publications: React.FC = () => {
                   </div>
 
                   {/* Title */}
-                  <h3 className="font-bold text-base text-zinc-900 dark:text-white leading-snug mb-2">
+                  <h3 className="font-semibold text-base text-zinc-900 dark:text-white leading-snug mb-2">
                     {publication.name}
                   </h3>
 
                   {/* Conference */}
-                  <p className="text-xs text-zinc-500 dark:text-zinc-400 leading-relaxed mb-1">
+                  <p className="text-sm text-zinc-600 dark:text-zinc-300 leading-relaxed mb-1">
                     {publication.conference}
                     {publication.pages && `, pp. ${publication.pages}`}
                   </p>
 
                   {/* Authors */}
-                  <p className="text-xs text-zinc-400 dark:text-zinc-500 leading-relaxed">
+                  <p className="text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed">
                     {publication.authors}
                   </p>
 
                   {/* Footer buttons, pinned to bottom */}
-                  <div className="flex items-center gap-2 mt-auto pt-4 border-t border-zinc-100 dark:border-zinc-700">
-                    <a
-                      href={publication.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-150 ${domain.bg} ${domain.hover} ${domain.text}`}
-                    >
-                      <ArrowSquareOut size={12} weight="bold" />
-                      View
-                    </a>
-                    {publication.pdfUrl && (
+                  <div className="mt-auto pt-4">
+                    <div className="flex items-center gap-2 pt-4 border-t border-zinc-100 dark:border-zinc-700/70">
                       <a
-                        href={publication.pdfUrl}
+                        href={publication.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-600 transition-all duration-150"
+                        className={`inline-flex h-8 items-center gap-1.5 px-3 rounded-lg text-xs font-semibold transition-colors duration-150 ${domain.bg} ${domain.hover} ${domain.text}`}
                       >
-                        <FilePdf size={12} weight="bold" />
-                        PDF
+                        <ArrowSquareOut size={12} weight="bold" />
+                        View
                       </a>
-                    )}
+                      {publication.pdfUrl && (
+                        <a
+                          href={publication.pdfUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="btn"
+                        >
+                          <FilePdf size={12} weight="bold" />
+                          PDF
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
               </motion.div>

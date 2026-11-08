@@ -59,9 +59,7 @@ const About: React.FC = () => {
       ? 0
       : 1);
 
-  const highlights = [
-    { icon: MapPin, label: "Location", value: "Regensburg, Germany" },
-  ];
+  const highlights = [{ icon: MapPin, label: "Location", value: "Regensburg, Germany" }];
 
   const timeline = [
     {
@@ -118,17 +116,11 @@ const About: React.FC = () => {
         {highlights.map((item, index) => (
           <React.Fragment key={index}>
             <motion.div variants={itemVariants} className="flex items-center gap-3">
-              <motion.div
-                className="flex items-center justify-center w-10 h-10 rounded-full border border-zinc-200 dark:border-zinc-700 shrink-0"
-                whileHover={{ rotate: 360 }}
-                transition={{ duration: 0.6 }}
-              >
+              <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shrink-0">
                 <item.icon size={17} className="text-zinc-700 dark:text-zinc-300" weight="bold" />
-              </motion.div>
+              </div>
               <div>
-                <p className="text-[11px] text-zinc-400 dark:text-zinc-500 font-semibold uppercase tracking-wider">
-                  {item.label}
-                </p>
+                <p className="eyebrow">{item.label}</p>
                 <p className="text-sm font-bold text-zinc-900 dark:text-white">{item.value}</p>
               </div>
             </motion.div>
@@ -141,7 +133,7 @@ const About: React.FC = () => {
 
       {/* Introduction */}
       <motion.div
-        className="mt-14 relative"
+        className="mt-12 relative"
         initial="hidden"
         animate="visible"
         variants={containerVariants}
@@ -156,9 +148,7 @@ const About: React.FC = () => {
 
         <div className="flex flex-col md:flex-row gap-10 md:gap-14 items-center md:items-start relative">
           <motion.div variants={itemVariants} className="flex-1 order-2 md:order-1 space-y-6">
-            <h3 className="text-3xl md:text-4xl font-black text-zinc-900 dark:text-white leading-tight">
-              Introduction
-            </h3>
+            <h3 className="section-title">Introduction</h3>
 
             <div className="text-zinc-600 dark:text-zinc-300 flex flex-col gap-5 text-sm md:text-base leading-relaxed font-normal">
               <p>
@@ -219,11 +209,7 @@ const About: React.FC = () => {
               {/* Soft grayscale glow behind the portrait */}
               <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-br from-zinc-300/40 via-zinc-200/20 to-transparent dark:from-zinc-100/10 dark:via-zinc-400/5 dark:to-transparent blur-2xl -z-10" />
 
-              <motion.div
-                className="relative group bg-white dark:bg-zinc-800 rounded-2xl"
-                whileHover={{ rotate: -1, scale: 1.02 }}
-                transition={{ type: "spring", stiffness: 250, damping: 15 }}
-              >
+              <motion.div className="relative bg-white dark:bg-zinc-800 rounded-xl">
                 {/* Only the portrait for the active theme is requested; before hydration the
                     theme is unknown, so an empty frame of the same size holds the layout. */}
                 {mounted ? (
@@ -246,9 +232,9 @@ const About: React.FC = () => {
       </motion.div>
 
       {/* Timeline */}
-      <motion.div className="mt-8" initial="hidden" animate="visible" variants={containerVariants}>
+      <motion.div className="mt-16" initial="hidden" animate="visible" variants={containerVariants}>
         <motion.div variants={itemVariants}>
-          <h3 className="text-xl font-bold dark:text-white mb-6">Journey</h3>
+          <h3 className="section-title mb-6">Journey</h3>
         </motion.div>
 
         <div>
@@ -292,7 +278,7 @@ const About: React.FC = () => {
                 </div>
 
                 {/* Content */}
-                <div className={`min-w-0 flex-1 group ${isLast ? "pb-1" : "pb-8"}`}>
+                <div className={`min-w-0 flex-1 ${isLast ? "pb-1" : "pb-8"}`}>
                   <div className="flex items-center gap-2 mb-1 -mt-0.5">
                     <span className="text-xs font-bold text-zinc-500 dark:text-zinc-400 tracking-wide tabular-nums">
                       {item.year}
@@ -303,9 +289,7 @@ const About: React.FC = () => {
                       </span>
                     )}
                   </div>
-                  <h4 className="font-bold text-zinc-900 dark:text-white mb-1 transition-colors group-hover:text-zinc-600 dark:group-hover:text-zinc-300">
-                    {item.title}
-                  </h4>
+                  <h4 className="font-semibold text-zinc-900 dark:text-white mb-1">{item.title}</h4>
                   <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
                     {item.description}
                   </p>

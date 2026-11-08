@@ -46,9 +46,7 @@ const BlogIndex: React.FC = () => {
         ))}
       </motion.div>
 
-      <div className="mt-12">
-        <Footer />
-      </div>
+      <Footer />
     </motion.div>
   );
 };

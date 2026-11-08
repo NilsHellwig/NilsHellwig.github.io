@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion, AnimatePresence, type Variants } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Student,
   TwitterLogo,
@@ -17,27 +17,6 @@ import Link from "next/link";
 import { openLinkInNewTab } from "../helper";
 import { Tooltip } from "./Tooltip";
 import ThemeToggle from "./ThemeToggle";
-
-const iconVariants = {
-  hover: {
-    scale: 1.3,
-    rotate: [0, -10, 10, -5, 5, 0],
-    transition: {
-      duration: 0.6,
-      type: "spring",
-      stiffness: 300,
-      rotate: { duration: 0.4, ease: "easeInOut" },
-    },
-  },
-} satisfies Variants;
-
-const textVariants = {
-  hover: {
-    scale: 1.05,
-    textShadow: "0px 0px 8px rgba(0,0,0,0.2)",
-    transition: { duration: 0.3 },
-  },
-} satisfies Variants;
 
 const socialLinks = [
   {
@@ -80,53 +59,43 @@ interface NavBarProps {
 const NavBar: React.FC<NavBarProps> = ({ mobileMenuOpen, setMobileMenuOpen }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const hoverStyle =
-    "p-1 px-1.5 hover:bg-black/[0.05] dark:hover:bg-white/10 hover:backdrop-blur-md rounded-lg cursor-pointer duration-300 hover:scale-110 hover:shadow-lg border border-transparent hover:border-black/[0.08] dark:hover:border-white/10";
-
   return (
-    <div className="flex flex-row items-center mt-2 mb-4 justify-between relative px-2 sm:px-0">
+    <div className="flex flex-row items-center mt-2 mb-3 justify-between relative">
       <Link href="/">
-        <motion.h1
-          className="font-bold text-md hover:cursor-pointer hover:text-zinc-500 dark:text-zinc-100 dark:hover:text-zinc-400 duration-300"
-          whileHover={textVariants.hover}
-        >
+        <h1 className="font-bold text-base tracking-tight text-zinc-900 dark:text-zinc-100 hover:text-zinc-500 dark:hover:text-zinc-400 transition-colors">
           Nils Hellwig
-        </motion.h1>
+        </h1>
       </Link>
 
-      <div className="flex flex-row gap-1 xsm:gap-3 items-center">
+      <div className="flex flex-row gap-1 items-center">
         {/* Desktop Social Links */}
-        <div className="hidden vsm:flex flex-row gap-1 xsm:gap-3 items-center">
+        <div className="hidden vsm:flex flex-row gap-0.5 items-center">
           {socialLinks.map((social) => (
             <Tooltip key={social.text} text={social.text} position="bottom" asChild>
-              <motion.div
-                className={hoverStyle}
+              <button
+                className="icon-btn"
                 onClick={() => openLinkInNewTab(social.url)}
-                whileHover={iconVariants.hover}
+                aria-label={social.text}
               >
-                <social.icon
-                  size={24}
-                  className="text-zinc-900 dark:text-zinc-100"
-                  weight="regular"
-                />
-              </motion.div>
+                <social.icon size={20} weight="regular" />
+              </button>
             </Tooltip>
           ))}
         </div>
 
         {/* Mobile Social Links Dropdown */}
         <div className="relative vsm:hidden">
-          <motion.div
-            className={hoverStyle}
+          <button
+            className="icon-btn"
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            whileHover={{ scale: 1.1 }}
+            aria-label="Social links"
           >
             {isDropdownOpen ? (
-              <X size={24} className="text-zinc-900 dark:text-zinc-100" weight="regular" />
+              <X size={20} weight="regular" />
             ) : (
-              <DotsThree size={24} className="text-zinc-900 dark:text-zinc-100" weight="bold" />
+              <DotsThree size={20} weight="bold" />
             )}
-          </motion.div>
+          </button>
 
           <AnimatePresence>
             {isDropdownOpen && (
@@ -136,7 +105,7 @@ const NavBar: React.FC<NavBarProps> = ({ mobileMenuOpen, setMobileMenuOpen }) =>
                   initial={{ opacity: 0, scale: 0.95, y: -10 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95, y: -10 }}
-                  className="absolute right-0 mt-2 w-48 bg-white/80 dark:bg-zinc-800/80 backdrop-blur-xl border border-black/10 dark:border-white/10 rounded-xl shadow-2xl p-2 z-20 overflow-hidden"
+                  className="absolute right-0 mt-2 w-48 bg-white/90 dark:bg-zinc-800/90 backdrop-blur-xl border border-zinc-200 dark:border-zinc-700 rounded-xl shadow-lg p-2 z-20 overflow-hidden"
                 >
                   <div className="grid grid-cols-3 gap-2">
                     {socialLinks.map((social) => (
@@ -166,18 +135,13 @@ const NavBar: React.FC<NavBarProps> = ({ mobileMenuOpen, setMobileMenuOpen }) =>
         <ThemeToggle />
 
         {/* Mobile page-navigation toggle */}
-        <motion.div
-          className={`md:hidden ${hoverStyle}`}
+        <button
+          className="icon-btn md:hidden"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.95 }}
+          aria-label="Toggle navigation"
         >
-          {mobileMenuOpen ? (
-            <X size={24} className="text-zinc-900 dark:text-zinc-100" weight="regular" />
-          ) : (
-            <List size={24} className="text-zinc-900 dark:text-zinc-100" weight="regular" />
-          )}
-        </motion.div>
+          {mobileMenuOpen ? <X size={20} weight="regular" /> : <List size={20} weight="regular" />}
+        </button>
       </div>
     </div>
   );

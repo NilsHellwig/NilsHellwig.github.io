@@ -39,11 +39,9 @@ const formatDay = (iso: string) =>
 const stats = (days: Day[]) => {
   let longest = 0;
   let run = 0;
-  let best: Day | null = null;
   for (const d of days) {
     run = d.count > 0 ? run + 1 : 0;
     longest = Math.max(longest, run);
-    if (!best || d.count > best.count) best = d;
   }
   // Today may simply not have commits yet, so the current streak may end yesterday.
   let i = days.length - 1;
@@ -52,7 +50,7 @@ const stats = (days: Day[]) => {
   for (; i >= 0 && days[i].count > 0; i--) current++;
   const total = days.reduce((s, d) => s + d.count, 0);
   const active = days.filter((d) => d.count > 0).length;
-  return { total, longest, current, best, active };
+  return { total, longest, current, active };
 };
 
 const GitHubActivity: React.FC = () => {
@@ -114,13 +112,11 @@ const GitHubActivity: React.FC = () => {
     : [];
 
   return (
-    <div className="relative overflow-hidden border-[0.5px] border-zinc-300 dark:border-zinc-700 rounded-xl bg-white/80 dark:bg-zinc-800/80 backdrop-blur-sm">
+    <div className="relative overflow-hidden rounded-xl border border-zinc-200 dark:border-zinc-700/70 bg-white/80 dark:bg-zinc-800/70 backdrop-blur-sm">
       {/* Header */}
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3 px-5 pt-5">
         <div>
-          <p className="text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
-            GitHub Activity · last 12 months
-          </p>
+          <p className="eyebrow">GitHub Activity · last 12 months</p>
           <p className="mt-1 text-sm text-zinc-500 dark:text-zinc-400 min-h-5 tabular-nums">
             {hover ? (
               <>
@@ -129,15 +125,7 @@ const GitHubActivity: React.FC = () => {
                 </span>{" "}
                 on {formatDay(hover.date)}
               </>
-            ) : s?.best ? (
-              <>
-                Busiest day:{" "}
-                <span className="font-semibold text-zinc-900 dark:text-white">
-                  {s.best.count} contributions
-                </span>{" "}
-                on {formatDay(s.best.date)}
-              </>
-            ) : failed ? (
+            ) : s ? null : failed ? (
               "Live data is currently unavailable."
             ) : (
               "Loading contributions…"
@@ -150,19 +138,18 @@ const GitHubActivity: React.FC = () => {
           rel="noopener noreferrer"
           className="inline-flex items-center gap-1.5 text-xs font-semibold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors"
         >
-          <GithubLogo size={14} weight="fill" />
-          @{USER}
+          <GithubLogo size={14} weight="fill" />@{USER}
         </a>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-px mx-5 mt-4 rounded-lg overflow-hidden bg-zinc-200 dark:bg-zinc-700">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-px mx-5 mt-4 rounded-lg overflow-hidden border border-zinc-200 dark:border-zinc-700/70 bg-zinc-200 dark:bg-zinc-700/70">
         {(statItems.length ? statItems : Array.from({ length: 4 }, () => null)).map((item, i) => (
-          <div key={i} className="bg-white dark:bg-zinc-800 px-3 py-2.5">
-            <p className="text-[10px] font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
+          <div key={i} className="bg-white dark:bg-zinc-800 px-4 py-3">
+            <p className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 dark:text-zinc-500">
               {item?.label ?? " "}
             </p>
-            <p className="text-lg font-extrabold tracking-tight text-zinc-900 dark:text-white tabular-nums">
+            <p className="mt-0.5 text-lg font-bold tracking-tight text-zinc-900 dark:text-white tabular-nums">
               {item?.value ?? (
                 <span className="inline-block w-12 h-4 rounded bg-zinc-100 dark:bg-zinc-700 animate-pulse" />
               )}
@@ -192,33 +179,34 @@ const GitHubActivity: React.FC = () => {
             style={{ gridTemplateColumns: `repeat(${weeks.length || 53}, minmax(0, 1fr))` }}
             onMouseLeave={() => setHover(null)}
           >
-            {(weeks.length ? weeks : Array.from({ length: 53 }, () => Array<null>(7).fill(null))).map(
-              (week, wi) => (
-                <div key={wi} className="grid grid-rows-7 gap-[3px]">
-                  {Array.from({ length: 7 }, (_, di) => {
-                    const d = week[di] ?? null;
-                    if (!days) {
-                      return (
-                        <span
-                          key={di}
-                          className="aspect-square rounded-[3px] bg-zinc-900/[0.05] dark:bg-white/[0.05] animate-pulse"
-                        />
-                      );
-                    }
-                    if (!d) return <span key={di} className="aspect-square" />;
+            {(weeks.length
+              ? weeks
+              : Array.from({ length: 53 }, () => Array<null>(7).fill(null))
+            ).map((week, wi) => (
+              <div key={wi} className="grid grid-rows-7 gap-[3px]">
+                {Array.from({ length: 7 }, (_, di) => {
+                  const d = week[di] ?? null;
+                  if (!days) {
                     return (
                       <span
                         key={di}
-                        onMouseEnter={() => setHover(d)}
-                        aria-label={`${d.count} contributions on ${d.date}`}
-                        className={`gh-cell aspect-square rounded-[3px] transition-transform duration-150 hover:scale-[1.35] hover:ring-2 hover:ring-zinc-900/20 dark:hover:ring-white/30 ${LEVEL_CLASS[d.level]}`}
-                        style={{ animationDelay: `${wi * 14 + di * 10}ms` }}
+                        className="aspect-square rounded-[3px] bg-zinc-900/[0.05] dark:bg-white/[0.05] animate-pulse"
                       />
                     );
-                  })}
-                </div>
-              ),
-            )}
+                  }
+                  if (!d) return <span key={di} className="aspect-square" />;
+                  return (
+                    <span
+                      key={di}
+                      onMouseEnter={() => setHover(d)}
+                      aria-label={`${d.count} contributions on ${d.date}`}
+                      className={`gh-cell aspect-square rounded-[3px] transition-transform duration-150 hover:scale-[1.35] hover:ring-2 hover:ring-zinc-900/20 dark:hover:ring-white/30 ${LEVEL_CLASS[d.level]}`}
+                      style={{ animationDelay: `${wi * 14 + di * 10}ms` }}
+                    />
+                  );
+                })}
+              </div>
+            ))}
           </div>
         </div>
       </div>

@@ -26,31 +26,26 @@ const Footer: React.FC = () => {
       icon: GithubLogo,
       url: "https://github.com/NilsHellwig",
       label: "GitHub",
-      color: "hover:text-zinc-900 dark:hover:text-zinc-100",
     },
     {
       icon: LinkedinLogo,
       url: "https://www.linkedin.com/in/nils-ch/",
       label: "LinkedIn",
-      color: "hover:text-zinc-900 dark:hover:text-zinc-100",
     },
     {
       icon: At,
       url: "mailto:nils.hellwig@ur.de",
       label: "Email",
-      color: "hover:text-zinc-900 dark:hover:text-zinc-100",
     },
     {
       icon: Student,
       url: "https://scholar.google.com/citations?user=VzUTKcwAAAAJ",
       label: "Google Scholar",
-      color: "hover:text-zinc-900 dark:hover:text-zinc-100",
     },
     {
       icon: GlobeHemisphereWest,
       url: "https://orcid.org/0009-0000-7305-8797",
       label: "ORCID",
-      color: "hover:text-zinc-900 dark:hover:text-zinc-100",
     },
   ];
 
@@ -68,11 +63,11 @@ const Footer: React.FC = () => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3, duration: 0.5 }}
-      className="mt-20 pt-12 pb-8 border-t border-zinc-200 dark:border-zinc-700 w-full"
+      className="mt-24 pt-10 pb-8 border-t border-zinc-200 dark:border-zinc-700 w-full"
     >
-      <div className="mx-auto px-4">
+      <div>
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-8">
           {/* About Section */}
           <div className="space-y-3">
             <h3 className="font-bold text-zinc-900 dark:text-white">Nils Hellwig</h3>
@@ -83,7 +78,7 @@ const Footer: React.FC = () => {
 
           {/* Quick Links */}
           <div className="space-y-3">
-            <h4 className="font-bold text-sm text-zinc-900 dark:text-white">Quick Links</h4>
+            <h4 className="eyebrow">Quick Links</h4>
             <nav className="flex flex-col gap-2">
               {navigationLinks.map((link, index) => (
                 <Link
@@ -103,21 +98,19 @@ const Footer: React.FC = () => {
 
           {/* Connect */}
           <div className="space-y-3">
-            <h4 className="font-bold text-sm text-zinc-900 dark:text-white">Connect</h4>
-            <div className="flex flex-wrap gap-3">
+            <h4 className="eyebrow">Connect</h4>
+            <div className="flex flex-wrap gap-2">
               {socialLinks.map((link, index) => (
                 <Tooltip key={index} text={link.label} position="top" asChild>
-                  <motion.a
+                  <a
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={link.label}
-                    className={`p-2.5 rounded-lg bg-zinc-100 dark:bg-zinc-800 text-zinc-600 dark:text-zinc-400 ${link.color} transition-all border border-zinc-200 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-500`}
-                    whileHover={{ y: -2, scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
+                    className="icon-btn border border-zinc-200 dark:border-zinc-700 text-zinc-600 dark:text-zinc-400"
                   >
-                    <link.icon size={18} weight="fill" />
-                  </motion.a>
+                    <link.icon size={18} weight="regular" />
+                  </a>
                 </Tooltip>
               ))}
             </div>
@@ -132,10 +125,7 @@ const Footer: React.FC = () => {
 
         {/* Bottom Section */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <motion.div
-            className="flex items-center gap-2 text-sm text-zinc-600 dark:text-zinc-400"
-            whileHover={{ scale: 1.02 }}
-          >
+          <div className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
             <span>Made with</span>
             <motion.div
               animate={{ scale: [1, 1.2, 1] }}
@@ -146,7 +136,7 @@ const Footer: React.FC = () => {
             <span>and</span>
             <Code size={14} weight="bold" className="text-zinc-600 dark:text-zinc-400" />
             <span>in Regensburg</span>
-          </motion.div>
+          </div>
 
           <div className="flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-500">
             <span>© {new Date().getFullYear()} Nils Hellwig</span>

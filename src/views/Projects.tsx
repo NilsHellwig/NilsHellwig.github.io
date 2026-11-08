@@ -11,6 +11,7 @@ import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
 import ClaudeBadge from "../components/ClaudeBadge";
 import GitHubActivity from "../components/GitHubActivity";
+import FilterPills from "../components/FilterPills";
 
 interface ProjectsProps {
   projectName?: string;
@@ -75,12 +76,11 @@ const Projects: React.FC<ProjectsProps> = ({ projectName }) => {
         number="01"
         title="Projects"
         subtitle="Selected software projects: web apps, AI tools, mobile apps, and research utilities"
-        className="mb-8 mt-10"
         variants={itemVariants}
       />
 
       {/* GitHub Activity */}
-      <motion.div variants={itemVariants} className="mb-8">
+      <motion.div variants={itemVariants}>
         <GitHubActivity />
       </motion.div>
 
@@ -89,15 +89,25 @@ const Projects: React.FC<ProjectsProps> = ({ projectName }) => {
         title="Selected Projects"
         subtitle="Click a card to see details, tech stack, and links"
         as="h3"
-        className="mb-6"
+        className="mt-16 mb-6"
         variants={itemVariants}
       />
 
-      {/* Claude legend (hover) */}
-      <motion.div variants={itemVariants} className="mb-3">
+      {/* Filter pills + Claude legend (hover) */}
+      <motion.div
+        variants={itemVariants}
+        className="flex flex-col-reverse sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-6 mb-6"
+      >
+        <FilterPills
+          options={categories}
+          active={activeFilter}
+          onChange={setActiveFilter}
+          getCount={getCategoryCount}
+        />
         <Tooltip
+          className="self-start shrink-0"
           position="bottom"
-          contentClassName="z-50 w-72 rounded-xl border-[0.5px] border-zinc-300 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-4 shadow-lg dark:shadow-zinc-900/50"
+          contentClassName="z-50 w-72 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-4 shadow-lg dark:shadow-zinc-900/50"
           text={
             <div className="flex flex-col gap-3 whitespace-normal">
               <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
@@ -108,7 +118,7 @@ const Projects: React.FC<ProjectsProps> = ({ projectName }) => {
                 {["/grill-with-docs", "/tdd", "/diagnosing-bugs"].map((skill) => (
                   <span
                     key={skill}
-                    className="font-mono text-[11px] px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-700 border-[0.5px] border-zinc-200 dark:border-zinc-600 text-zinc-600 dark:text-zinc-300"
+                    className="font-mono text-[11px] px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300"
                   >
                     {skill}
                   </span>
@@ -126,95 +136,72 @@ const Projects: React.FC<ProjectsProps> = ({ projectName }) => {
             </div>
           }
         >
-          <span className="inline-flex items-center gap-1 text-xs text-zinc-400 dark:text-zinc-500 cursor-help">
+          <span className="inline-flex items-center gap-1 shrink-0 whitespace-nowrap sm:mt-2 text-xs text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors cursor-help">
             <Info size={13} />
             w/ Claude = AI-assisted
           </span>
         </Tooltip>
       </motion.div>
 
-      {/* Filter pills */}
-      <motion.div variants={itemVariants} className="flex flex-wrap gap-2 mb-6">
-        {categories.map((category) => (
-          <button
-            key={category}
-            onClick={() => setActiveFilter(category)}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold transition-all duration-150 border-[0.5px]
-              ${
-                activeFilter === category
-                  ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900 border-zinc-900 dark:border-zinc-100"
-                  : "bg-white dark:bg-zinc-800 text-zinc-600 dark:text-zinc-300 border-zinc-300 dark:border-zinc-700 hover:border-zinc-400 dark:hover:border-zinc-600 hover:bg-zinc-50 dark:hover:bg-zinc-700"
-              }`}
-          >
-            {category}
-            <span
-              className={`text-xs px-1.5 py-0.5 rounded-full tabular-nums
-                ${activeFilter === category ? "bg-white/20 dark:bg-zinc-900/20" : "bg-zinc-100 dark:bg-zinc-700 text-zinc-500 dark:text-zinc-400"}`}
-            >
-              {getCategoryCount(category)}
-            </span>
-          </button>
-        ))}
-      </motion.div>
-
       {/* Project grid */}
       <AnimatePresence mode="wait">
         <motion.div
           key={activeFilter}
-          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
           initial="hidden"
           animate="visible"
           exit="hidden"
           variants={containerVariants}
         >
-          {filteredProjects.map((project, index) => (
+          {filteredProjects.map((project) => (
             <motion.div
-              key={index}
+              key={project.id ?? project.title}
               variants={itemVariants}
-              whileHover={{ y: -4 }}
-              className="border-[0.5px] border-zinc-300 dark:border-zinc-700 rounded-xl bg-white dark:bg-zinc-800 cursor-pointer hover:shadow-md dark:hover:shadow-zinc-900/50 hover:border-zinc-400 dark:hover:border-zinc-600 transition-all duration-150 overflow-hidden flex flex-col"
+              whileHover={{ y: -2 }}
+              className="card card-interactive p-5 flex flex-col"
               onClick={() => {
                 setProjectId(project.id!);
                 showSingleProjectFct();
               }}
             >
-              <div className="p-4 flex flex-col flex-1">
-                {/* Type badge */}
-                <div className="flex flex-wrap justify-between items-center gap-1 mb-3">
-                  <ClaudeBadge withClaude={!!project.claude} className="shrink-0" />
-                  <span
-                    title={project.type}
-                    className="whitespace-nowrap text-[11px] sm:text-xs font-bold px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300"
-                  >
+              {/* Icon + title + meta */}
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 shrink-0 rounded-[22.5%] shadow-md shadow-zinc-900/15 dark:shadow-black/40">
+                  {project.iconPath && (
+                    <img
+                      src={project.iconPath}
+                      alt={project.title}
+                      className="w-full h-full object-contain"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex items-baseline justify-between gap-3">
+                    <h3 className="font-semibold text-base text-zinc-900 dark:text-white leading-snug truncate">
+                      {project.title}
+                    </h3>
+                    <span className="shrink-0 text-xs font-mono tabular-nums text-zinc-400 dark:text-zinc-500">
+                      {project.year}
+                    </span>
+                  </div>
+                  <span title={project.type} className="chip mt-1.5">
                     {project.type}
                   </span>
                 </div>
+              </div>
 
-                {/* Icon */}
-                <div className="flex justify-center mb-3">
-                  <div className="w-14 h-14 rounded-[22.5%] shadow-md shadow-zinc-900/15 dark:shadow-black/40">
-                    {project.iconPath && (
-                      <img
-                        src={project.iconPath}
-                        alt={project.title}
-                        className="w-full h-full object-contain"
-                        loading="lazy"
-                        decoding="async"
-                      />
-                    )}
-                  </div>
+              {/* Subtitle */}
+              <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed line-clamp-3">
+                {project.subtitle}
+              </p>
+
+              {/* Footer */}
+              <div className="mt-auto pt-4">
+                <div className="pt-4 border-t border-zinc-100 dark:border-zinc-700/70">
+                  <ClaudeBadge withClaude={!!project.claude} />
                 </div>
-
-                {/* Title + subtitle */}
-                <h3 className="font-bold text-sm text-zinc-900 dark:text-white text-center leading-snug">
-                  {project.title}
-                </h3>
-                <p className="text-xs text-zinc-400 dark:text-zinc-500 text-center mt-1 line-clamp-2 leading-relaxed">
-                  {project.subtitle}
-                </p>
-                <p className="mt-auto pt-3 text-[11px] font-mono tabular-nums text-zinc-400 dark:text-zinc-500 text-center">
-                  {project.year}
-                </p>
               </div>
             </motion.div>
           ))}

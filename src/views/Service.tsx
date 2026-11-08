@@ -35,14 +35,14 @@ const Service: React.FC = () => {
       <motion.div variants={containerVariants} className="mb-12" role="table">
         <div
           role="row"
-          className={`hidden sm:grid ${TABLE_GRID} pb-2 border-b border-zinc-200 dark:border-zinc-700 text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500`}
+          className={`hidden sm:grid ${TABLE_GRID} pb-2 border-b border-zinc-200 dark:border-zinc-700 eyebrow`}
         >
           <span role="columnheader">Venue</span>
           <span role="columnheader">Role</span>
           <span role="columnheader">Type</span>
           <span role="columnheader">Cycle</span>
         </div>
-        <div className="divide-y divide-zinc-200 dark:divide-zinc-700">
+        <div className="divide-y divide-zinc-200 dark:divide-zinc-700/70">
           {REVIEWING.map((entry) => (
             <motion.div
               key={`${entry.venue}-${entry.cycle}`}
@@ -84,14 +84,14 @@ const Service: React.FC = () => {
       <motion.div variants={containerVariants} className="mb-12" role="table">
         <div
           role="row"
-          className={`hidden sm:grid ${TABLE_GRID} pb-2 border-b border-zinc-200 dark:border-zinc-700 text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500`}
+          className={`hidden sm:grid ${TABLE_GRID} pb-2 border-b border-zinc-200 dark:border-zinc-700 eyebrow`}
         >
           <span role="columnheader">Title</span>
           <span role="columnheader">Type</span>
           <span role="columnheader">Event</span>
           <span role="columnheader">Date</span>
         </div>
-        <div className="divide-y divide-zinc-200 dark:divide-zinc-700">
+        <div className="divide-y divide-zinc-200 dark:divide-zinc-700/70">
           {TALKS.map((talk) => (
             <motion.div
               key={talk.title}
@@ -145,14 +145,14 @@ const Service: React.FC = () => {
       <motion.div variants={containerVariants} className="mb-12" role="table">
         <div
           role="row"
-          className={`hidden sm:grid ${TABLE_GRID} pb-2 border-b border-zinc-200 dark:border-zinc-700 text-xs font-mono uppercase tracking-wider text-zinc-400 dark:text-zinc-500`}
+          className={`hidden sm:grid ${TABLE_GRID} pb-2 border-b border-zinc-200 dark:border-zinc-700 eyebrow`}
         >
           <span role="columnheader">Title</span>
           <span role="columnheader">Type</span>
           <span role="columnheader">Student</span>
           <span role="columnheader">Published</span>
         </div>
-        <div className="divide-y divide-zinc-200 dark:divide-zinc-700">
+        <div className="divide-y divide-zinc-200 dark:divide-zinc-700/70">
           {SUPERVISION.map((entry) => (
             <motion.div
               key={entry.title}
