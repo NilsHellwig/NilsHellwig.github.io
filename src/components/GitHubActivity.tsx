@@ -4,9 +4,11 @@ import React, { useEffect, useMemo, useState } from "react";
 import { GithubLogo } from "@phosphor-icons/react";
 
 // Contribution heatmap for the last year, drawn in the site's monochrome style.
-// Data comes from a public, CORS-enabled proxy of GitHub's contribution calendar.
+// Data comes from a build-time snapshot (scripts/fetch-github-contributions.mjs),
+// refreshed in the browser from a public CORS proxy when that proxy is reachable.
 
 const USER = "NilsHellwig";
+const SNAPSHOT = "/github-contributions.json";
 const API = `https://github-contributions-api.jogruber.de/v4/${USER}?y=last`;
 
 interface Day {
@@ -60,14 +62,27 @@ const GitHubActivity: React.FC = () => {
 
   useEffect(() => {
     const ctrl = new AbortController();
-    fetch(API, { signal: ctrl.signal })
-      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-      .then((json: { contributions: Day[] }) => {
-        const today = new Date().toISOString().slice(0, 10);
-        setDays(json.contributions.filter((d) => d.date <= today));
+    const today = new Date().toISOString().slice(0, 10);
+    const load = (url: string) =>
+      fetch(url, { signal: ctrl.signal })
+        .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+        .then((json: { contributions: Day[] }) => {
+          if (!json.contributions?.length) throw new Error("empty");
+          return json.contributions.filter((d) => d.date <= today);
+        });
+
+    // Build-time snapshot first (reliable), then try the live proxy for fresher data.
+    let haveSnapshot = false;
+    load(SNAPSHOT)
+      .then((d) => {
+        haveSnapshot = true;
+        setDays(d);
       })
+      .catch(() => {})
+      .then(() => load(API))
+      .then(setDays)
       .catch((e) => {
-        if (!ctrl.signal.aborted) {
+        if (!ctrl.signal.aborted && !haveSnapshot) {
           console.warn("GitHub activity unavailable", e);
           setFailed(true);
         }

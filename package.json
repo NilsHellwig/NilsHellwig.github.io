@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "prebuild": "node scripts/fetch-github-contributions.mjs",
     "build": "next build",
     "start": "npx serve out",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,md}\""
