@@ -178,8 +178,8 @@ const Playground: React.FC = () => {
           />
           <Legend className="mt-3 justify-center" />
           <p className="mt-2 text-center text-xs text-zinc-400 dark:text-zinc-500">
-            Showing activations for example ({XOR[sel].x.join(", ")}). Click a corner of the map to
-            switch. Amber arrows: where the average gradient is pushing each weight.
+            Showing the values for example ({XOR[sel].x.join(", ")}). Click a corner of the map to
+            switch. Amber arrows: which way each weight is about to be turned.
           </p>
         </div>
 
@@ -213,7 +213,7 @@ const Playground: React.FC = () => {
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Slider
-              label="learning rate η"
+              label="step size (learning rate η)"
               value={lr}
               min={0.05}
               max={3}
@@ -232,9 +232,11 @@ const Playground: React.FC = () => {
             />
           </div>
           <p className="text-[12.5px] leading-relaxed text-zinc-500 dark:text-zinc-400">
-            Every epoch runs forward + backward on all four examples, averages the gradients and
-            takes one step. Some random starts get stuck in a bad valley (a local minimum): hit{" "}
-            <i>New random weights</i> and try again. Seed <span className="font-mono">{seed}</span>.
+            One <b>epoch</b> = one round of guess, score, blame and adjust over all four examples.
+            The map shows the network&apos;s answer for every possible input: one shade means “0”,
+            the other “1”. Some random starts get stuck in a valley that isn&apos;t the lowest one
+            (a <i>local minimum</i>): hit <i>New random weights</i> and try again. Seed{" "}
+            <span className="font-mono">{seed}</span>.
           </p>
         </div>
       </div>

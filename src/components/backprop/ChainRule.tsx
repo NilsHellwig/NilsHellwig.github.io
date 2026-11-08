@@ -6,7 +6,7 @@ import { ArrowCounterClockwise } from "@phosphor-icons/react";
 import { fmt } from "../../lib/nn";
 import NetworkDiagram from "./NetworkDiagram";
 import type { StepCtx } from "./steps";
-import { N, Segmented, itemVariants } from "./ui";
+import { F, MoreMath, N, Segmented, itemVariants } from "./ui";
 
 const S = ["₀", "₁", "₂", "₃"];
 
@@ -24,35 +24,37 @@ const ChainRule: React.FC<{ ctx: StepCtx }> = ({ ctx }) => {
 
   const y = sample.y;
   const dLdy = -y / c.yHat + (1 - y) / (1 - c.yHat);
+  const H = `h${S[j + 1]}`;
+  const W = `w${S[j + 1]}${S[i + 1]}`;
   const factors = [
     {
-      label: "∂L/∂ŷ",
-      what: "loss vs. prediction",
-      formula: y === 1 ? "−1/ŷ" : "1/(1−ŷ)",
+      label: "guess → penalty",
+      what: "how strongly the penalty reacts to the guess",
+      sym: "∂L/∂ŷ",
       value: dLdy,
     },
     {
-      label: "∂ŷ/∂z",
-      what: "through the sigmoid",
-      formula: "ŷ(1−ŷ)",
+      label: "score → guess",
+      what: "steepness of the sigmoid curve",
+      sym: "∂ŷ/∂z",
       value: c.yHat * (1 - c.yHat),
     },
     {
-      label: `∂z/∂h${S[j + 1]}`,
-      what: "along the weight",
-      formula: `v${S[j + 1]}`,
+      label: `${H} → score`,
+      what: `the wire weight v${S[j + 1]}`,
+      sym: `∂z/∂${H}`,
       value: net.W2[j],
     },
     {
-      label: `∂h${S[j + 1]}/∂z${S[j + 1]}`,
-      what: "through tanh",
-      formula: `1−h${S[j + 1]}²`,
+      label: `${H}'s score → ${H}`,
+      what: "steepness of the tanh curve",
+      sym: `∂${H}/∂z${S[j + 1]}`,
       value: 1 - c.h[j] ** 2,
     },
     {
-      label: `∂z${S[j + 1]}/∂w${S[j + 1]}${S[i + 1]}`,
-      what: "the input on the wire",
-      formula: `x${S[i + 1]}`,
+      label: `${W} → ${H}'s score`,
+      what: `the input x${S[i + 1]} on that wire`,
+      sym: `∂z${S[j + 1]}/∂${W}`,
       value: c.x[i],
     },
   ];
@@ -118,16 +120,21 @@ const ChainRule: React.FC<{ ctx: StepCtx }> = ({ ctx }) => {
         </div>
 
         <div className="p-4 sm:p-6">
-          <p className="mb-4 text-[14.5px] leading-relaxed text-zinc-600 dark:text-zinc-300">
-            The weight{" "}
-            <b>
-              w{S[j + 1]}
-              {S[i + 1]}
-            </b>{" "}
-            influences the loss only through a chain of steps. The chain rule says: the total effect
-            is the <b>product of the local slopes</b> along that chain. Read it right to left, like
-            the blame travels.
-          </p>
+          <div className="mb-4 space-y-2 text-[14.5px] leading-relaxed text-zinc-600 dark:text-zinc-300">
+            <p>
+              The weight <b>{W}</b> sits deep inside the network and can&apos;t touch the penalty
+              directly. Its effect travels along a chain:
+            </p>
+            <p className="rounded-lg bg-zinc-50 px-3 py-2 text-[13px] font-medium text-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-200">
+              {W} → {H}&apos;s score → {H} → output score → guess → penalty
+            </p>
+            <p>
+              For each link we ask:{" "}
+              <i>if the left side moves a little, how much does the right side move?</i> Then we
+              multiply all those numbers. Read the boxes from left to right, starting at the
+              penalty, the way the blame travels backwards.
+            </p>
+          </div>
 
           <div className="flex flex-wrap items-stretch gap-1.5">
             {factors.map((f, k) => {
@@ -145,7 +152,7 @@ const ChainRule: React.FC<{ ctx: StepCtx }> = ({ ctx }) => {
                       scale: k === shown - 1 ? [1, 1.06, 1] : 1,
                     }}
                     transition={{ duration: 0.45 }}
-                    className={`min-w-[86px] flex-1 rounded-lg border px-2.5 py-2 ${
+                    className={`min-w-[118px] flex-1 rounded-lg border px-2.5 py-2 ${
                       on
                         ? "border-amber-400/70 bg-amber-50 dark:border-amber-500/40 dark:bg-amber-500/10"
                         : "border-zinc-200 bg-zinc-50 dark:border-zinc-700 dark:bg-zinc-900/50"
@@ -154,9 +161,11 @@ const ChainRule: React.FC<{ ctx: StepCtx }> = ({ ctx }) => {
                     <div className="text-[12.5px] font-semibold text-zinc-900 dark:text-white">
                       {f.label}
                     </div>
-                    <div className="text-[10.5px] text-zinc-500 dark:text-zinc-400">{f.what}</div>
+                    <div className="text-[11px] leading-snug text-zinc-500 dark:text-zinc-400">
+                      {f.what}
+                    </div>
                     <div className="mt-1 flex items-baseline justify-between gap-1 text-[11px]">
-                      <span className="text-zinc-500 dark:text-zinc-400">{f.formula}</span>
+                      <span className="text-zinc-400 dark:text-zinc-500">{f.sym}</span>
                       <span className="font-mono font-semibold tabular-nums text-zinc-900 dark:text-white">
                         {on ? fmt(f.value, 3) : "?"}
                       </span>
@@ -168,10 +177,7 @@ const ChainRule: React.FC<{ ctx: StepCtx }> = ({ ctx }) => {
           </div>
 
           <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-lg bg-zinc-900 px-4 py-3 text-zinc-100 dark:bg-zinc-950 dark:ring-1 dark:ring-zinc-700">
-            <span className="text-sm font-semibold">
-              ∂L/∂w{S[j + 1]}
-              {S[i + 1]} =
-            </span>
+            <span className="text-sm font-semibold">effect of {W} on the penalty =</span>
             <AnimatePresence mode="popLayout">
               <motion.span
                 key={`${shown}-${j}-${i}`}
@@ -186,17 +192,33 @@ const ChainRule: React.FC<{ ctx: StepCtx }> = ({ ctx }) => {
             <span className="text-xs text-zinc-400">
               {shown < factors.length
                 ? `${shown} of ${factors.length} links multiplied`
-                : "same number backprop computed as δ·x"}
+                : "this is the gradient of " + W + ", the same number as in step 9"}
             </span>
           </div>
 
-          <p className="mt-4 text-[13px] text-zinc-500 dark:text-zinc-400">
-            Notice the first two links: <N>{fmt(factors[0].value, 3)}</N> ×{" "}
-            <N>{fmt(factors[1].value, 3)}</N> = <N tone="grad">{fmt(ctx.g.delta2, 3)}</N>, which is
-            exactly δ = ŷ − y. Backprop never multiplies the whole chain from scratch for every
-            weight. It computes each shared prefix <b>once</b> (the δ&apos;s) and reuses it. That
-            reuse is the whole trick, and why it scales to networks with billions of weights.
+          <p className="mt-4 text-[13px] leading-relaxed text-zinc-500 dark:text-zinc-400">
+            The trick that makes backprop fast: the first two boxes together (
+            <N>{fmt(factors[0].value, 3)}</N> × <N>{fmt(factors[1].value, 3)}</N> ={" "}
+            <N tone="grad">{fmt(ctx.g.delta2, 3)}</N>) are the same for <i>every</i> weight. That is
+            exactly the output&apos;s error signal δ from step 6. Backprop computes such shared
+            pieces only <b>once</b> and reuses them. That&apos;s why it works even for networks with
+            billions of weights.
           </p>
+          <div className="mt-3">
+            <MoreMath title="For the curious: the notation">
+              <p>
+                A “how much does B move when A moves a little” number is called a <b>derivative</b>,
+                written <F>∂B/∂A</F>. The curly ∂ means “a tiny change in”. The small gray labels in
+                the boxes are these derivatives, and the chain rule says:
+              </p>
+              <p>
+                <F>
+                  ∂L/∂{W} = ∂L/∂ŷ × ∂ŷ/∂z × ∂z/∂{H} × ∂{H}/∂z{S[j + 1]} × ∂z{S[j + 1]}/∂{W}
+                </F>
+              </p>
+              <p>It looks like the fractions “cancel out”, which is a handy way to remember it.</p>
+            </MoreMath>
+          </div>
         </div>
       </div>
     </motion.div>

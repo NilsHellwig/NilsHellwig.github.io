@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { motion, type Variants } from "framer-motion";
+import { AnimatePresence, motion, type Variants } from "framer-motion";
 
 // Shared colour language for the backprop page:
 //   positive weight → sky, negative weight → rose, gradient / blame → amber.
@@ -106,7 +106,8 @@ export const Legend: React.FC<{ className?: string }> = ({ className = "" }) => 
       <span className="h-2.5 w-2.5 rounded-sm" style={{ background: NEG }} /> negative weight
     </span>
     <span className="inline-flex items-center gap-1.5">
-      <span className="h-2.5 w-2.5 rounded-full" style={{ background: GRAD }} /> gradient (blame)
+      <span className="h-2.5 w-2.5 rounded-full" style={{ background: GRAD }} /> error signal /
+      gradient
     </span>
     <span className="inline-flex items-center gap-1.5">
       <span className="h-[3px] w-5 rounded-full bg-zinc-400" /> thicker = larger |w|
@@ -186,3 +187,75 @@ export const Segmented = <T extends string | number>({
     </div>
   );
 };
+
+/**
+ * A formula with a plain-language legend underneath, so no symbol is left unexplained.
+ */
+export const MathBox: React.FC<{
+  children: React.ReactNode;
+  legend?: [React.ReactNode, React.ReactNode][];
+  label?: string;
+}> = ({ children, legend, label = "Written as a formula" }) => (
+  <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-700">
+    <div className="bg-zinc-50 px-4 pt-2.5 pb-3 dark:bg-zinc-900/60">
+      <div className="eyebrow mb-1 !text-[10px]">{label}</div>
+      <div className="overflow-x-auto no-scrollbar text-[15px] font-medium text-zinc-800 dark:text-zinc-100">
+        {children}
+      </div>
+    </div>
+    {legend && legend.length > 0 && (
+      <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 border-t border-zinc-200 px-4 py-2.5 text-[12.5px] dark:border-zinc-700">
+        {legend.map(([sym, meaning], i) => (
+          <React.Fragment key={i}>
+            <dt className="whitespace-nowrap font-semibold text-zinc-900 dark:text-white">{sym}</dt>
+            <dd className="text-zinc-500 dark:text-zinc-400">{meaning}</dd>
+          </React.Fragment>
+        ))}
+      </dl>
+    )}
+  </div>
+);
+
+/** Optional deeper math, collapsed by default. */
+export const MoreMath: React.FC<{ children: React.ReactNode; title?: string }> = ({
+  children,
+  title = "For the curious: the exact math",
+}) => {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div className="rounded-lg border border-dashed border-zinc-300 dark:border-zinc-600">
+      <button
+        onClick={() => setOpen((o) => !o)}
+        className="flex w-full cursor-pointer items-center justify-between gap-2 px-3 py-2 text-left text-[12.5px] font-semibold text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
+        aria-expanded={open}
+      >
+        <span>{title}</span>
+        <motion.span animate={{ rotate: open ? 45 : 0 }} className="text-base leading-none">
+          +
+        </motion.span>
+      </button>
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            className="overflow-hidden"
+          >
+            <div className="space-y-2 px-3 pb-3 text-[13px] text-zinc-500 dark:text-zinc-400">
+              {children}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
+};
+
+/** The one-sentence takeaway of a step. */
+export const BigIdea: React.FC<{ children: React.ReactNode }> = ({ children }) => (
+  <div className="flex gap-2.5 rounded-lg bg-zinc-900 px-3.5 py-2.5 text-[13.5px] leading-snug text-zinc-100 dark:bg-zinc-100 dark:text-zinc-900">
+    <span className="mt-[1px] text-amber-400 dark:text-amber-600">★</span>
+    <span>{children}</span>
+  </div>
+);

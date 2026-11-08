@@ -201,7 +201,7 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
         <>
           <b>Input x{SUB[i + 1]}</b>
           {cache ? <> = {fmt(cache.x[i], 0)}</> : null}
-          <div className="opacity-70">Raw data, passed on to every hidden neuron.</div>
+          <div className="opacity-70">The raw data. It is sent to every hidden neuron.</div>
         </>
       );
     }
@@ -210,17 +210,15 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
         <>
           <b>Hidden neuron h{SUB[j + 1]}</b>
           <div>
-            w = ({fmt(net.W1[j][0])}, {fmt(net.W1[j][1])}), b = {fmt(net.b1[j])}
+            weights {fmt(net.W1[j][0])} and {fmt(net.W1[j][1])}, bias {fmt(net.b1[j])}
           </div>
           {cache && (
             <div>
-              z = w·x + b = {fmt(cache.z1[j], 3)}, h = tanh(z) = {fmt(cache.h[j], 3)}
+              score z = {fmt(cache.z1[j], 2)} → after squashing h = {fmt(cache.h[j], 2)}
             </div>
           )}
           {grads && (
-            <div className="text-amber-300">
-              blame ∂L/∂h = {fmt(grads.dH[j], 3)}, δ = {fmt(grads.delta1[j], 3)}
-            </div>
+            <div className="text-amber-300">error signal δ = {fmt(grads.delta1[j], 3)}</div>
           )}
         </>
       );
@@ -230,14 +228,18 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
         <>
           <b>Output neuron</b>
           <div>
-            v = ({net.W2.map((v) => fmt(v)).join(", ")}), c = {fmt(net.b2)}
+            weights {net.W2.map((v) => fmt(v)).join(", ")}, bias {fmt(net.b2)}
           </div>
           {cache && (
             <div>
-              z = v·h + c = {fmt(cache.z2, 3)}, ŷ = σ(z) = {fmt(cache.yHat, 3)}
+              score z = {fmt(cache.z2, 2)} → guess ŷ = {fmt(cache.yHat, 2)}
             </div>
           )}
-          {grads && <div className="text-amber-300">δ = ŷ − y = {fmt(grads.delta2, 3)}</div>}
+          {grads && (
+            <div className="text-amber-300">
+              error signal δ = guess − answer = {fmt(grads.delta2, 3)}
+            </div>
+          )}
         </>
       );
     }
@@ -246,7 +248,7 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
         <>
           <b>Loss</b>
           {lossVal !== undefined && <> = {fmt(lossVal, 3)}</>}
-          <div className="opacity-70">How wrong the prediction is. Smaller is better.</div>
+          <div className="opacity-70">A penalty for a wrong guess. 0 means perfect.</div>
         </>
       );
     }
@@ -260,9 +262,14 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
           </b>{" "}
           = {fmt(net.W1[j][i], 3)}
           <div className="opacity-70">
-            x{SUB[i + 1]} → h{SUB[j + 1]}
+            How strongly h{SUB[j + 1]} listens to input x{SUB[i + 1]}.
           </div>
-          {grads && <div className="text-amber-300">∂L/∂w = δ·x = {fmt(grads.dW1[j][i], 4)}</div>}
+          {grads && (
+            <div className="text-amber-300">
+              gradient = {fmt(grads.dW1[j][i], 4)} → will turn{" "}
+              {grads.dW1[j][i] > 0 ? "down" : grads.dW1[j][i] < 0 ? "up" : "not at all"}
+            </div>
+          )}
         </>
       );
     }
@@ -270,8 +277,13 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
       return (
         <>
           <b>Weight v{SUB[j + 1]}</b> = {fmt(net.W2[j], 3)}
-          <div className="opacity-70">h{SUB[j + 1]} → output</div>
-          {grads && <div className="text-amber-300">∂L/∂v = δ·h = {fmt(grads.dW2[j], 4)}</div>}
+          <div className="opacity-70">How strongly the output listens to h{SUB[j + 1]}.</div>
+          {grads && (
+            <div className="text-amber-300">
+              gradient = {fmt(grads.dW2[j], 4)} → will turn{" "}
+              {grads.dW2[j] > 0 ? "down" : grads.dW2[j] < 0 ? "up" : "not at all"}
+            </div>
+          )}
         </>
       );
     }

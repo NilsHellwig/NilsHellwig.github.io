@@ -11,6 +11,7 @@ import ChainRule from "../components/backprop/ChainRule";
 import DescentDemo from "../components/backprop/DescentDemo";
 import Playground from "../components/backprop/Playground";
 import { NeuronAnatomy, XorCard } from "../components/backprop/NeuronAnatomy";
+import { Glossary, SymbolsButton } from "../components/backprop/Glossary";
 import { STEPS, type StepCtx } from "../components/backprop/steps";
 import {
   F,
@@ -65,6 +66,62 @@ const HeroNetwork: React.FC<{ ctx: StepCtx }> = ({ ctx }) => {
   );
 };
 
+const ROADMAP = [
+  {
+    n: "1",
+    title: "Guess",
+    text: "Feed an example in and let the network make a guess.",
+    tone: "bg-sky-500",
+  },
+  {
+    n: "2",
+    title: "Score",
+    text: "Measure how wrong the guess was with a single penalty number.",
+    tone: "bg-zinc-500",
+  },
+  {
+    n: "3",
+    title: "Blame",
+    text: "Walk backwards and work out how much each weight caused the mistake.",
+    tone: "bg-amber-500",
+  },
+  {
+    n: "4",
+    title: "Adjust",
+    text: "Turn every weight a little in the direction that reduces the penalty.",
+    tone: "bg-emerald-500",
+  },
+];
+
+/** The whole algorithm in four plain-language steps, plus an everyday analogy. */
+const Roadmap: React.FC = () => (
+  <motion.div variants={itemVariants} className="mt-6">
+    <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-4">
+      {ROADMAP.map((r, i) => (
+        <div key={r.n} className="card relative p-4">
+          <div className="mb-2 flex items-center gap-2">
+            <span
+              className={`flex h-6 w-6 items-center justify-center rounded-full text-xs font-bold text-white ${r.tone}`}
+            >
+              {r.n}
+            </span>
+            <span className="font-semibold text-zinc-900 dark:text-white">{r.title}</span>
+            {i < ROADMAP.length - 1 && (
+              <span className="ml-auto hidden text-zinc-300 dark:text-zinc-600 lg:inline">→</span>
+            )}
+          </div>
+          <p className="text-[13px] leading-snug text-zinc-600 dark:text-zinc-300">{r.text}</p>
+        </div>
+      ))}
+    </div>
+    <p className="mt-3 text-[13.5px] leading-relaxed text-zinc-500 dark:text-zinc-400">
+      Think of a mixing desk with 13 knobs and a song that sounds wrong. Backpropagation tells you,
+      for every knob at once, which way to turn it and how much it matters. Then you repeat until
+      the song sounds right.
+    </p>
+  </motion.div>
+);
+
 const Takeaway: React.FC<{ n: string; title: string; children: React.ReactNode }> = ({
   n,
   title,
@@ -110,7 +167,8 @@ const Backprop: React.FC = () => {
         >
           How does a neural network learn from its mistakes? We take a tiny network with just{" "}
           <b>13 numbers</b> inside, follow one example through it, and work out exactly how each
-          number should change. No magic, just multiplication and a little calculus.
+          number should change. No math background needed: every symbol is explained right where it
+          shows up, and the <b>Symbols</b> button in the corner is always there if you forget one.
         </motion.p>
         <motion.div variants={itemVariants} className="mt-6 mb-8 flex flex-wrap gap-2">
           <a href="#network" className="btn-primary">
@@ -121,6 +179,7 @@ const Backprop: React.FC = () => {
           </a>
         </motion.div>
         <HeroNetwork ctx={ctx} />
+        <Roadmap />
       </motion.div>
 
       {/* ------------------------------------------------------------ 01 network */}
@@ -133,10 +192,11 @@ const Backprop: React.FC = () => {
         />
         <Prose className="mb-6">
           <p>
-            A neural network is built from <b>neurons</b>. A neuron receives some numbers, weighs
-            each one with its own <b>weight</b>, adds a <b>bias</b>, and bends the result through an
-            activation function. On this page every neuron is drawn as a small card with its weight
-            vector as a mini bar chart: bars up are positive weights, bars down are negative.
+            A neural network is built from <b>neurons</b>. A neuron takes in a few numbers,
+            multiplies each one by its own <b>weight</b> (how much it cares about that input), adds
+            a <b>bias</b> (a fixed nudge), and pushes the result through a squashing curve. On this
+            page every neuron is drawn as a small card, and its weights are the little bars: bars
+            going up are positive weights, bars going down are negative.
           </p>
           <p>Play with one:</p>
         </Prose>
@@ -155,7 +215,13 @@ const Backprop: React.FC = () => {
             Training means: find 13 numbers that make the network say the right thing for all four
             rows.
           </p>
+          <p>
+            Here are all the symbols you&apos;ll meet. No need to memorize them: they&apos;re
+            explained again where they appear, and the <b>Symbols</b> button (bottom right) brings
+            this list back at any time.
+          </p>
         </Prose>
+        <Glossary />
       </Section>
 
       {/* ------------------------------------------------------------ 02 forward */}
@@ -168,9 +234,9 @@ const Backprop: React.FC = () => {
         />
         <Prose className="mb-6">
           <p>
-            Before the network can learn, it has to make a guess. Click through the steps. Every
-            number is real and computed live. Switch the example at the top right to follow a
-            different row of XOR.
+            Before the network can learn, it has to make a guess. Click through the steps with{" "}
+            <b>Next</b>. Every number is real and computed live. Switch the example at the top right
+            to follow a different row of XOR.
           </p>
         </Prose>
         <Walkthrough
@@ -199,42 +265,20 @@ const Backprop: React.FC = () => {
         />
       </Section>
 
-      {/* ------------------------------------------------------------ 04 chain rule */}
-      <Section id="chain-rule" className="mb-20">
-        <PageHeader
-          number="04"
-          title="The chain rule"
-          subtitle="The one idea backprop is built on"
-          variants={itemVariants}
-        />
-        <Prose className="mb-6">
-          <p>
-            We want to know how the loss changes when we wiggle one weight deep inside the network.
-            That weight doesn&apos;t touch the loss directly. It changes a sum, which changes an
-            activation, which changes the output, which changes the loss.
-          </p>
-          <p>
-            Think of gears: if gear A turns gear B <b>2×</b> as fast, and B turns C <b>3×</b> as
-            fast, then A turns C <b>2 × 3 = 6×</b> as fast. Derivatives along a chain multiply the
-            same way.
-          </p>
-        </Prose>
-        <ChainRule ctx={ctx} />
-      </Section>
-
-      {/* ------------------------------------------------------------ 05 backward */}
+      {/* ------------------------------------------------------------ 04 backward */}
       <Section id="backward" className="mb-20">
         <PageHeader
-          number="05"
+          number="04"
           title="Backward pass"
           subtitle="Handing out the blame, layer by layer"
           variants={itemVariants}
         />
         <Prose className="mb-6">
           <p>
-            Now the actual algorithm. Instead of writing a long chain for every weight, we walk
-            backwards once and pass an error signal <F>δ</F> from layer to layer. Watch the amber
-            pulses travel right to left.
+            Now the network knows <i>that</i> it was wrong. Next it has to find out{" "}
+            <i>which knobs</i> caused the mistake, and which way to turn them. It does this by
+            walking backwards from the penalty and handing each neuron its share of the blame. Watch
+            the amber pulses travel from right to left.
           </p>
         </Prose>
         <Walkthrough
@@ -244,6 +288,29 @@ const Backprop: React.FC = () => {
           onSampleChange={setSampleIdx}
           startNumber={stepNo("delta2")}
         />
+      </Section>
+
+      {/* ------------------------------------------------------------ 05 chain rule */}
+      <Section id="chain-rule" className="mb-20">
+        <PageHeader
+          number="05"
+          title="Why it works: the chain rule"
+          subtitle="The one idea behind the backward pass"
+          variants={itemVariants}
+        />
+        <Prose className="mb-6">
+          <p>
+            In the backward pass we kept <i>multiplying</i> things: error × weight × steepness ×
+            input. Why multiply? Think of gears: if gear A turns gear B <b>2×</b> as fast, and B
+            turns C <b>3×</b> as fast, then A turns C <b>2 × 3 = 6×</b> as fast.
+          </p>
+          <p>
+            A weight deep inside the network works the same way. It only reaches the penalty through
+            a chain of steps, and its total effect is the product of the effects of each link. Pick
+            a weight and watch the chain build up:
+          </p>
+        </Prose>
+        <ChainRule ctx={ctx} />
       </Section>
 
       {/* ------------------------------------------------------------ 06 update */}
@@ -256,13 +323,14 @@ const Backprop: React.FC = () => {
         />
         <Prose className="mb-6">
           <p>
-            A gradient tells us which direction is <i>uphill</i> for the loss. To get better we walk
-            the other way. Here is that idea for one single weight:
+            Imagine the penalty as a landscape of hills and valleys, and we want to get to the
+            bottom. A gradient tells us which way is <i>uphill</i>, so we step the other way. Here
+            is that idea for one single weight:
           </p>
         </Prose>
         <DescentDemo net={net} />
         <Prose className="mt-10 mb-6">
-          <p>And here is the same step applied to all 13 parameters at once:</p>
+          <p>And here is the same step for all 13 knobs at once:</p>
         </Prose>
         <Walkthrough
           stepKeys={["update"]}
@@ -296,25 +364,27 @@ const Backprop: React.FC = () => {
         <PageHeader number="08" title="Recap" variants={itemVariants} />
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
           <Takeaway n="01" title="Forward: make a guess">
-            Each neuron takes a weighted sum of its inputs plus a bias and squashes it. Layer by
-            layer this turns inputs into a prediction.
+            Each neuron multiplies its inputs by its weights, adds them up plus a bias, and squashes
+            the result. Layer by layer this turns the inputs into a guess.
           </Takeaway>
           <Takeaway n="02" title="Loss: score the guess">
-            A single number measures how wrong the prediction is. Learning means making this number
-            small.
+            A single penalty number measures how wrong the guess is. Learning means making this
+            number small.
           </Takeaway>
           <Takeaway n="03" title="Backward: share the blame">
-            Starting from the loss, the chain rule passes an error signal δ back through each layer.
-            Each weight&apos;s gradient is its neuron&apos;s δ times the input on its wire.
+            Starting from the penalty, an error signal is passed backwards through each layer. A
+            weight&apos;s blame (gradient) = its neuron&apos;s error signal × the input on its wire.
           </Takeaway>
           <Takeaway n="04" title="Update: step downhill">
-            Every weight moves a little against its gradient: w ← w − η·∂L/∂w. Repeat thousands of
-            times. That&apos;s how all modern neural networks learn, from this toy to LLMs.
+            Every weight is turned a little in the direction that lowers the penalty. Repeat
+            hundreds or thousands of times. That&apos;s how all modern neural networks learn, from
+            this toy to LLMs.
           </Takeaway>
         </div>
       </Section>
 
       <Footer />
+      <SymbolsButton />
     </div>
   );
 };

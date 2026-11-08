@@ -87,7 +87,7 @@ export const NeuronAnatomy: React.FC = () => {
           </text>
           <WeightVector values={[w1, w2, b]} x={166} y={60} half={18} labels={["w₁", "w₂", "b"]} />
           <text x={268} y={72} textAnchor="end" fontSize={10} className="fill-zinc-400">
-            Σ
+            score
           </text>
           <text
             x={268}
@@ -192,8 +192,8 @@ export const NeuronAnatomy: React.FC = () => {
           points={[{ x: z, label: "h" }]}
         />
         <p className="text-[12.5px] text-zinc-500 dark:text-zinc-400">
-          The neuron&apos;s whole “personality” is its weight vector <F>(w₁, w₂)</F> and bias{" "}
-          <F>b</F>. Learning means finding good values for them.
+          Everything the neuron “knows” is stored in these three numbers: its weights <F>w₁, w₂</F>{" "}
+          and its bias <F>b</F>. Learning means finding good values for them.
         </p>
       </div>
     </motion.div>

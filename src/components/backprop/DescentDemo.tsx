@@ -62,7 +62,7 @@ const DescentDemo: React.FC<{ net: Net }> = ({ net }) => {
           width={420}
           height={220}
           xLabel="value of weight v₁"
-          yLabel="average loss"
+          yLabel="loss (penalty)"
           tangent
           points={[
             { x: w, label: `v₁ = ${fmt(w)}`, color: GRAD },
@@ -72,25 +72,26 @@ const DescentDemo: React.FC<{ net: Net }> = ({ net }) => {
       </div>
       <div className="flex flex-col gap-4 p-4 sm:p-6">
         <p className="text-[14.5px] leading-relaxed text-zinc-600 dark:text-zinc-300">
-          Freeze every weight except <F>v₁</F> and plot the loss for each value it could take. The
-          gradient is the{" "}
+          Keep all weights fixed except <F>v₁</F>, and try every value it could take. The curve
+          shows the penalty for each value. The gradient is simply the{" "}
           <span style={{ color: GRAD }} className="font-semibold">
             slope
           </span>{" "}
-          of this curve at the current point. Step against it and you roll downhill.
+          (steepness) of this curve where the ball is. Negative slope: downhill is to the right.
+          Positive: downhill is to the left. So we always step against the slope.
         </p>
         <div className="grid grid-cols-2 gap-2 text-[13px]">
           <div className="rounded-lg bg-zinc-50 p-2.5 dark:bg-zinc-900/60">
-            <div className="eyebrow mb-0.5">slope ∂L/∂v₁</div>
+            <div className="eyebrow mb-0.5">slope = gradient</div>
             <N tone="grad">{fmt(g, 3)}</N>
           </div>
           <div className="rounded-lg bg-zinc-50 p-2.5 dark:bg-zinc-900/60">
-            <div className="eyebrow mb-0.5">loss · steps</div>
+            <div className="eyebrow mb-0.5">penalty · steps</div>
             <N>{fmt(f(w), 3)}</N> <span className="text-zinc-400">·</span> <N>{steps}</N>
           </div>
         </div>
         <Slider
-          label={<>learning rate η</>}
+          label={<>step size (learning rate η)</>}
           value={lr}
           min={0.25}
           max={20}
@@ -100,10 +101,10 @@ const DescentDemo: React.FC<{ net: Net }> = ({ net }) => {
         />
         <p className="text-[12.5px] text-zinc-500 dark:text-zinc-400">
           {lr > 10
-            ? "Very large η: the ball overshoots the valley and bounces around."
+            ? "Very large steps: the ball jumps over the valley and bounces around."
             : lr < 1.5
-              ? "Small η: safe, but it takes many tiny steps."
-              : "Next step: v₁ ← v₁ − η · slope."}
+              ? "Small steps: safe, but it takes many of them."
+              : "Next step: new v₁ = v₁ − step size × slope."}
         </p>
         <div className="mt-auto flex gap-2">
           <button className="btn-primary" onClick={step}>
