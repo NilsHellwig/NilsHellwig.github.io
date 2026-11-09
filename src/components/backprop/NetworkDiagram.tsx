@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { type Cache, type Grads, type Net, fmt, fmtSigned, loss as bce } from "../../lib/nn";
 import WeightVector from "./WeightVector";
 import { GRAD, signColor } from "./ui";
+import { useLang } from "../explainer/i18n";
 
 export type Flow = "forward" | "backward" | null;
 
@@ -27,7 +28,7 @@ interface NetworkDiagramProps {
   focus?: string[];
   flow?: Flow;
   display?: DiagramDisplay;
-  /** Previous parameters, shown as dashed outlines in the weight bars. */
+  /** Previous parameters, shown struck through under the weight vectors. */
   ghost?: Net;
   interactive?: boolean;
   className?: string;
@@ -153,6 +154,8 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
   const L = useMemo(() => makeLayout(vertical), [vertical]);
   const reduce = useReducedMotion();
   const [hover, setHover] = useState<string | null>(null);
+  const { lang } = useLang();
+  const de = lang === "de";
 
   const {
     inputs = !!cache,
@@ -195,30 +198,57 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
   // ---------- tooltips ----------
   const info = (k: string): React.ReactNode => {
     const j = Number(k[1]) - 1;
+    const turn = (g: number) =>
+      de
+        ? g > 0
+          ? "wird kleiner gedreht"
+          : g < 0
+            ? "wird größer gedreht"
+            : "bleibt"
+        : g > 0
+          ? "will turn down"
+          : g < 0
+            ? "will turn up"
+            : "stays";
     if (k.startsWith("x")) {
       const i = Number(k[1]) - 1;
       return (
         <>
-          <b>Input x{SUB[i + 1]}</b>
+          <b>
+            {de ? "Eingabe" : "Input"} x{SUB[i + 1]}
+          </b>
           {cache ? <> = {fmt(cache.x[i], 0)}</> : null}
-          <div className="opacity-70">The raw data. It is sent to every hidden neuron.</div>
+          <div className="opacity-70">
+            {de
+              ? "Die rohen Daten. Sie gehen an jedes versteckte Neuron."
+              : "The raw data. It is sent to every hidden neuron."}
+          </div>
         </>
       );
     }
     if (k.startsWith("h")) {
       return (
         <>
-          <b>Hidden neuron h{SUB[j + 1]}</b>
+          <b>
+            {de ? "Verstecktes Neuron" : "Hidden neuron"} h{SUB[j + 1]}
+          </b>
           <div>
-            weights {fmt(net.W1[j][0])} and {fmt(net.W1[j][1])}, bias {fmt(net.b1[j])}
+            {de ? "Vektor" : "vector"} [{fmt(net.W1[j][0])} {fmt(net.W1[j][1])} │ {fmt(net.b1[j])}]
+            <span className="opacity-70">
+              {" "}
+              = {de ? "Gewichte w₁ w₂ │ Bias b" : "weights w₁ w₂ │ bias b"}
+            </span>
           </div>
           {cache && (
             <div>
-              score z = {fmt(cache.z1[j], 2)} → after squashing h = {fmt(cache.h[j], 2)}
+              {de ? "Punktzahl" : "score"} z = {fmt(cache.z1[j], 2)} →{" "}
+              {de ? "gestaucht" : "after squashing"} h = {fmt(cache.h[j], 2)}
             </div>
           )}
           {grads && (
-            <div className="text-amber-300">error signal δ = {fmt(grads.delta1[j], 3)}</div>
+            <div className="text-amber-300">
+              {de ? "Fehlersignal" : "error signal"} δ = {fmt(grads.delta1[j], 3)}
+            </div>
           )}
         </>
       );
@@ -226,18 +256,24 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
     if (k === "out") {
       return (
         <>
-          <b>Output neuron</b>
+          <b>{de ? "Ausgangsneuron" : "Output neuron"}</b>
           <div>
-            weights {net.W2.map((v) => fmt(v)).join(", ")}, bias {fmt(net.b2)}
+            {de ? "Vektor" : "vector"} [{net.W2.map((v) => fmt(v)).join(" ")} │ {fmt(net.b2)}]
+            <span className="opacity-70">
+              {" "}
+              = {de ? "Gewichte v₁ v₂ v₃ │ Bias c" : "weights v₁ v₂ v₃ │ bias c"}
+            </span>
           </div>
           {cache && (
             <div>
-              score z = {fmt(cache.z2, 2)} → guess ŷ = {fmt(cache.yHat, 2)}
+              {de ? "Punktzahl" : "score"} z = {fmt(cache.z2, 2)} → {de ? "Schätzung" : "guess"} ŷ ={" "}
+              {fmt(cache.yHat, 2)}
             </div>
           )}
           {grads && (
             <div className="text-amber-300">
-              error signal δ = guess − answer = {fmt(grads.delta2, 3)}
+              {de ? "Fehlersignal δ = Schätzung − Antwort" : "error signal δ = guess − answer"} ={" "}
+              {fmt(grads.delta2, 3)}
             </div>
           )}
         </>
@@ -246,9 +282,13 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
     if (k === "loss") {
       return (
         <>
-          <b>Loss</b>
+          <b>{de ? "Loss (Strafe)" : "Loss"}</b>
           {lossVal !== undefined && <> = {fmt(lossVal, 3)}</>}
-          <div className="opacity-70">A penalty for a wrong guess. 0 means perfect.</div>
+          <div className="opacity-70">
+            {de
+              ? "Eine Strafe für eine falsche Schätzung. 0 heißt perfekt."
+              : "A penalty for a wrong guess. 0 means perfect."}
+          </div>
         </>
       );
     }
@@ -257,17 +297,18 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
       return (
         <>
           <b>
-            Weight w{SUB[j + 1]}
+            {de ? "Gewicht" : "Weight"} w{SUB[j + 1]}
             {SUB[i + 1]}
           </b>{" "}
           = {fmt(net.W1[j][i], 3)}
           <div className="opacity-70">
-            How strongly h{SUB[j + 1]} listens to input x{SUB[i + 1]}.
+            {de
+              ? `Wie stark h${SUB[j + 1]} auf Eingabe x${SUB[i + 1]} hört.`
+              : `How strongly h${SUB[j + 1]} listens to input x${SUB[i + 1]}.`}
           </div>
           {grads && (
             <div className="text-amber-300">
-              gradient = {fmt(grads.dW1[j][i], 4)} → will turn{" "}
-              {grads.dW1[j][i] > 0 ? "down" : grads.dW1[j][i] < 0 ? "up" : "not at all"}
+              Gradient = {fmt(grads.dW1[j][i], 4)} → {turn(grads.dW1[j][i])}
             </div>
           )}
         </>
@@ -276,12 +317,18 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
     if (k.startsWith("v")) {
       return (
         <>
-          <b>Weight v{SUB[j + 1]}</b> = {fmt(net.W2[j], 3)}
-          <div className="opacity-70">How strongly the output listens to h{SUB[j + 1]}.</div>
+          <b>
+            {de ? "Gewicht" : "Weight"} v{SUB[j + 1]}
+          </b>{" "}
+          = {fmt(net.W2[j], 3)}
+          <div className="opacity-70">
+            {de
+              ? `Wie stark der Ausgang auf h${SUB[j + 1]} hört.`
+              : `How strongly the output listens to h${SUB[j + 1]}.`}
+          </div>
           {grads && (
             <div className="text-amber-300">
-              gradient = {fmt(grads.dW2[j], 4)} → will turn{" "}
-              {grads.dW2[j] > 0 ? "down" : grads.dW2[j] < 0 ? "up" : "not at all"}
+              Gradient = {fmt(grads.dW2[j], 4)} → {turn(grads.dW2[j])}
             </div>
           )}
         </>
@@ -323,7 +370,7 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
         viewBox={L.vb}
         className="w-full h-auto select-none"
         role="img"
-        aria-label="Neural network diagram"
+        aria-label={de ? "Diagramm des neuronalen Netzes" : "Neural network diagram"}
       >
         {/* edges */}
         {edges.map((e) => {
@@ -498,7 +545,7 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
                 fontWeight={700}
                 className="fill-zinc-900 dark:fill-white"
               >
-                {isOut ? "output" : `h${SUB[j + 1]}`}
+                {isOut ? (de ? "Ausgang" : "output") : `h${SUB[j + 1]}`}
               </text>
               {value !== null && (
                 <text
@@ -523,14 +570,14 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
                 values={values}
                 ghost={ghostVals}
                 grad={gradVals}
-                x={x0 + 14}
-                y={y0 + 36}
-                half={isOut ? 19 : 17}
+                x={x0 + 10}
+                y={y0 + 30}
+                width={n.w - 20}
                 labels={labels}
               />
               <text
                 x={x0 + n.w - 12}
-                y={y0 + n.h - 10}
+                y={y0 + n.h - 7}
                 textAnchor="end"
                 fontSize={11}
                 fontWeight={600}
@@ -600,7 +647,7 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
                 fontWeight={700}
                 className="fill-zinc-500 dark:fill-zinc-400"
               >
-                loss
+                {de ? "Loss" : "loss"}
               </text>
               {showLoss && lossVal !== undefined && (
                 <text
@@ -623,7 +670,7 @@ const NetworkDiagram: React.FC<NetworkDiagramProps> = ({
                   fontWeight={600}
                   className="fill-zinc-500 dark:fill-zinc-400"
                 >
-                  target y = {target}
+                  {de ? "Ziel" : "target"} y = {target}
                 </text>
               )}
             </g>

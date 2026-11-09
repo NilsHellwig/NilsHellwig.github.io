@@ -7,6 +7,7 @@ import { fmt } from "../../lib/nn";
 import NetworkDiagram from "./NetworkDiagram";
 import type { StepCtx } from "./steps";
 import { F, MoreMath, N, Segmented, itemVariants } from "./ui";
+import { T, useLang } from "../explainer/i18n";
 
 const S = ["₀", "₁", "₂", "₃"];
 
@@ -16,6 +17,8 @@ const S = ["₀", "₁", "₂", "₃"];
  */
 const ChainRule: React.FC<{ ctx: StepCtx }> = ({ ctx }) => {
   const { net, c, sample } = ctx;
+  const { lang } = useLang();
+  const de = lang === "de";
   const [j, setJ] = useState(0);
   const [i, setI] = useState(0);
   const [shown, setShown] = useState(0);
@@ -28,32 +31,36 @@ const ChainRule: React.FC<{ ctx: StepCtx }> = ({ ctx }) => {
   const W = `w${S[j + 1]}${S[i + 1]}`;
   const factors = [
     {
-      label: "guess → penalty",
-      what: "how strongly the penalty reacts to the guess",
+      label: de ? "Schätzung → Strafe" : "guess → penalty",
+      what: de
+        ? "wie stark die Strafe auf die Schätzung reagiert"
+        : "how strongly the penalty reacts to the guess",
       sym: "∂L/∂ŷ",
       value: dLdy,
     },
     {
-      label: "score → guess",
-      what: "steepness of the sigmoid curve",
+      label: de ? "Punktzahl → Schätzung" : "score → guess",
+      what: de ? "Steilheit der Sigmoid-Kurve" : "steepness of the sigmoid curve",
       sym: "∂ŷ/∂z",
       value: c.yHat * (1 - c.yHat),
     },
     {
-      label: `${H} → score`,
-      what: `the wire weight v${S[j + 1]}`,
+      label: de ? `${H} → Punktzahl` : `${H} → score`,
+      what: de ? `das Leitungsgewicht v${S[j + 1]}` : `the wire weight v${S[j + 1]}`,
       sym: `∂z/∂${H}`,
       value: net.W2[j],
     },
     {
-      label: `${H}'s score → ${H}`,
-      what: "steepness of the tanh curve",
+      label: de ? `Punktzahl von ${H} → ${H}` : `${H}'s score → ${H}`,
+      what: de ? "Steilheit der tanh-Kurve" : "steepness of the tanh curve",
       sym: `∂${H}/∂z${S[j + 1]}`,
       value: 1 - c.h[j] ** 2,
     },
     {
-      label: `${W} → ${H}'s score`,
-      what: `the input x${S[i + 1]} on that wire`,
+      label: de ? `${W} → Punktzahl von ${H}` : `${W} → ${H}'s score`,
+      what: de
+        ? `die Eingabe x${S[i + 1]} auf dieser Leitung`
+        : `the input x${S[i + 1]} on that wire`,
       sym: `∂z${S[j + 1]}/∂${W}`,
       value: c.x[i],
     },
@@ -87,22 +94,22 @@ const ChainRule: React.FC<{ ctx: StepCtx }> = ({ ctx }) => {
     <motion.div variants={itemVariants} className="card overflow-hidden" ref={ref}>
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-zinc-100 px-4 py-3 dark:border-zinc-700/60 sm:px-5">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="eyebrow">Pick a weight</span>
+          <span className="eyebrow">{de ? "Wähle ein Gewicht" : "Pick a weight"}</span>
           <Segmented
             options={[0, 1, 2]}
             value={j}
             onChange={setJ}
-            render={(v) => `neuron h${S[v + 1]}`}
+            render={(v) => `${de ? "Neuron" : "neuron"} h${S[v + 1]}`}
           />
           <Segmented
             options={[0, 1]}
             value={i}
             onChange={setI}
-            render={(v) => `input x${S[v + 1]}`}
+            render={(v) => `${de ? "Eingabe" : "input"} x${S[v + 1]}`}
           />
         </div>
         <button className="btn" onClick={() => setShown(0)}>
-          <ArrowCounterClockwise size={14} weight="bold" /> Replay
+          <ArrowCounterClockwise size={14} weight="bold" /> {de ? "Nochmal" : "Replay"}
         </button>
       </div>
 
@@ -121,19 +128,41 @@ const ChainRule: React.FC<{ ctx: StepCtx }> = ({ ctx }) => {
 
         <div className="p-4 sm:p-6">
           <div className="mb-4 space-y-2 text-[14.5px] leading-relaxed text-zinc-600 dark:text-zinc-300">
-            <p>
-              The weight <b>{W}</b> sits deep inside the network and can&apos;t touch the penalty
-              directly. Its effect travels along a chain:
-            </p>
-            <p className="rounded-lg bg-zinc-50 px-3 py-2 text-[13px] font-medium text-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-200">
-              {W} → {H}&apos;s score → {H} → output score → guess → penalty
-            </p>
-            <p>
-              For each link we ask:{" "}
-              <i>if the left side moves a little, how much does the right side move?</i> Then we
-              multiply all those numbers. Read the boxes from left to right, starting at the
-              penalty, the way the blame travels backwards.
-            </p>
+            {de ? (
+              <>
+                <p>
+                  Das Gewicht <b>{W}</b> sitzt tief im Netz und berührt die Strafe nicht direkt.
+                  Seine Wirkung läuft über eine Kette:
+                </p>
+                <p className="rounded-lg bg-zinc-50 px-3 py-2 text-[13px] font-medium text-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-200">
+                  {W} → Punktzahl von {H} → {H} → Punktzahl des Ausgangs → Schätzung → Strafe
+                </p>
+                <p>
+                  Für jedes Glied fragen wir:{" "}
+                  <i>
+                    Wenn sich die linke Seite ein bisschen bewegt, wie stark bewegt sich die rechte?
+                  </i>{" "}
+                  Dann multiplizieren wir all diese Zahlen. Lies die Kästen von links nach rechts,
+                  beginnend bei der Strafe, so wie die Schuld rückwärts wandert.
+                </p>
+              </>
+            ) : (
+              <>
+                <p>
+                  The weight <b>{W}</b> sits deep inside the network and can&apos;t touch the
+                  penalty directly. Its effect travels along a chain:
+                </p>
+                <p className="rounded-lg bg-zinc-50 px-3 py-2 text-[13px] font-medium text-zinc-700 dark:bg-zinc-900/60 dark:text-zinc-200">
+                  {W} → {H}&apos;s score → {H} → output score → guess → penalty
+                </p>
+                <p>
+                  For each link we ask:{" "}
+                  <i>if the left side moves a little, how much does the right side move?</i> Then we
+                  multiply all those numbers. Read the boxes from left to right, starting at the
+                  penalty, the way the blame travels backwards.
+                </p>
+              </>
+            )}
           </div>
 
           <div className="flex flex-wrap items-stretch gap-1.5">
@@ -177,7 +206,9 @@ const ChainRule: React.FC<{ ctx: StepCtx }> = ({ ctx }) => {
           </div>
 
           <div className="mt-4 flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-lg bg-zinc-900 px-4 py-3 text-zinc-100 dark:bg-zinc-950 dark:ring-1 dark:ring-zinc-700">
-            <span className="text-sm font-semibold">effect of {W} on the penalty =</span>
+            <span className="text-sm font-semibold">
+              {de ? `Wirkung von ${W} auf die Strafe =` : `effect of ${W} on the penalty =`}
+            </span>
             <AnimatePresence mode="popLayout">
               <motion.span
                 key={`${shown}-${j}-${i}`}
@@ -191,32 +222,70 @@ const ChainRule: React.FC<{ ctx: StepCtx }> = ({ ctx }) => {
             </AnimatePresence>
             <span className="text-xs text-zinc-400">
               {shown < factors.length
-                ? `${shown} of ${factors.length} links multiplied`
-                : "this is the gradient of " + W + ", the same number as in step 9"}
+                ? de
+                  ? `${shown} von ${factors.length} Gliedern multipliziert`
+                  : `${shown} of ${factors.length} links multiplied`
+                : de
+                  ? `das ist der Gradient von ${W}, dieselbe Zahl wie in Schritt 9`
+                  : `this is the gradient of ${W}, the same number as in step 9`}
             </span>
           </div>
 
           <p className="mt-4 text-[13px] leading-relaxed text-zinc-500 dark:text-zinc-400">
-            The trick that makes backprop fast: the first two boxes together (
-            <N>{fmt(factors[0].value, 3)}</N> × <N>{fmt(factors[1].value, 3)}</N> ={" "}
-            <N tone="grad">{fmt(ctx.g.delta2, 3)}</N>) are the same for <i>every</i> weight. That is
-            exactly the output&apos;s error signal δ from step 6. Backprop computes such shared
-            pieces only <b>once</b> and reuses them. That&apos;s why it works even for networks with
-            billions of weights.
+            <T
+              en={
+                <>
+                  The trick that makes backprop fast: the first two boxes together (
+                  <N>{fmt(factors[0].value, 3)}</N> × <N>{fmt(factors[1].value, 3)}</N> ={" "}
+                  <N tone="grad">{fmt(ctx.g.delta2, 3)}</N>) are the same for <i>every</i> weight.
+                  That is exactly the output&apos;s error signal δ from step 6. Backprop computes
+                  such shared pieces only <b>once</b> and reuses them. That&apos;s why it works even
+                  for networks with billions of weights.
+                </>
+              }
+              de={
+                <>
+                  Der Trick, der Backprop schnell macht: Die ersten beiden Kästen zusammen (
+                  <N>{fmt(factors[0].value, 3)}</N> × <N>{fmt(factors[1].value, 3)}</N> ={" "}
+                  <N tone="grad">{fmt(ctx.g.delta2, 3)}</N>) sind für <i>jedes</i> Gewicht gleich.
+                  Das ist genau das Fehlersignal δ des Ausgangs aus Schritt 6. Backprop berechnet
+                  solche gemeinsamen Teile nur <b>einmal</b> und verwendet sie wieder. Deshalb
+                  funktioniert es sogar für Netze mit Milliarden von Gewichten.
+                </>
+              }
+            />
           </p>
           <div className="mt-3">
-            <MoreMath title="For the curious: the notation">
+            <MoreMath
+              title={de ? "Für Neugierige: die Schreibweise" : "For the curious: the notation"}
+            >
               <p>
-                A “how much does B move when A moves a little” number is called a <b>derivative</b>,
-                written <F>∂B/∂A</F>. The curly ∂ means “a tiny change in”. The small gray labels in
-                the boxes are these derivatives, and the chain rule says:
+                {de ? (
+                  <>
+                    Eine „wie stark bewegt sich B, wenn A sich ein bisschen bewegt“-Zahl heißt{" "}
+                    <b>Ableitung</b>, geschrieben <F>∂B/∂A</F>. Das geschwungene ∂ heißt „eine
+                    winzige Änderung von“. Die kleinen grauen Beschriftungen in den Kästen sind
+                    diese Ableitungen, und die Kettenregel sagt:
+                  </>
+                ) : (
+                  <>
+                    A “how much does B move when A moves a little” number is called a{" "}
+                    <b>derivative</b>, written <F>∂B/∂A</F>. The curly ∂ means “a tiny change in”.
+                    The small gray labels in the boxes are these derivatives, and the chain rule
+                    says:
+                  </>
+                )}
               </p>
               <p>
                 <F>
                   ∂L/∂{W} = ∂L/∂ŷ × ∂ŷ/∂z × ∂z/∂{H} × ∂{H}/∂z{S[j + 1]} × ∂z{S[j + 1]}/∂{W}
                 </F>
               </p>
-              <p>It looks like the fractions “cancel out”, which is a handy way to remember it.</p>
+              <p>
+                {de
+                  ? "Es sieht aus, als würden sich die Brüche „wegkürzen“. Eine praktische Eselsbrücke."
+                  : "It looks like the fractions “cancel out”, which is a handy way to remember it."}
+              </p>
             </MoreMath>
           </div>
         </div>

@@ -6,6 +6,7 @@ import { ArrowCounterClockwise, Footprints, Play } from "@phosphor-icons/react";
 import { type Net, XOR, cloneNet, datasetLoss, fmt } from "../../lib/nn";
 import FunctionPlot from "./FunctionPlot";
 import { F, GRAD, N, Slider, itemVariants } from "./ui";
+import { useLang } from "../explainer/i18n";
 
 /**
  * Gradient descent on a single weight: the loss as a function of v₁ (all other
@@ -17,6 +18,7 @@ const DescentDemo: React.FC<{ net: Net }> = ({ net }) => {
   const [lr, setLr] = useState(3);
   const [steps, setSteps] = useState(0);
   const [prev, setPrev] = useState<number | null>(null);
+  const de = useLang().lang === "de";
 
   const f = useMemo(() => {
     const n = cloneNet(net);
@@ -61,8 +63,8 @@ const DescentDemo: React.FC<{ net: Net }> = ({ net }) => {
           y={[yMin, yMax]}
           width={420}
           height={220}
-          xLabel="value of weight v₁"
-          yLabel="loss (penalty)"
+          xLabel={de ? "Wert des Gewichts v₁" : "value of weight v₁"}
+          yLabel={de ? "Loss (Strafe)" : "loss (penalty)"}
           tangent
           points={[
             { x: w, label: `v₁ = ${fmt(w)}`, color: GRAD },
@@ -72,26 +74,40 @@ const DescentDemo: React.FC<{ net: Net }> = ({ net }) => {
       </div>
       <div className="flex flex-col gap-4 p-4 sm:p-6">
         <p className="text-[14.5px] leading-relaxed text-zinc-600 dark:text-zinc-300">
-          Keep all weights fixed except <F>v₁</F>, and try every value it could take. The curve
-          shows the penalty for each value. The gradient is simply the{" "}
-          <span style={{ color: GRAD }} className="font-semibold">
-            slope
-          </span>{" "}
-          (steepness) of this curve where the ball is. Negative slope: downhill is to the right.
-          Positive: downhill is to the left. So we always step against the slope.
+          {de ? (
+            <>
+              Halte alle Gewichte fest außer <F>v₁</F> und probiere jeden Wert aus, den es annehmen
+              könnte. Die Kurve zeigt die Strafe für jeden Wert. Der Gradient ist einfach die{" "}
+              <span style={{ color: GRAD }} className="font-semibold">
+                Steigung
+              </span>{" "}
+              dieser Kurve dort, wo die Kugel liegt. Negative Steigung: Bergab geht es nach rechts.
+              Positive: nach links. Also gehen wir immer gegen die Steigung.
+            </>
+          ) : (
+            <>
+              Keep all weights fixed except <F>v₁</F>, and try every value it could take. The curve
+              shows the penalty for each value. The gradient is simply the{" "}
+              <span style={{ color: GRAD }} className="font-semibold">
+                slope
+              </span>{" "}
+              (steepness) of this curve where the ball is. Negative slope: downhill is to the right.
+              Positive: downhill is to the left. So we always step against the slope.
+            </>
+          )}
         </p>
         <div className="grid grid-cols-2 gap-2 text-[13px]">
           <div className="rounded-lg bg-zinc-50 p-2.5 dark:bg-zinc-900/60">
-            <div className="eyebrow mb-0.5">slope = gradient</div>
+            <div className="eyebrow mb-0.5">{de ? "Steigung = Gradient" : "slope = gradient"}</div>
             <N tone="grad">{fmt(g, 3)}</N>
           </div>
           <div className="rounded-lg bg-zinc-50 p-2.5 dark:bg-zinc-900/60">
-            <div className="eyebrow mb-0.5">penalty · steps</div>
+            <div className="eyebrow mb-0.5">{de ? "Strafe · Schritte" : "penalty · steps"}</div>
             <N>{fmt(f(w), 3)}</N> <span className="text-zinc-400">·</span> <N>{steps}</N>
           </div>
         </div>
         <Slider
-          label={<>step size (learning rate η)</>}
+          label={de ? "Schrittgröße (Lernrate η)" : "step size (learning rate η)"}
           value={lr}
           min={0.25}
           max={20}
@@ -101,14 +117,20 @@ const DescentDemo: React.FC<{ net: Net }> = ({ net }) => {
         />
         <p className="text-[12.5px] text-zinc-500 dark:text-zinc-400">
           {lr > 10
-            ? "Very large steps: the ball jumps over the valley and bounces around."
+            ? de
+              ? "Sehr große Schritte: Die Kugel springt über das Tal und hüpft hin und her."
+              : "Very large steps: the ball jumps over the valley and bounces around."
             : lr < 1.5
-              ? "Small steps: safe, but it takes many of them."
-              : "Next step: new v₁ = v₁ − step size × slope."}
+              ? de
+                ? "Kleine Schritte: sicher, aber man braucht viele davon."
+                : "Small steps: safe, but it takes many of them."
+              : de
+                ? "Nächster Schritt: neues v₁ = v₁ − Schrittgröße × Steigung."
+                : "Next step: new v₁ = v₁ − step size × slope."}
         </p>
         <div className="mt-auto flex gap-2">
           <button className="btn-primary" onClick={step}>
-            <Footprints size={14} weight="bold" /> Take a step
+            <Footprints size={14} weight="bold" /> {de ? "Ein Schritt" : "Take a step"}
           </button>
           <button
             className="btn"
@@ -120,7 +142,7 @@ const DescentDemo: React.FC<{ net: Net }> = ({ net }) => {
               setSteps((s) => s + 10);
             }}
           >
-            <Play size={14} weight="bold" /> 10 steps
+            <Play size={14} weight="bold" /> {de ? "10 Schritte" : "10 steps"}
           </button>
           <button className="btn" onClick={reset} aria-label="Reset">
             <ArrowCounterClockwise size={14} weight="bold" />

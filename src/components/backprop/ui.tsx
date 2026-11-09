@@ -2,6 +2,7 @@
 
 import React from "react";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { useT } from "../explainer/i18n";
 
 // Shared colour language for the backprop page:
 //   positive weight → sky, negative weight → rose, gradient / blame → amber.
@@ -95,25 +96,35 @@ export const N: React.FC<{
   return <span className={`font-mono tabular-nums font-semibold ${cls}`}>{children}</span>;
 };
 
-export const Legend: React.FC<{ className?: string }> = ({ className = "" }) => (
-  <div
-    className={`flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-zinc-500 dark:text-zinc-400 ${className}`}
-  >
-    <span className="inline-flex items-center gap-1.5">
-      <span className="h-2.5 w-2.5 rounded-sm" style={{ background: POS }} /> positive weight
-    </span>
-    <span className="inline-flex items-center gap-1.5">
-      <span className="h-2.5 w-2.5 rounded-sm" style={{ background: NEG }} /> negative weight
-    </span>
-    <span className="inline-flex items-center gap-1.5">
-      <span className="h-2.5 w-2.5 rounded-full" style={{ background: GRAD }} /> error signal /
-      gradient
-    </span>
-    <span className="inline-flex items-center gap-1.5">
-      <span className="h-[3px] w-5 rounded-full bg-zinc-400" /> thicker = larger |w|
-    </span>
-  </div>
-);
+export const Legend: React.FC<{ className?: string }> = ({ className = "" }) => {
+  const t = useT();
+  return (
+    <div
+      className={`flex flex-wrap items-center gap-x-4 gap-y-1.5 text-xs text-zinc-500 dark:text-zinc-400 ${className}`}
+    >
+      <span className="inline-flex items-center gap-1.5">
+        <span className="font-mono font-bold" style={{ color: POS }}>
+          1.2
+        </span>{" "}
+        {t({ en: "positive weight", de: "positives Gewicht" })}
+      </span>
+      <span className="inline-flex items-center gap-1.5">
+        <span className="font-mono font-bold" style={{ color: NEG }}>
+          −0.8
+        </span>{" "}
+        {t({ en: "negative weight", de: "negatives Gewicht" })}
+      </span>
+      <span className="inline-flex items-center gap-1.5">
+        <span className="h-2.5 w-2.5 rounded-full" style={{ background: GRAD }} />
+        {t({ en: "error signal / gradient", de: "Fehlersignal / Gradient" })}
+      </span>
+      <span className="inline-flex items-center gap-1.5">
+        <span className="h-[3px] w-5 rounded-full bg-zinc-400" />
+        {t({ en: "thicker wire = bigger weight", de: "dickere Leitung = größeres Gewicht" })}
+      </span>
+    </div>
+  );
+};
 
 export const Slider: React.FC<{
   label: React.ReactNode;
@@ -195,32 +206,40 @@ export const MathBox: React.FC<{
   children: React.ReactNode;
   legend?: [React.ReactNode, React.ReactNode][];
   label?: string;
-}> = ({ children, legend, label = "Written as a formula" }) => (
-  <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-700">
-    <div className="bg-zinc-50 px-4 pt-2.5 pb-3 dark:bg-zinc-900/60">
-      <div className="eyebrow mb-1 !text-[10px]">{label}</div>
-      <div className="overflow-x-auto no-scrollbar text-[15px] font-medium text-zinc-800 dark:text-zinc-100">
-        {children}
+}> = ({ children, legend, label }) => {
+  const t = useT();
+  return (
+    <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-700">
+      <div className="bg-zinc-50 px-4 pt-2.5 pb-3 dark:bg-zinc-900/60">
+        <div className="eyebrow mb-1 !text-[10px]">
+          {label ?? t({ en: "Written as a formula", de: "Als Formel geschrieben" })}
+        </div>
+        <div className="overflow-x-auto no-scrollbar text-[15px] font-medium text-zinc-800 dark:text-zinc-100">
+          {children}
+        </div>
       </div>
+      {legend && legend.length > 0 && (
+        <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 border-t border-zinc-200 px-4 py-2.5 text-[12.5px] dark:border-zinc-700">
+          {legend.map(([sym, meaning], i) => (
+            <React.Fragment key={i}>
+              <dt className="whitespace-nowrap font-semibold text-zinc-900 dark:text-white">
+                {sym}
+              </dt>
+              <dd className="text-zinc-500 dark:text-zinc-400">{meaning}</dd>
+            </React.Fragment>
+          ))}
+        </dl>
+      )}
     </div>
-    {legend && legend.length > 0 && (
-      <dl className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 border-t border-zinc-200 px-4 py-2.5 text-[12.5px] dark:border-zinc-700">
-        {legend.map(([sym, meaning], i) => (
-          <React.Fragment key={i}>
-            <dt className="whitespace-nowrap font-semibold text-zinc-900 dark:text-white">{sym}</dt>
-            <dd className="text-zinc-500 dark:text-zinc-400">{meaning}</dd>
-          </React.Fragment>
-        ))}
-      </dl>
-    )}
-  </div>
-);
+  );
+};
 
 /** Optional deeper math, collapsed by default. */
 export const MoreMath: React.FC<{ children: React.ReactNode; title?: string }> = ({
   children,
-  title = "For the curious: the exact math",
+  title,
 }) => {
+  const t = useT();
   const [open, setOpen] = React.useState(false);
   return (
     <div className="rounded-lg border border-dashed border-zinc-300 dark:border-zinc-600">
@@ -229,7 +248,13 @@ export const MoreMath: React.FC<{ children: React.ReactNode; title?: string }> =
         className="flex w-full cursor-pointer items-center justify-between gap-2 px-3 py-2 text-left text-[12.5px] font-semibold text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white"
         aria-expanded={open}
       >
-        <span>{title}</span>
+        <span>
+          {title ??
+            t({
+              en: "For the curious: the exact math",
+              de: "Für Neugierige: die genaue Mathematik",
+            })}
+        </span>
         <motion.span animate={{ rotate: open ? 45 : 0 }} className="text-base leading-none">
           +
         </motion.span>

@@ -24,6 +24,7 @@ import {
 import NetworkDiagram from "./NetworkDiagram";
 import DecisionBoundary from "./DecisionBoundary";
 import { Legend, N, Slider, itemVariants } from "./ui";
+import { useLang } from "../explainer/i18n";
 
 const LossCurve: React.FC<{ history: number[] }> = ({ history }) => {
   const W = 300;
@@ -76,6 +77,7 @@ const Playground: React.FC = () => {
   const [lr, setLr] = useState(0.3);
   const [speed, setSpeed] = useState(1);
   const [sel, setSel] = useState(2);
+  const de = useLang().lang === "de";
 
   // Mutable mirrors so the animation loop doesn't depend on React re-renders.
   const st = useRef({
@@ -144,20 +146,20 @@ const Playground: React.FC = () => {
           onClick={() => setPlaying((p) => !p)}
         >
           {playing ? <Pause size={14} weight="fill" /> : <Play size={14} weight="fill" />}
-          {playing ? "Pause" : "Train"}
+          {playing ? "Pause" : de ? "Trainieren" : "Train"}
         </button>
         <button className="btn" onClick={() => advance(1)} disabled={playing}>
-          <SkipForward size={14} weight="bold" /> 1 epoch
+          <SkipForward size={14} weight="bold" /> {de ? "1 Epoche" : "1 epoch"}
         </button>
         <button className="btn" onClick={() => reset(DEFAULT_SEED)}>
-          <ArrowCounterClockwise size={14} weight="bold" /> Reset
+          <ArrowCounterClockwise size={14} weight="bold" /> {de ? "Zurücksetzen" : "Reset"}
         </button>
         <button className="btn" onClick={() => reset(Math.floor(Math.random() * 1e6))}>
-          <Shuffle size={14} weight="bold" /> New random weights
+          <Shuffle size={14} weight="bold" /> {de ? "Neue Zufallsgewichte" : "New random weights"}
         </button>
         <div className="ml-auto flex items-center gap-3 text-xs text-zinc-500 dark:text-zinc-400">
           <span>
-            epoch <N>{epoch}</N>
+            {de ? "Epoche" : "epoch"} <N>{epoch}</N>
           </span>
           <span>
             loss <N>{fmt(currentLoss, 3)}</N>
@@ -178,8 +180,9 @@ const Playground: React.FC = () => {
           />
           <Legend className="mt-3 justify-center" />
           <p className="mt-2 text-center text-xs text-zinc-400 dark:text-zinc-500">
-            Showing the values for example ({XOR[sel].x.join(", ")}). Click a corner of the map to
-            switch. Amber arrows: which way each weight is about to be turned.
+            {de
+              ? `Zeigt die Werte für Beispiel (${XOR[sel].x.join(", ")}). Klick auf eine Ecke der Karte, um zu wechseln. Gelbe Pfeile: in welche Richtung jedes Gewicht gleich gedreht wird.`
+              : `Showing the values for example (${XOR[sel].x.join(", ")}). Click a corner of the map to switch. Amber arrows: which way each weight is about to be turned.`}
           </p>
         </div>
 
@@ -187,7 +190,9 @@ const Playground: React.FC = () => {
         <div className="flex flex-col gap-4 p-4 sm:p-6">
           <div>
             <div className="mb-2 flex items-center justify-between">
-              <span className="eyebrow">What the network believes</span>
+              <span className="eyebrow">
+                {de ? "Was das Netz glaubt" : "What the network believes"}
+              </span>
               <AnimatePresence>
                 {solvedAt !== null && (
                   <motion.span
@@ -196,7 +201,8 @@ const Playground: React.FC = () => {
                     exit={{ opacity: 0 }}
                     className="chip !bg-emerald-500/15 !text-emerald-700 dark:!text-emerald-400"
                   >
-                    <CheckCircle size={12} weight="fill" /> XOR solved at epoch {solvedAt}
+                    <CheckCircle size={12} weight="fill" />{" "}
+                    {de ? `XOR gelöst in Epoche ${solvedAt}` : `XOR solved at epoch ${solvedAt}`}
                   </motion.span>
                 )}
               </AnimatePresence>
@@ -206,14 +212,14 @@ const Playground: React.FC = () => {
             </div>
           </div>
           <div>
-            <span className="eyebrow">Loss over time</span>
+            <span className="eyebrow">{de ? "Loss im Verlauf" : "Loss over time"}</span>
             <div className="mt-1 rounded-lg bg-zinc-50 p-2 dark:bg-zinc-900/60">
               <LossCurve history={history} />
             </div>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <Slider
-              label="step size (learning rate η)"
+              label={de ? "Schrittgröße (Lernrate η)" : "step size (learning rate η)"}
               value={lr}
               min={0.05}
               max={3}
@@ -222,21 +228,38 @@ const Playground: React.FC = () => {
               display={lr.toFixed(2)}
             />
             <Slider
-              label="speed"
+              label={de ? "Tempo" : "speed"}
               value={speed}
               min={1}
               max={30}
               step={1}
               onChange={setSpeed}
-              display={`${speed} epoch${speed > 1 ? "s" : ""}/frame`}
+              display={
+                de
+                  ? `${speed} Epoche${speed > 1 ? "n" : ""}/Frame`
+                  : `${speed} epoch${speed > 1 ? "s" : ""}/frame`
+              }
             />
           </div>
           <p className="text-[12.5px] leading-relaxed text-zinc-500 dark:text-zinc-400">
-            One <b>epoch</b> = one round of guess, score, blame and adjust over all four examples.
-            The map shows the network&apos;s answer for every possible input: one shade means “0”,
-            the other “1”. Some random starts get stuck in a valley that isn&apos;t the lowest one
-            (a <i>local minimum</i>): hit <i>New random weights</i> and try again. Seed{" "}
-            <span className="font-mono">{seed}</span>.
+            {de ? (
+              <>
+                Eine <b>Epoche</b> = eine Runde Schätzen, Bewerten, Schuld verteilen und Anpassen
+                über alle vier Beispiele. Die Karte zeigt die Antwort des Netzes für jede mögliche
+                Eingabe: ein Farbton heißt „0“, der andere „1“. Manche Zufallsstarts bleiben in
+                einem Tal hängen, das nicht das tiefste ist (ein <i>lokales Minimum</i>): Dann{" "}
+                <i>Neue Zufallsgewichte</i> drücken und nochmal versuchen. Seed{" "}
+                <span className="font-mono">{seed}</span>.
+              </>
+            ) : (
+              <>
+                One <b>epoch</b> = one round of guess, score, blame and adjust over all four
+                examples. The map shows the network&apos;s answer for every possible input: one
+                shade means “0”, the other “1”. Some random starts get stuck in a valley that
+                isn&apos;t the lowest one (a <i>local minimum</i>): hit <i>New random weights</i>{" "}
+                and try again. Seed <span className="font-mono">{seed}</span>.
+              </>
+            )}
           </p>
         </div>
       </div>

@@ -6,6 +6,7 @@ import { fmt } from "../../lib/nn";
 import FunctionPlot from "./FunctionPlot";
 import WeightVector from "./WeightVector";
 import { F, N, Segmented, Slider, itemVariants, signColor } from "./ui";
+import { T, useT } from "../explainer/i18n";
 
 /** One neuron you can play with: weights, bias, inputs → weighted sum → tanh. */
 export const NeuronAnatomy: React.FC = () => {
@@ -16,6 +17,7 @@ export const NeuronAnatomy: React.FC = () => {
   const [x2, setX2] = useState(1);
   const z = w1 * x1 + w2 * x2 + b;
   const h = Math.tanh(z);
+  const t = useT();
 
   return (
     <motion.div
@@ -23,7 +25,9 @@ export const NeuronAnatomy: React.FC = () => {
       className="card grid grid-cols-1 overflow-hidden md:grid-cols-[1fr_1fr]"
     >
       <div className="border-b border-zinc-100 p-4 dark:border-zinc-700/60 md:border-b-0 md:border-r sm:p-6">
-        <div className="eyebrow mb-3">One neuron, up close</div>
+        <div className="eyebrow mb-3">
+          {t({ en: "One neuron, up close", de: "Ein Neuron aus der Nähe" })}
+        </div>
         <svg viewBox="0 0 380 150" className="w-full h-auto">
           {/* inputs */}
           {[x1, x2].map((x, i) => (
@@ -31,7 +35,7 @@ export const NeuronAnatomy: React.FC = () => {
               <line
                 x1={46}
                 y1={40 + i * 70}
-                x2={150}
+                x2={112}
                 y2={75}
                 stroke={signColor(i === 0 ? w1 : w2)}
                 strokeWidth={1 + 4 * Math.min(Math.abs(i === 0 ? w1 : w2) / 2.5, 1)}
@@ -68,31 +72,36 @@ export const NeuronAnatomy: React.FC = () => {
           ))}
           {/* neuron body */}
           <rect
-            x={150}
-            y={30}
-            width={130}
-            height={90}
+            x={112}
+            y={22}
+            width={184}
+            height={106}
             rx={14}
             className="fill-white stroke-zinc-900 dark:fill-zinc-800 dark:stroke-zinc-100"
             strokeWidth={1.5}
           />
           <text
-            x={162}
-            y={50}
+            x={124}
+            y={40}
             fontSize={11}
             fontWeight={700}
             className="fill-zinc-900 dark:fill-white"
           >
-            weights
+            {t({ en: "its vector", de: "sein Vektor" })}
           </text>
-          <WeightVector values={[w1, w2, b]} x={166} y={60} half={18} labels={["w₁", "w₂", "b"]} />
-          <text x={268} y={72} textAnchor="end" fontSize={10} className="fill-zinc-400">
-            score
+          <WeightVector
+            values={[w1, w2, b]}
+            x={122}
+            y={42}
+            width={164}
+            labels={["w₁", "w₂", "b"]}
+          />
+          <text x={124} y={116} fontSize={10} className="fill-zinc-400">
+            {t({ en: "score z", de: "Punktzahl z" })}
           </text>
           <text
-            x={268}
-            y={88}
-            textAnchor="end"
+            x={200}
+            y={116}
             fontSize={13}
             fontWeight={700}
             className="font-mono fill-zinc-900 dark:fill-white"
@@ -100,17 +109,17 @@ export const NeuronAnatomy: React.FC = () => {
             {fmt(z)}
           </text>
           <text
-            x={268}
-            y={110}
+            x={284}
+            y={116}
             textAnchor="end"
             fontSize={10}
             fontWeight={600}
             className="fill-zinc-400"
           >
-            tanh
+            → tanh
           </text>
           {/* output */}
-          <line x1={280} y1={75} x2={322} y2={75} className="stroke-zinc-400" strokeWidth={2} />
+          <line x1={296} y1={75} x2={322} y2={75} className="stroke-zinc-400" strokeWidth={2} />
           <circle cx={344} cy={75} r={22} className="fill-zinc-900 dark:fill-white" />
           <text
             x={344}
@@ -156,7 +165,7 @@ export const NeuronAnatomy: React.FC = () => {
           </div>
         </div>
         <Slider
-          label="weight w₁"
+          label={t({ en: "weight w₁", de: "Gewicht w₁" })}
           value={w1}
           min={-2.5}
           max={2.5}
@@ -165,7 +174,7 @@ export const NeuronAnatomy: React.FC = () => {
           display={fmt(w1)}
         />
         <Slider
-          label="weight w₂"
+          label={t({ en: "weight w₂", de: "Gewicht w₂" })}
           value={w2}
           min={-2.5}
           max={2.5}
@@ -174,7 +183,7 @@ export const NeuronAnatomy: React.FC = () => {
           display={fmt(w2)}
         />
         <Slider
-          label="bias b"
+          label={t({ en: "bias b", de: "Bias b" })}
           value={b}
           min={-2.5}
           max={2.5}
@@ -192,8 +201,22 @@ export const NeuronAnatomy: React.FC = () => {
           points={[{ x: z, label: "h" }]}
         />
         <p className="text-[12.5px] text-zinc-500 dark:text-zinc-400">
-          Everything the neuron “knows” is stored in these three numbers: its weights <F>w₁, w₂</F>{" "}
-          and its bias <F>b</F>. Learning means finding good values for them.
+          <T
+            en={
+              <>
+                Everything the neuron “knows” is stored in one <b>vector</b>, a list of three
+                numbers: its weights <F>w₁, w₂</F> and its bias <F>b</F>, written <F>[w₁ w₂ │ b]</F>
+                . Learning means finding good values for them.
+              </>
+            }
+            de={
+              <>
+                Alles, was das Neuron „weiß“, steckt in einem <b>Vektor</b>, einer Liste aus drei
+                Zahlen: seinen Gewichten <F>w₁, w₂</F> und seinem Bias <F>b</F>, geschrieben{" "}
+                <F>[w₁ w₂ │ b]</F>. Lernen heißt, gute Werte dafür zu finden.
+              </>
+            }
+          />
         </p>
       </div>
     </motion.div>
@@ -269,11 +292,27 @@ export const XorCard: React.FC = () => (
         />
       </svg>
       <p className="text-[14.5px] leading-relaxed text-zinc-600 dark:text-zinc-300">
-        <b>XOR</b> (“exclusive or”) outputs 1 when exactly one input is 1. Try to separate the
-        filled dots from the hollow ones with a single straight line: it&apos;s impossible. A single
-        neuron can only draw one line, so we need a <b>hidden layer</b> whose neurons each draw a
-        line, and an output neuron that combines them. That&apos;s why XOR is the classic first test
-        for backprop.
+        <T
+          en={
+            <>
+              <b>XOR</b> (“exclusive or”) outputs 1 when exactly one input is 1. Try to separate the
+              filled dots from the hollow ones with a single straight line: it&apos;s impossible. A
+              single neuron can only draw one line, so we need a <b>hidden layer</b> whose neurons
+              each draw a line, and an output neuron that combines them. That&apos;s why XOR is the
+              classic first test for backprop.
+            </>
+          }
+          de={
+            <>
+              <b>XOR</b> („exklusives Oder“) gibt 1 aus, wenn genau eine Eingabe 1 ist. Versuch mal,
+              die gefüllten Punkte mit einer einzigen geraden Linie von den hohlen zu trennen: Es
+              geht nicht. Ein einzelnes Neuron kann nur eine Linie ziehen. Deshalb brauchen wir eine{" "}
+              <b>versteckte Schicht</b>, deren Neuronen je eine Linie ziehen, und ein
+              Ausgangsneuron, das sie kombiniert. Darum ist XOR der klassische erste Test für
+              Backprop.
+            </>
+          }
+        />
       </p>
     </div>
   </motion.div>
