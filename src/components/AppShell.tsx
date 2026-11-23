@@ -4,7 +4,7 @@ import React, { ReactNode, useState } from "react";
 import { usePathname } from "next/navigation";
 import NavBar from "./Navbar";
 import PageSelector from "./PageSelector";
-import MountainBackground from "./MountainBackground";
+import StarBackground from "./StarBackground";
 
 const AppShell: React.FC<{ children: ReactNode }> = ({ children }) => {
   const pathname = usePathname();
@@ -13,7 +13,7 @@ const AppShell: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   return (
     <div className="page-outer min-h-screen flex flex-col" style={{ fontFamily: "Inter" }}>
-      <MountainBackground key={pathname} subtle={background === "subtle"} />
+      <StarBackground subtle={background === "subtle"} />
       <div className="flex-1 flex flex-col">
         <div
           className={`fixed w-screen pt-2 z-20 border-b ${background === "subtle" ? "bg-zinc-50/80 dark:bg-zinc-900/80 backdrop-blur-md border-zinc-200/70 dark:border-zinc-800" : "backdrop-blur-xs border-transparent"}`}

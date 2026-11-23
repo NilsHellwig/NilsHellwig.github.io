@@ -5,7 +5,7 @@ import { motion, Variants } from "framer-motion";
 
 interface PageHeaderProps {
   number: string;
-  title: string;
+  title: React.ReactNode;
   subtitle?: React.ReactNode;
   as?: "h1" | "h2" | "h3";
   variants?: Variants;

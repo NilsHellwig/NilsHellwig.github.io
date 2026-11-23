@@ -5,12 +5,10 @@ import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { PROJECTS } from "../data/projects";
 import { useOverlay } from "../context/OverlayContext";
 import SingleProject from "../popups/SingleProject";
-import { ArrowSquareOut, Info } from "@phosphor-icons/react";
-import { Tooltip } from "../components/Tooltip";
+import { GithubLogo } from "@phosphor-icons/react";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
 import ClaudeBadge from "../components/ClaudeBadge";
-import GitHubActivity from "../components/GitHubActivity";
 import FilterPills from "../components/FilterPills";
 
 interface ProjectsProps {
@@ -74,73 +72,32 @@ const Projects: React.FC<ProjectsProps> = ({ projectName }) => {
     <motion.div className="pb-8" initial="hidden" animate="visible" variants={containerVariants}>
       <PageHeader
         number="01"
-        title="Projects"
+        title={
+          <span className="inline-flex items-center gap-3">
+            Projects
+            <a
+              href="https://github.com/NilsHellwig"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub profile"
+              className="text-zinc-400 hover:text-zinc-900 dark:text-zinc-500 dark:hover:text-white transition-colors"
+            >
+              <GithubLogo size={26} weight="regular" />
+            </a>
+          </span>
+        }
         subtitle="Selected software projects: web apps, AI tools, mobile apps, and research utilities"
         variants={itemVariants}
       />
 
-      {/* GitHub Activity */}
-      <motion.div variants={itemVariants}>
-        <GitHubActivity />
-      </motion.div>
-
-      <PageHeader
-        number="02"
-        title="Selected Projects"
-        subtitle="Click a card to see details, tech stack, and links"
-        as="h3"
-        className="mt-16 mb-6"
-        variants={itemVariants}
-      />
-
-      {/* Filter pills + Claude legend (hover) */}
-      <motion.div
-        variants={itemVariants}
-        className="flex flex-col-reverse sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-6 mb-6"
-      >
+      {/* Filter pills */}
+      <motion.div variants={itemVariants} className="mb-6">
         <FilterPills
           options={categories}
           active={activeFilter}
           onChange={setActiveFilter}
           getCount={getCategoryCount}
         />
-        <Tooltip
-          className="self-start shrink-0"
-          position="bottom"
-          contentClassName="z-50 w-72 rounded-xl border border-zinc-200 dark:border-zinc-700 bg-white dark:bg-zinc-800 p-4 shadow-lg dark:shadow-zinc-900/50"
-          text={
-            <div className="flex flex-col gap-3 whitespace-normal">
-              <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
-                System and architecture decisions are always mine. Claude assists with the
-                implementation, guided by skills from Matt Pocock's collection.
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {["/grill-with-docs", "/tdd", "/diagnosing-bugs"].map((skill) => (
-                  <span
-                    key={skill}
-                    className="font-mono text-[11px] px-2 py-0.5 rounded-full bg-zinc-100 dark:bg-zinc-700 text-zinc-600 dark:text-zinc-300"
-                  >
-                    {skill}
-                  </span>
-                ))}
-              </div>
-              <a
-                href="https://github.com/mattpocock/skills"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 text-xs font-semibold text-[#c4552f] dark:text-[#e8896b] hover:underline"
-              >
-                mattpocock/skills
-                <ArrowSquareOut size={12} weight="bold" />
-              </a>
-            </div>
-          }
-        >
-          <span className="inline-flex items-center gap-1 shrink-0 whitespace-nowrap sm:mt-2 text-xs text-zinc-400 dark:text-zinc-500 hover:text-zinc-600 dark:hover:text-zinc-300 transition-colors cursor-help">
-            <Info size={13} />
-            w/ Claude = AI-assisted
-          </span>
-        </Tooltip>
       </motion.div>
 
       {/* Project grid */}
@@ -186,9 +143,12 @@ const Projects: React.FC<ProjectsProps> = ({ projectName }) => {
                       {project.year}
                     </span>
                   </div>
-                  <span title={project.type} className="chip mt-1.5">
-                    {project.type}
-                  </span>
+                  <div className="flex items-center gap-1.5 mt-1.5">
+                    <span title={project.type} className="chip">
+                      {project.type}
+                    </span>
+                    <ClaudeBadge withClaude={!!project.claude} />
+                  </div>
                 </div>
               </div>
 
@@ -196,13 +156,6 @@ const Projects: React.FC<ProjectsProps> = ({ projectName }) => {
               <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-400 leading-relaxed line-clamp-3">
                 {project.subtitle}
               </p>
-
-              {/* Footer */}
-              <div className="mt-auto pt-4">
-                <div className="pt-4 border-t border-zinc-100 dark:border-zinc-700/70">
-                  <ClaudeBadge withClaude={!!project.claude} />
-                </div>
-              </div>
             </motion.div>
           ))}
         </motion.div>

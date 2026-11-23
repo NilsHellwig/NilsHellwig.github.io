@@ -10,14 +10,17 @@ interface ClaudeBadgeProps {
   className?: string;
 }
 
+// Icon-only tag that sits next to the project type chip; the label lives in title/aria-label.
 const ClaudeBadge: React.FC<ClaudeBadgeProps> = ({ withClaude, className = "" }) => (
   <span
-    className={`inline-flex items-center gap-1 text-xs font-medium pl-2 pr-2.5 py-0.5 rounded-full border whitespace-nowrap ${
+    className={`inline-flex items-center justify-center h-5 px-2 rounded-full border shrink-0 ${
       withClaude
         ? "bg-[#d97757]/10 border-[#d97757]/30 text-[#c4552f] dark:text-[#e8896b]"
         : "bg-transparent border-dashed border-zinc-300 dark:border-zinc-600 text-zinc-400 dark:text-zinc-500"
     } ${className}`}
     title={withClaude ? "Built with Claude" : "Built without Claude"}
+    aria-label={withClaude ? "Built with Claude" : "Built without Claude"}
+    role="img"
   >
     <svg viewBox="0 0 100 100" className="w-3 h-3 shrink-0" fill="currentColor" aria-hidden>
       <path d={SPARK_PATH} />
@@ -33,7 +36,6 @@ const ClaudeBadge: React.FC<ClaudeBadgeProps> = ({ withClaude, className = "" })
         />
       )}
     </svg>
-    {withClaude ? "w/ Claude" : "w/o Claude"}
   </span>
 );
 

@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
-import { MapPin } from "@phosphor-icons/react";
 import Footer from "../components/Footer";
 import PageHeader from "../components/PageHeader";
 import Skills from "../components/Skills";
@@ -59,7 +58,6 @@ const About: React.FC = () => {
       ? 0
       : 1);
 
-  const highlights = [{ icon: MapPin, label: "Location", value: "Regensburg, Germany" }];
 
   const timeline = [
     {
@@ -104,31 +102,6 @@ const About: React.FC = () => {
           subtitle="PhD Candidate in NLP & Software Engineer"
           className="mt-10"
         />
-      </motion.div>
-
-      {/* Quick Info */}
-      <motion.div
-        className="flex flex-wrap items-center gap-x-8 gap-y-5 mt-10"
-        initial="hidden"
-        animate="visible"
-        variants={containerVariants}
-      >
-        {highlights.map((item, index) => (
-          <React.Fragment key={index}>
-            <motion.div variants={itemVariants} className="flex items-center gap-3">
-              <div className="flex items-center justify-center w-9 h-9 rounded-lg border border-zinc-200 dark:border-zinc-700 bg-zinc-50 dark:bg-zinc-900 shrink-0">
-                <item.icon size={17} className="text-zinc-700 dark:text-zinc-300" weight="bold" />
-              </div>
-              <div>
-                <p className="eyebrow">{item.label}</p>
-                <p className="text-sm font-bold text-zinc-900 dark:text-white">{item.value}</p>
-              </div>
-            </motion.div>
-            {index < highlights.length - 1 && (
-              <span className="hidden sm:block w-px h-8 bg-zinc-200 dark:bg-zinc-700" />
-            )}
-          </React.Fragment>
-        ))}
       </motion.div>
 
       {/* Introduction */}

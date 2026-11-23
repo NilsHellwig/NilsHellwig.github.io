@@ -13,8 +13,6 @@ import {
   BookOpen,
   Briefcase,
   User,
-  Heart,
-  Code,
   Chalkboard,
   Article,
   Stamp,
@@ -124,20 +122,7 @@ const Footer: React.FC = () => {
         <div className="border-t border-zinc-200 dark:border-zinc-700 my-6"></div>
 
         {/* Bottom Section */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div className="flex items-center gap-2 text-sm text-zinc-500 dark:text-zinc-400">
-            <span>Made with</span>
-            <motion.div
-              animate={{ scale: [1, 1.2, 1] }}
-              transition={{ duration: 0.8, repeat: Infinity, repeatDelay: 2 }}
-            >
-              <Heart size={14} weight="fill" className="text-red-500" />
-            </motion.div>
-            <span>and</span>
-            <Code size={14} weight="bold" className="text-zinc-600 dark:text-zinc-400" />
-            <span>in Regensburg</span>
-          </div>
-
+        <div className="flex flex-col sm:flex-row items-center justify-end gap-4">
           <div className="flex items-center gap-2 text-xs text-zinc-500 dark:text-zinc-500">
             <span>© {new Date().getFullYear()} Nils Hellwig</span>
             <span className="text-zinc-300 dark:text-zinc-700">•</span>
